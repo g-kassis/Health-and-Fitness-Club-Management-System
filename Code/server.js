@@ -17,11 +17,35 @@ app.get('/', function(request, response) {
   //console.log('Welcome')
   response.sendFile(__dirname + '/views/registration.html')
 })
-
-app.get('/member', function(request, response) {
-  console.log('member in')
-  response.render(__dirname + '/views/member')
+//-----------------------------------------------------------------------------------------------------------------------
+app.get('/memberProfile', function(request, response) {
+  console.log('Member Profile')
+  response.render(__dirname + '/views/memberProfile')
 })
+
+app.get('/memberDashboard', function(request, response) {
+  console.log('Member Dashboard')
+  response.render(__dirname + '/views/memberDashboard')
+})
+
+app.get('/memberSchedule', function(request, response) {
+  console.log('Member Schedule')
+  response.render(__dirname + '/views/memberSchedule')
+})
+
+app.post('/getProfileData', function(request, response) {
+
+})
+
+app.post('/getDashboardData', function(request, response) {
+
+})
+
+app.post('/getScheduleData', function(request, response) {
+
+})
+
+//------------------------------------------------------------------------------------------------
 
 //when user logs in 
 app.post('/userLogIn', function(request, response) {
@@ -29,11 +53,6 @@ app.post('/userLogIn', function(request, response) {
   response.status(200).json(true)
 })
 
-//when admin logs in 
-app.post('/admin', function(request, response) {
-  console.log('admin')
-  response.sendFile(__dirname + '/public/admin.html')
-})
 
 //when user signs up
 app.post('/registration', function(request, response) {
@@ -44,16 +63,6 @@ app.post('/registration', function(request, response) {
   response.status(200).json(false)
   
 })
-//removes/bans users
-app.post('/removeUser', function(request, response) {
-  
-})
-
-//application search getting API data
-app.post('/search', function(request, response) {
-  
-})
-  
 
 
 //start server

@@ -29,7 +29,7 @@ function register(){
         if(responseObj === false){
           console.log('User Created')
           document.getElementById('warnings').innerHTML = 'Account Created';
-          window.location.href = '/member'
+          window.location.href = '/memberProfile?username='+username
         }else{
           console.log('User Exists')
           document.getElementById('warnings').innerHTML = 'User Exists';
@@ -73,8 +73,9 @@ function login(){
         let responseObj = JSON.parse(this.responseText)
         //console.log("from server: "+responseObj)
         if(responseObj === true){
-          console.log('User Created')
+          console.log('User Logged In')
           document.getElementById('warnings').innerHTML = 'Welcome';
+          window.location.href = '/memberDashboard?username='+username
         }else{
           console.log('User Does not Exists')
           document.getElementById('warnings').innerHTML = 'User not found';
@@ -84,6 +85,7 @@ function login(){
     xhttp.open("POST", "userLogIn") 
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(userData))
+    
 }
 
 //helper function to check if username starts with letter
