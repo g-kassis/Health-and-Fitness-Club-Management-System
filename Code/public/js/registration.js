@@ -71,8 +71,8 @@ function login(){
         //console.log("data: " + this.responseText)
 
         let responseObj = JSON.parse(this.responseText)
-        //console.log("from server: "+responseObj)
-        if(responseObj === true){
+        console.log("from server: "+responseObj)
+        if(responseObj){
           console.log('User Logged In')
           document.getElementById('warnings').innerHTML = 'Welcome';
           window.location.href = '/memberDashboard?username='+username

@@ -1,48 +1,116 @@
 
 function getUsername(){
-    const queryParams = new URLSearchParams(window.location.search);
-    const username = queryParams.get('username');
-    return username;
+  const queryParams = new URLSearchParams(window.location.search);
+  const username = queryParams.get('username');
+  return username;
 }
 
 
 function showProfile(){
 
-    console.log('profile: '.concat(getUsername()))
-    window.location.href = '/memberProfile'+ window.location.search
-    
+  console.log('profile: '.concat(getUsername()))
+  if(window.location.href.includes('/memberProfile'+ window.location.search)){
+    let data = Object()
+    data.username = getUsername()
+
+
     let xhttp = new XMLHttpRequest()
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         //console.log("data: " + this.responseText)
 
         let responseObj = JSON.parse(this.responseText)
-        //console.log("from server: "+responseObj)
-        if(responseObj !== NULL){
-          console.log('Found')
+        if(responseObj){
+          console.log(responseObj[0])
+          document.getElementById('fname').value = responseObj[0].username
           
         }else{
           console.log('User Does not Exists')
         }
       }
     }
-    xhttp.open("POST", "getProfileData") 
+    xhttp.open("POST", "/getProfileData") 
     xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(getUsername()))
+    xhttp.send(JSON.stringify(data))
+  }else{
+
+    //to display profile page
+    window.location.href = '/memberProfile'+ window.location.search
+    
+  }
+  
+  
 
 }
 
 function showDashboard(){
     
-    window.location.href = '/memberDashboard'.concat(window.location.search)
-    console.log('dashboard: '.concat(getUsername()))
+  console.log('dashboard: '.concat(getUsername()))
+  if(window.location.href.includes('/memberDashboard'+ window.location.search)){
+    //nothing
+  }else{
+    window.location.href = '/memberDashboard'+ window.location.search
+    let data = Object()
+    data.username = getUsername()
+
+
+    let xhttp = new XMLHttpRequest()
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        //console.log("data: " + this.responseText)
+
+        let responseObj = JSON.parse(this.responseText)
+        console.log("from server: "+responseObj)
+        if(responseObj){
+          console.log('Found')
+          document.getElementById('fname').value = responseObj.username
+          
+        }else{
+          console.log('User Does not Exists')
+        }
+      }
+    }
+    xhttp.open("POST", "/getDashboardData", false) 
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(data))
+  }
+    
 
 }
 
 function showSchedule(){
     
-    window.location.href = '/memberSchedule'.concat(window.location.search)
-    console.log('schedule: '.concat(getUsername()))
+  console.log('schedule: '.concat(getUsername()))
+  if(window.location.href.includes('/memberSchedule'+ window.location.search)){
+    //nothing
+  }else{
+    window.location.href = '/memberSchedule'+ window.location.search
+
+    let data = Object()
+    data.username = getUsername()
+
+
+    let xhttp = new XMLHttpRequest()
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        //console.log("data: " + this.responseText)
+
+        let responseObj = JSON.parse(this.responseText)
+        console.log("from server: "+responseObj)
+        if(responseObj){
+          console.log('Found')
+          document.getElementById('fname').value = responseObj.username
+          
+        }else{
+          console.log('User Does not Exists')
+        }
+      }
+    }
+    xhttp.open("POST", "/getScheduleData", false) 
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(data))
+  }
+
 }
 
 //update profile send to server to update database
