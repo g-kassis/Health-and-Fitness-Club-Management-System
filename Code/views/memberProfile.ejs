@@ -17,7 +17,7 @@
     <div class="mainContent" id="mainContent">
         
         <div class="profileContainer" id="profileContainer">
-            <h1>Profile</h1>
+            <h1 id="sectionTitle">Profile</h1>
 
             <div style="width:50%; float:left;">
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" width="300px">
@@ -25,24 +25,26 @@
             <div style="width:50%; float:right;">
                 <form>
                     <label for="fname">First Name:</label>
-                    <input type="text" id="fname" name="fname" value="First Name">
+                    <input type="text" id="fname" value="First Name">
                     <label for="lname">Last Name:</label>
-                    <input type="text" id="lname" name="lname" value="Last Name">
+                    <input type="text" id="lname" value="Last Name">
                     <label for="age">Age:</label>
-                    <input type="text" id="age" name="age" value="age">
+                    <input type="text" id="age" value="Not Set">
                 </form>
             </div>
             <div style="margin-top: 360px;">
                 <form>
                     <label for="gender">Gender:</label>
-                    <select id="gender" name="gender">
-                    <option value="au">Male</option>
-                    <option value="ca">Female</option>
+                    <select id="gender">
+                    <option value="null" selected disabled hidden>Not Set</option>
+                    <option value="m">Male</option>
+                    <option value="f">Female</option>
                     </select>
                 </form>
                 <form>
                     <label for="country">Country:</label>
-                    <select id="country" name="country">
+                    <select id="country" >
+                    <option value="null" selected disabled hidden>Not Set</option>
                     <option value="au">Australia</option>
                     <option value="ca">Canada</option>
                     <option value="usa">USA</option>
@@ -54,24 +56,28 @@
             <h1>Fitness Goals</h1>
             <h3>Weight Goal:</h3>
             <select name="Weight" id="weightGoal">
+                <option value="null" selected disabled hidden>Not Set</option>
                 <option value="Gain">Gain</option>
                 <option value="Maintain">Maintain</option>
                 <option value="Lose">Lose</option>
             </select>
             <h3>Muscle Goal:</h3>
             <select name="Muscle" id="muscleGoal">
+                <option value="null" selected disabled hidden>Not Set</option>
                 <option value="Gain">Gain</option>
                 <option value="Maintain">Maintain</option>
                 <option value="Lose">Lose</option>
             </select>
             <h3>Endurance Goal:</h3>
             <select name="Endurance" id="enduranceGoal">
+                <option value="null" selected disabled hidden>Not Set</option>
                 <option value="Gain">Gain</option>
                 <option value="Maintain">Maintain</option>
                 <option value="Lose">Lose</option>
             </select>
             <h3>Flexibility Goal:</h3>
             <select name="Flexibility" id="flexibilityGoal">
+                <option value="null" selected disabled hidden>Not Set</option>
                 <option value="Gain">Gain</option>
                 <option value="Maintain">Maintain</option>
                 <option value="Lose">Lose</option>
@@ -79,14 +85,16 @@
 
             <h1>Health Metrics</h1>
             <form>
-                <label for="Weight">Weight:</label>
+                <label for="weightMetric">Weight: (lbs)</label>
                 <br>
-                <input type="text" id="Weight" name="Weight" value="160lbs">
+                <input type="text" id="weightMetric" value="Not Set">
                 <br>
-                <label for="lname">Height:</label>
+                <label for="heightMetric">Height: (cm)</label>
                 <br>
-                <input type="text" id="Height" name="Height" value="180cm">
+                <input type="text" id="heightMetric" value="Not Set">
             </form>
+
+            <button id="saveProfile">Save</button>
         </div>
 
     </div>

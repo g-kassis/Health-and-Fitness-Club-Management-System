@@ -3,9 +3,11 @@ function register(){
   //gets usrname and pass
   let username = document.getElementById('usrn').value
   let password = document.getElementById('pswd').value
+  let fname = document.getElementById('fname').value
+  let lname = document.getElementById('lname').value
   //makes sure text fields are completed
-  if(username === '' || password === ''){
-    document.getElementById('warnings').innerHTML = 'Please Fill Both Fields';
+  if(username === '' || password === '' || fname === '' || lname === ''){
+    document.getElementById('warnings').innerHTML = 'Please Fill Both All Fields';
     return
   }
 
@@ -16,6 +18,8 @@ function register(){
     let userData = new Object();
       userData.username = username;
       userData.password = password;
+      userData.fname = fname
+      userData.lname = lname
     
     //creates credentials if they dont exist (send to server)
     
@@ -105,6 +109,11 @@ function switchToLogIn(){
   //username and pass fields to reset to blank
   document.getElementById('usrn').value = "";
   document.getElementById('pswd').value = "";
+  document.getElementById('fname').value = "";
+  document.getElementById('lname').value = "";
+
+  document.getElementById('fname').style.display = "none"
+  document.getElementById('lname').style.display = "none"
 
   //buttons
   document.getElementById('loginButton').style.display = "initial"
@@ -121,6 +130,11 @@ function switchToRegister(){
     //username and pass fields to reset to blank
     document.getElementById('usrn').value = "";
     document.getElementById('pswd').value = "";
+    document.getElementById('fname').value = "";
+    document.getElementById('lname').value = "";
+
+    document.getElementById('fname').style.display = "initial"
+    document.getElementById('lname').style.display = "initial"
 
     //buttons
     document.getElementById('registerButton').style.display = "initial"

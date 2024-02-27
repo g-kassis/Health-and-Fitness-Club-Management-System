@@ -51,7 +51,7 @@ app.post('/getProfileData', async (request, response) => {
       await client.connect();
 
       // Execute the provided query with parameterized query
-      const result = await client.query('SELECT username, passwrd FROM members WHERE username = $1', [request.body.username]);
+      const result = await client.query('SELECT username, passwrd, first_name, last_name FROM members WHERE username = $1', [request.body.username]);
       console.log(result.rows);
 
       if (result.rows.length !== 0) {
@@ -69,6 +69,32 @@ app.post('/getProfileData', async (request, response) => {
   
 });
 
+//to update user profile
+app.post('/updateProfile', async (request, response) => {
+  console.log('Profile Update');
+  console.log(request.body);
+
+  try {
+      // Connect to the PostgreSQL database using a connection pool
+      await client.connect();
+
+      // Execute the provided query with parameterized query
+      const checkResult = await client.query('SELECT username FROM members WHERE username = $1', [request.body.username]);
+
+      if(checkResult.rows.length !== 0){
+        await client.query('UPDATE members SET first_name = $2, last_name = $3  WHERE username = $1', [request.body.username, request.body.fname, request.body.lname]);
+        response.status(200).json(true) //account exists
+      }else{
+        response.status(200).json(false) //account does not exist (account created)
+        
+      }
+  } catch (error) {
+      // Handle errors
+      console.error('Error executing database query:', error);
+      response.status(500).json({ success: false, error: 'Internal Server Error' });
+  } 
+});
+
 app.post('/getDashboardData', async (request, response) => {
   console.log(request.body);
 
@@ -77,13 +103,13 @@ app.post('/getDashboardData', async (request, response) => {
       await client.connect();
 
       // Execute the provided query with parameterized query
-      const result = await client.query('SELECT username, passwrd FROM members WHERE username = $1', [request.body.username]);
-      console.log(result);
+      const result = await client.query('SELECT username, passwrd, first_name, last_name FROM members WHERE username = $1', [request.body.username]);
+      console.log(result.rows);
 
       if (result.rows.length !== 0) {
-          response.status(200).json(true); // Account found
+        response.status(200).json(result.rows); // Account found
       } else {
-          response.status(200).json(false); // Account not found
+        response.status(200).json(false); // Account not found
           
       }
   } catch (error) {
@@ -103,13 +129,13 @@ app.post('/getScheduleData', async (request, response) => {
       await client.connect();
 
       // Execute the provided query with parameterized query
-      const result = await client.query('SELECT username, passwrd FROM members WHERE username = $1', [request.body.username]);
-      console.log(result);
+      const result = await client.query('SELECT username, passwrd, first_name, last_name FROM members WHERE username = $1', [request.body.username]);
+      console.log(result.rows);
 
       if (result.rows.length !== 0) {
-          response.status(200).json(true); // Account found
+        response.status(200).json(result.rows); // Account found
       } else {
-          response.status(200).json(false); // Account not found
+        response.status(200).json(false); // Account not found
           
       }
   } catch (error) {
@@ -151,8 +177,6 @@ app.post('/userLogIn', async (request, response) => {
   
 });
 
-
-
 //when user registers
 app.post('/registration', async (request, response) => {
   console.log('User registration');
@@ -168,7 +192,7 @@ app.post('/registration', async (request, response) => {
       if(checkResult.rows.length !== 0){
         response.status(200).json(true) //account exists
       }else{
-        await client.query('INSERT INTO members (username, passwrd) VALUES ($1, $2)', [request.body.username, request.body.password]);
+        await client.query('INSERT INTO members (username, passwrd, first_name, last_name) VALUES ($1, $2, $3, $4)', [request.body.username, request.body.password, request.body.fname, request.body.lname]);
         response.status(200).json(false) //account does not exist (account created)
         
       }
