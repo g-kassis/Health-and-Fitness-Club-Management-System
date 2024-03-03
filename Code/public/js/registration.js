@@ -7,7 +7,11 @@ function register(){
   let lname = document.getElementById('lname').value
   //makes sure text fields are completed
   if(username === '' || password === '' || fname === '' || lname === ''){
-    document.getElementById('warnings').innerHTML = 'Please Fill Both All Fields';
+    document.getElementById('warnings').innerHTML = 'Please Fill All Fields';
+    return
+  }
+  if(username.includes('trainer') || username.includes('admin')){
+    document.getElementById('warnings').innerHTML = 'Username not allowed';
     return
   }
 
@@ -79,10 +83,21 @@ function login(){
         if(responseObj){
           console.log('User Logged In')
           document.getElementById('warnings').innerHTML = 'Welcome';
-          window.location.href = '/memberDashboard?username='+username
+
+          //trainer log in
+          if(username.includes('trainer')){
+            window.location.href = '/trainerMemberViewer?username='+username
+
+          }else if(username.includes('admin')){ // admin log in
+            window.location.href = '/admin?username='+username
+
+          }else{ //member log in
+            window.location.href = '/memberDashboard?username='+username
+          }
+          
         }else{
           console.log('User Does not Exists')
-          document.getElementById('warnings').innerHTML = 'User not found';
+          document.getElementById('warnings').innerHTML = 'User not found OR wrong password';
         }
       }
     }

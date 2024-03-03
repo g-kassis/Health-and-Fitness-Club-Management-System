@@ -165,7 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
       updateProfile();
     }
   }); 
-    //document.getElementById('saveProfile').addEventListener('click', updateProfile)
 
     document.getElementById('profileNav').addEventListener('click', showProfile)
     document.getElementById('dashboardNav').addEventListener('click', showDashboard)

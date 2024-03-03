@@ -1,3 +1,9 @@
+--Members Table
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user1', 'ironman', 'Tony', 'Stark', '35', 'Male');
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user2', 'thor', 'Thor', 'Odinson', '30', 'Male');
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user3', 'blackWidow', 'Natasha', 'Romanoff', '30', 'Female');
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user4', 'cptAmerica', 'Steve', 'Rogers', '30', 'Male');
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user5', 'hulk', 'Bruce', 'Banner', '32', 'Male');
 
 
 --Trainers Table

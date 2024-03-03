@@ -6,16 +6,19 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
-<body>
+<body onload="showProfileViewer()">
 
     <div id="navbar">
-        <a href="#profile">Profile</a>
-        <a href="#dashboard">Schedule Management</a>
-        <a href="#schedule">Member Search</a>
+        <a id="memberProfileViewerNav" style="color: orange;">Member Profile Viewer</a>
+        <a id="trainerScheduleNav">Schedule Management</a>
     </div>
 
-    <div class="mainContent">
-        
+    <div class="mainContent" id="mainContent">
+        <h1>Member Profile Viewer</h1>
+
+        <input type="text" id="searchBar" placeholder="Search..">
+        <h3 id="resultsFor"></h3>
+
 
     </div>
 

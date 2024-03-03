@@ -27,7 +27,9 @@ app.get('/', function(request, response) {
   //console.log('Welcome')
   response.sendFile(__dirname + '/views/registration.html')
 })
-//-----------------------------------------------------------------------------------------------------------------------
+
+
+//--------------------------------------MEMBERS---------------------------------------------------------------------------
 app.get('/memberProfile',function(request, response) {
   console.log('Member Profile')
   response.render(__dirname + '/views/memberProfile')
@@ -147,6 +149,44 @@ app.post('/getScheduleData', async (request, response) => {
   
 });
 
+//--------------------------------------TRAINERS-------------------------------------------------
+app.get('/trainerMemberViewer',function(request, response) {
+  console.log('Member Profile Viewer for Trainers')
+  response.render(__dirname + '/views/trainerMemberView')
+})
+
+app.get('/trainerSchedule', function(request, response) {
+  console.log('Trainer Schedule')
+  response.render(__dirname + '/views/trainerSchedule')
+})
+
+
+app.post('/lookFor', async (request, response) => {
+  console.log(request.body);
+
+  try {
+      // Connect to the PostgreSQL database using a connection pool
+      await client.connect();
+
+      // Execute the provided query with parameterized query
+      const result = await client.query('SELECT first_name, last_name FROM members WHERE first_name = $1', [request.body.firstname]);
+      console.log(result.rows);
+
+      if (result.rows.length !== 0) {
+        response.status(200).json(result.rows); // Account found
+      } else {
+        response.status(200).json(false); // Account not found
+          
+      }
+  } catch (error) {
+      // Handle errors
+      console.error('Error executing database query:', error);
+      response.status(500).json({ success: false, error: 'Internal Server Error' });
+  } 
+  
+});
+
+
 //------------------------------------------------------------------------------------------------
 
 //when user logs in 
@@ -159,8 +199,16 @@ app.post('/userLogIn', async (request, response) => {
       await client.connect();
 
       // Execute the provided query with parameterized query
-      const result = await client.query('SELECT username, passwrd FROM members WHERE username = $1', [request.body.username]);
-      //console.log(result);
+      let result = await client.query('SELECT username, passwrd FROM members WHERE username = $1 AND passwrd = $2', [request.body.username, request.body.password]);
+      
+      if(result.rows.length === 0){
+        result = await client.query('SELECT username, passwrd FROM trainers WHERE username = $1 AND passwrd = $2', [request.body.username, request.body.password]);
+
+      }
+      if(result.rows.length === 0){
+        result = await client.query('SELECT username, passwrd FROM admins WHERE username = $1 AND passwrd = $2', [request.body.username, request.body.password]);
+
+      }
 
       if (result.rows.length !== 0) {
           response.status(200).json(JSON.stringify(result.rows)); // Account found
