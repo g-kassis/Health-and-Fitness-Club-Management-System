@@ -16,8 +16,128 @@
     <div class="mainContent" id="mainContent">
         <h1>Schedule Management</h1>
 
+            <table id="schedule">
+              <tr>
+                <th id="scheduleDay"></th>
+                <th id="scheduleDay">Monday</th>
+                <th id="scheduleDay">Tuesday</th>
+                <th id="scheduleDay">Wednesday</th>
+                <th id="scheduleDay">Thursday</th>
+                <th id="scheduleDay">Friday</th>
+                <th id="scheduleDay">Saturday</th>
+                <th id="scheduleDay">Sunday</th>
+              </tr>
+              <tr>
+                <td id="scheduleTime">9am</td>
+                <td id="scheduleSlot" class="Mon-9"></td>
+                <td id="scheduleSlot" class="Tue-9"></td>
+                <td id="scheduleSlot" class="Wed-9"></td>
+                <td id="scheduleSlot" class="Thu-9"></td>
+                <td id="scheduleSlot" class="Fri-9"></td>
+                <td id="scheduleSlot" class="Sat-9"></td>
+                <td id="scheduleSlot" class="Sun-9"></td>
+              </tr>
+              <tr>
+                <td id="scheduleTime">10am</td>
+                <td id="scheduleSlot" class="Mon-10"></td>
+                <td id="scheduleSlot" class="Tue-10"></td>
+                <td id="scheduleSlot" class="Wed-10"></td>
+                <td id="scheduleSlot" class="Thu-10"></td>
+                <td id="scheduleSlot" class="Fri-10"></td>
+                <td id="scheduleSlot" class="Sat-10"></td>
+                <td id="scheduleSlot" class="Sun-10"></td>
+              </tr>
+              <tr>
+                <td id="scheduleTime">11am</td>
+                <td id="scheduleSlot" class="Mon-11"></td>
+                <td id="scheduleSlot" class="Tue-11"></td>
+                <td id="scheduleSlot" class="Wed-11"></td>
+                <td id="scheduleSlot" class="Thu-11"></td>
+                <td id="scheduleSlot" class="Fri-11"></td>
+                <td id="scheduleSlot" class="Sat-11"></td>
+                <td id="scheduleSlot" class="Sun-11"></td>
+              </tr>
+              <tr>
+                <td id="scheduleTime">12pm</td>
+                <td id="scheduleSlot" class="Mon-12"></td>
+                <td id="scheduleSlot" class="Tue-12"></td>
+                <td id="scheduleSlot" class="Wed-12"></td>
+                <td id="scheduleSlot" class="Thu-12"></td>
+                <td id="scheduleSlot" class="Fri-12"></td>
+                <td id="scheduleSlot" class="Sat-12"></td>
+                <td id="scheduleSlot" class="Sun-12"></td>
+              </tr>
+              <tr>
+                <td id="scheduleTime">1pm</td>
+                <td id="scheduleSlot" class="Mon-1"></td>
+                <td id="scheduleSlot" class="Tue-1"></td>
+                <td id="scheduleSlot" class="Wed-1"></td>
+                <td id="scheduleSlot" class="Thu-1"></td>
+                <td id="scheduleSlot" class="Fri-1"></td>
+                <td id="scheduleSlot" class="Sat-1"></td>
+                <td id="scheduleSlot" class="Sun-1"></td>
+              </tr>
+              <tr>
+                <td id="scheduleTime">2pm</td>
+                <td id="scheduleSlot" class="Mon-2"></td>
+                <td id="scheduleSlot" class="Tue-2"></td>
+                <td id="scheduleSlot" class="Wed-2"></td>
+                <td id="scheduleSlot" class="Thu-2"></td>
+                <td id="scheduleSlot" class="Fri-2"></td>
+                <td id="scheduleSlot" class="Sat-2"></td>
+                <td id="scheduleSlot" class="Sun-2"></td>
+              </tr>
+              <tr>
+                <td id="scheduleTime">3pm</td>
+                <td id="scheduleSlot" class="Mon-3"></td>
+                <td id="scheduleSlot" class="Tue-3"></td>
+                <td id="scheduleSlot" class="Wed-3"></td>
+                <td id="scheduleSlot" class="Thu-3"></td>
+                <td id="scheduleSlot" class="Fri-3"></td>
+                <td id="scheduleSlot" class="Sat-3"></td>
+                <td id="scheduleSlot" class="Sun-3"></td>
+              </tr>
+              <tr>
+                <td id="scheduleTime">4pm</td>
+                <td id="scheduleSlot" class="Mon-4"></td>
+                <td id="scheduleSlot" class="Tue-4"></td>
+                <td id="scheduleSlot" class="Wed-4"></td>
+                <td id="scheduleSlot" class="Thu-4"></td>
+                <td id="scheduleSlot" class="Fri-4"></td>
+                <td id="scheduleSlot" class="Sat-4"></td>
+                <td id="scheduleSlot" class="Sun-4"></td>
+              </tr>
+              <tr>
+                <td id="scheduleTime">5pm</td>
+                <td id="scheduleSlot" class="Mon-5"></td>
+                <td id="scheduleSlot" class="Tue-5"></td>
+                <td id="scheduleSlot" class="Wed-5"></td>
+                <td id="scheduleSlot" class="Thu-5"></td>
+                <td id="scheduleSlot" class="Fri-5"></td>
+                <td id="scheduleSlot" class="Sat-5"></td>
+                <td id="scheduleSlot" class="Sun-5"></td>
+              </tr>
+            </table>
+        </div>
 
-    </div>
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <h1 id="formTitle">Edit</h1>
+              
+                  <label for="title"><b>Title:</b></label>
+                  <input type="text" placeholder="Title" id="titleText" required>
+              
+                  <label for="notes"><b>Notes:</b></label>
+                  <input type="text" placeholder="Notes" id="notesText">
+              
+                  <button type="submit" id="addBtn" class="addBtn">Add</button>
+                  <button type="button" id="notAvailable" class="notAvailable">Not Available</button>
+            </div>
+          
+        </div>
 
 
     <script type="text/javascript" src="js/trainer.js"></script>

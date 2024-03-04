@@ -169,7 +169,7 @@ app.post('/lookFor', async (request, response) => {
       await client.connect();
 
       // Execute the provided query with parameterized query
-      const result = await client.query('SELECT first_name, last_name FROM members WHERE first_name = $1', [request.body.firstname]);
+      const result = await client.query('SELECT first_name, last_name, age, gender FROM members WHERE first_name ILIKE $1', [request.body.firstname]);
       console.log(result.rows);
 
       if (result.rows.length !== 0) {
