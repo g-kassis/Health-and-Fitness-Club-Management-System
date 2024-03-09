@@ -25,6 +25,7 @@ function showProfile(){
           document.getElementById('sectionTitle').innerHTML =  responseObj[0].first_name+"'s Profile"
           document.getElementById('fname').value = responseObj[0].first_name
           document.getElementById('lname').value = responseObj[0].last_name
+          document.getElementById('age').value = responseObj[0].age
           
         }else{
           console.log('User Does not Exists')

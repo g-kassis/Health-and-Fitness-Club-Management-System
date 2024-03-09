@@ -53,7 +53,7 @@ app.post('/getProfileData', async (request, response) => {
       await client.connect();
 
       // Execute the provided query with parameterized query
-      const result = await client.query('SELECT username, passwrd, first_name, last_name FROM members WHERE username = $1', [request.body.username]);
+      const result = await client.query('SELECT username, passwrd, first_name, last_name, age FROM members WHERE username = $1', [request.body.username]);
       console.log(result.rows);
 
       if (result.rows.length !== 0) {
@@ -183,6 +183,45 @@ app.post('/lookFor', async (request, response) => {
       console.error('Error executing database query:', error);
       response.status(500).json({ success: false, error: 'Internal Server Error' });
   } 
+  
+});
+
+app.post('/getTrainerSchedule', async (request, response) => {
+  console.log('getTrainerSchedule: '.concat(request.body.username));
+
+  try {
+      // Connect to the PostgreSQL database using a connection pool
+      await client.connect();
+
+      // Execute the provided query with parameterized query
+      let result = ''
+      if(request.body.username === 'trainer1'){
+        result = await client.query('SELECT * FROM trainer1Schedule');
+      }else if(request.body.username === 'trainer2'){
+        result = await client.query('SELECT * FROM trainer2Schedule');
+      }else if(request.body.username === 'trainer3'){
+        result = await client.query('SELECT * FROM trainer3Schedule');
+      }else if(request.body.username === 'trainer4'){
+        result = await client.query('SELECT * FROM trainer4Schedule');
+      }else if(request.body.username === 'trainer5'){
+        result = await client.query('SELECT * FROM trainer5Schedule');
+      }else{
+
+      }
+      console.log(result.rows);
+
+      if (result.rows.length !== 0) {
+        response.status(200).json(result.rows); // Account found
+      }else{
+        response.status(200).json(false); // Account not found
+          
+      }
+  } catch (error) {
+      // Handle errors
+      console.error('Error executing database query:', error);
+      response.status(500).json({ success: false, error: 'Internal Server Error' });
+  } 
+  
   
 });
 
