@@ -21,79 +21,34 @@ function showSchedule(){
           let responseObj = JSON.parse(this.responseText)
           if(responseObj){
             console.log(responseObj)
-            document.getElementsByClassName('Mon-9').scheduleSlot.innerHTML = responseObj[0].monday
-            document.getElementsByClassName('Tue-9').scheduleSlot.innerHTML = responseObj[0].tuesday
-            document.getElementsByClassName('Wed-9').scheduleSlot.innerHTML = responseObj[0].wednesday
-            document.getElementsByClassName('Thu-9').scheduleSlot.innerHTML = responseObj[0].thursday
-            document.getElementsByClassName('Fri-9').scheduleSlot.innerHTML = responseObj[0].friday
-            document.getElementsByClassName('Sat-9').scheduleSlot.innerHTML = responseObj[0].saturday
-            document.getElementsByClassName('Sun-9').scheduleSlot.innerHTML = responseObj[0].sunday
 
-            document.getElementsByClassName('Mon-10').scheduleSlot.innerHTML = responseObj[1].monday
-            document.getElementsByClassName('Tue-10').scheduleSlot.innerHTML = responseObj[1].tuesday
-            document.getElementsByClassName('Wed-10').scheduleSlot.innerHTML = responseObj[1].wednesday
-            document.getElementsByClassName('Thu-10').scheduleSlot.innerHTML = responseObj[1].thursday
-            document.getElementsByClassName('Fri-10').scheduleSlot.innerHTML = responseObj[1].friday
-            document.getElementsByClassName('Sat-10').scheduleSlot.innerHTML = responseObj[1].saturday
-            document.getElementsByClassName('Sun-10').scheduleSlot.innerHTML = responseObj[1].sunday
+            //turns responeobj array to a JSON object
+            const jsObject = {};
+            responseObj.forEach(entry => {
+              const { time, ...rest } = entry;
+              const key = time.replace(/[ap]m/g, ''); // Remove "am" and "pm"
+              jsObject[key] = rest;
+            });
+            console.log(jsObject);
 
-            document.getElementsByClassName('Mon-11').scheduleSlot.innerHTML = responseObj[2].monday
-            document.getElementsByClassName('Tue-11').scheduleSlot.innerHTML = responseObj[2].tuesday
-            document.getElementsByClassName('Wed-11').scheduleSlot.innerHTML = responseObj[2].wednesday
-            document.getElementsByClassName('Thu-11').scheduleSlot.innerHTML = responseObj[2].thursday
-            document.getElementsByClassName('Fri-11').scheduleSlot.innerHTML = responseObj[2].friday
-            document.getElementsByClassName('Sat-11').scheduleSlot.innerHTML = responseObj[2].saturday
-            document.getElementsByClassName('Sun-11').scheduleSlot.innerHTML = responseObj[2].sunday
+            const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-            document.getElementsByClassName('Mon-12').scheduleSlot.innerHTML = responseObj[3].monday
-            document.getElementsByClassName('Tue-12').scheduleSlot.innerHTML = responseObj[3].tuesday
-            document.getElementsByClassName('Wed-12').scheduleSlot.innerHTML = responseObj[3].wednesday
-            document.getElementsByClassName('Thu-12').scheduleSlot.innerHTML = responseObj[3].thursday
-            document.getElementsByClassName('Fri-12').scheduleSlot.innerHTML = responseObj[3].friday
-            document.getElementsByClassName('Sat-12').scheduleSlot.innerHTML = responseObj[3].saturday
-            document.getElementsByClassName('Sun-12').scheduleSlot.innerHTML = responseObj[3].sunday
+            for (let hour = 9; hour <= 12; hour++) {
+              for (let i = 0; i < daysOfWeek.length; i++) {
+                const className = `${daysOfWeek[i]}-${hour}`;
+                const day = daysOfWeek[i].toLowerCase()
+                document.getElementsByClassName(className).scheduleSlot.innerHTML = jsObject[hour][day];
+              }
+            }
 
-            document.getElementsByClassName('Mon-1').scheduleSlot.innerHTML = responseObj[4].monday
-            document.getElementsByClassName('Tue-1').scheduleSlot.innerHTML = responseObj[4].tuesday
-            document.getElementsByClassName('Wed-1').scheduleSlot.innerHTML = responseObj[4].wednesday
-            document.getElementsByClassName('Thu-1').scheduleSlot.innerHTML = responseObj[4].thursday
-            document.getElementsByClassName('Fri-1').scheduleSlot.innerHTML = responseObj[4].friday
-            document.getElementsByClassName('Sat-1').scheduleSlot.innerHTML = responseObj[4].saturday
-            document.getElementsByClassName('Sun-1').scheduleSlot.innerHTML = responseObj[4].sunday
+            for (let hour = 1; hour <= 5; hour++) {
+              for (let i = 0; i < daysOfWeek.length; i++) {
+                const className = `${daysOfWeek[i]}-${hour}`;
+                day = daysOfWeek[i].toLowerCase()
+                document.getElementsByClassName(className).scheduleSlot.innerHTML = jsObject[hour][day];
+              }
+            }
 
-            document.getElementsByClassName('Mon-2').scheduleSlot.innerHTML = responseObj[5].monday
-            document.getElementsByClassName('Tue-2').scheduleSlot.innerHTML = responseObj[5].tuesday
-            document.getElementsByClassName('Wed-2').scheduleSlot.innerHTML = responseObj[5].wednesday
-            document.getElementsByClassName('Thu-2').scheduleSlot.innerHTML = responseObj[5].thursday
-            document.getElementsByClassName('Fri-2').scheduleSlot.innerHTML = responseObj[5].friday
-            document.getElementsByClassName('Sat-2').scheduleSlot.innerHTML = responseObj[5].saturday
-            document.getElementsByClassName('Sun-2').scheduleSlot.innerHTML = responseObj[5].sunday
-
-            document.getElementsByClassName('Mon-3').scheduleSlot.innerHTML = responseObj[6].monday
-            document.getElementsByClassName('Tue-3').scheduleSlot.innerHTML = responseObj[6].tuesday
-            document.getElementsByClassName('Wed-3').scheduleSlot.innerHTML = responseObj[6].wednesday
-            document.getElementsByClassName('Thu-3').scheduleSlot.innerHTML = responseObj[6].thursday
-            document.getElementsByClassName('Fri-3').scheduleSlot.innerHTML = responseObj[6].friday
-            document.getElementsByClassName('Sat-3').scheduleSlot.innerHTML = responseObj[6].saturday
-            document.getElementsByClassName('Sun-3').scheduleSlot.innerHTML = responseObj[6].sunday
-
-            document.getElementsByClassName('Mon-4').scheduleSlot.innerHTML = responseObj[7].monday
-            document.getElementsByClassName('Tue-4').scheduleSlot.innerHTML = responseObj[7].tuesday
-            document.getElementsByClassName('Wed-4').scheduleSlot.innerHTML = responseObj[7].wednesday
-            document.getElementsByClassName('Thu-4').scheduleSlot.innerHTML = responseObj[7].thursday
-            document.getElementsByClassName('Fri-4').scheduleSlot.innerHTML = responseObj[7].friday
-            document.getElementsByClassName('Sat-4').scheduleSlot.innerHTML = responseObj[7].saturday
-            document.getElementsByClassName('Sun-4').scheduleSlot.innerHTML = responseObj[7].sunday
-
-            document.getElementsByClassName('Mon-5').scheduleSlot.innerHTML = responseObj[8].monday
-            document.getElementsByClassName('Tue-5').scheduleSlot.innerHTML = responseObj[8].tuesday
-            document.getElementsByClassName('Wed-5').scheduleSlot.innerHTML = responseObj[8].wednesday
-            document.getElementsByClassName('Thu-5').scheduleSlot.innerHTML = responseObj[8].thursday
-            document.getElementsByClassName('Fri-5').scheduleSlot.innerHTML = responseObj[8].friday
-            document.getElementsByClassName('Sat-5').scheduleSlot.innerHTML = responseObj[8].saturday
-            document.getElementsByClassName('Sun-5').scheduleSlot.innerHTML = responseObj[8].sunday
-
-            
             
           }else{
             console.log('User Does not Exists')
@@ -264,6 +219,61 @@ function scheduleEdit(scheduleSlot){
 
 }
 
+function amORpm(t){
+  switch (t) {
+    case '9':
+      return 'am'
+    case '10':
+      return 'am'
+    case '11':
+      return 'am'
+    case '12':
+      return 'pm'
+    case '1':
+      return 'pm'
+    case '2':
+      return 'pm'
+    case '3':
+      return 'pm'
+    case '4':
+      return 'pm'
+    case '5':
+      return 'pm'
+    default:
+      return t
+  }
+}
+
+function updateSchedule(newData,slot){
+
+  let data = Object()
+    data.username = getUsername()
+    data.day = slot.substring(0,4).toLowerCase()
+    data.time = slot.substring(5,slot.length) + amORpm(slot.substring(5,slot.length))
+    data.newData = newData
+
+  console.log(data)
+
+  let xhttp = new XMLHttpRequest()
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      //console.log("data: " + this.responseText)
+
+      let responseObj = JSON.parse(this.responseText)
+      console.log("from server: "+responseObj)
+      if(responseObj){
+        console.log('Success: Data updated')
+        
+      }else{
+        console.log('Error: Data not updated')
+      }
+    }
+  }
+  xhttp.open("POST", "/updateTrainerSchedule") 
+  xhttp.setRequestHeader("Content-Type", "application/json");
+  xhttp.send(JSON.stringify(data))
+}
+
 
 //adds to schedule
 function addToSchedule(){
@@ -284,9 +294,14 @@ function addToSchedule(){
   document.getElementById('notesText').value = ''
 
 
+  updateSchedule(slot.innerHTML,scheduleSlot)
+
+
   //closes modal
   let modal = document.getElementById('myModal')
   modal.style.display = "none";
+
+  
 }
 
 
@@ -305,9 +320,13 @@ function setUnavailable(){
   document.getElementById('titleText').value = ''
   document.getElementById('notesText').value = ''
 
+  updateSchedule(slot.innerHTML, scheduleSlot)
+
   //closes modal
   let modal = document.getElementById('myModal')
   modal.style.display = "none";
+
+  
 }
 
 
@@ -360,4 +379,5 @@ document.addEventListener('DOMContentLoaded', function() {
           setUnavailable();
       }
     }); 
+
 })

@@ -47,28 +47,28 @@ function showDashboard(){
     
   console.log('dashboard: '.concat(getUsername()))
   if(window.location.href.includes('/memberDashboard'+ window.location.search)){
-    let data = Object()
-    data.username = getUsername()
+    // let data = Object()
+    // data.username = getUsername()
 
 
-    let xhttp = new XMLHttpRequest()
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        //console.log("data: " + this.responseText)
+    // let xhttp = new XMLHttpRequest()
+    // xhttp.onreadystatechange = function() {
+    //   if (this.readyState == 4 && this.status == 200) {
+    //     //console.log("data: " + this.responseText)
 
-        let responseObj = JSON.parse(this.responseText)
-        if(responseObj){
-          console.log(responseObj[0])
-          document.getElementById('sectionTitle').innerHTML =  responseObj[0].first_name+"'s Dashboard"
+    //     let responseObj = JSON.parse(this.responseText)
+    //     if(responseObj){
+    //       console.log(responseObj[0])
+    //       document.getElementById('sectionTitle').innerHTML =  responseObj[0].first_name+"'s Dashboard"
           
-        }else{
-          console.log('User Does not Exists')
-        }
-      }
-    }
-    xhttp.open("POST", "/getDashboardData") 
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(data))
+    //     }else{
+    //       console.log('User Does not Exists')
+    //     }
+    //   }
+    // }
+    // xhttp.open("POST", "/getDashboardData") 
+    // xhttp.setRequestHeader("Content-Type", "application/json");
+    // xhttp.send(JSON.stringify(data))
 
   }else{
     //to redirect to dashboard page (if not there already)
@@ -83,28 +83,6 @@ function showSchedule(){
     
   console.log('schedule: '.concat(getUsername()))
   if(window.location.href.includes('/memberSchedule'+ window.location.search)){
-    let data = Object()
-    data.username = getUsername()
-
-
-    let xhttp = new XMLHttpRequest()
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        //console.log("data: " + this.responseText)
-
-        let responseObj = JSON.parse(this.responseText)
-        if(responseObj){
-          console.log(responseObj[0])
-          document.getElementById('sectionTitle').innerHTML =  responseObj[0].first_name+"'s Schedule Management"
-          
-        }else{
-          console.log('User Does not Exists')
-        }
-      }
-    }
-    xhttp.open("POST", "/getScheduleData") 
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(data))
 
   }else{
     //to redirect to schedule page (if not there already)
@@ -157,6 +135,92 @@ function updateProfile(){
 }
 
 
+
+function currentlyScheduledSessions(){
+  //creates the curreently scheduled sessions section/table
+
+  let right = document.getElementById('right')
+  let containsTable = right.querySelector('table')
+
+  //checks if there is a table and removes it to display new one
+  if(containsTable) {
+    containsTable.remove()
+  }
+
+  //creation of table and its headers
+  let table = document.createElement('TABLE')
+  table.className = "profileTable"
+  const headers = document.createElement('tr');
+  headers.className = 'table_header';
+  const firstNameHeader = document.createElement('th');
+  firstNameHeader.textContent = 'First Name';
+  const lastNameHeader = document.createElement('th');
+  lastNameHeader.textContent = 'Last Name';
+
+  headers.appendChild(firstNameHeader);
+  headers.appendChild(lastNameHeader);
+
+  table.appendChild(headers);
+
+  // Append the table to right div
+  right.appendChild(table);
+
+  //creating rows based on the number of returned results from the query
+  for (let i = 0; i < profiles.length; i++) {
+    const row = document.createElement('tr');
+    row.className = 'row'
+    const firstNameCell = document.createElement('td');
+    const lastNameCell = document.createElement('td');
+    const ageCell = document.createElement('td');
+    const genderCell = document.createElement('td');
+
+    firstNameCell.textContent = profiles[i].first_name;
+    lastNameCell.textContent = profiles[i].last_name;
+
+    row.appendChild(firstNameCell);
+    row.appendChild(lastNameCell);
+    row.appendChild(ageCell);
+    row.appendChild(genderCell);
+
+    table.appendChild(row);
+  }
+}
+
+function personalTrainingSession(){
+
+  //hides buttons and updates title
+  let personalTrainingButton = document.getElementById('personalTrainingButton')
+  personalTrainingButton.style.display = 'none'
+  let groupFitnessButton = document.getElementById('groupFitnessButton')
+  groupFitnessButton.style.display = 'none'
+  let title = document.getElementById('title')
+  title.innerHTML = "Please Select your Trainer: "
+
+
+  //shows the trainers to choose from
+  let trainerSelector = document.getElementById('trainersSelection')
+  trainerSelector.style.display = 'block'
+
+  let currentScheduledSessions = document.getElementById('right')
+  currentScheduledSessions.style.display = 'block'
+
+
+  currentlyScheduledSessions()
+
+
+}
+
+function groupFitnessSession(){
+  
+}
+
+function bookWithTrainer(trainer){
+  let trainerName = trainer.replace('Avatar','')
+  console.log('Trainer: '+ trainerName)
+
+
+}
+
 //event handlers for member
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -166,6 +230,26 @@ document.addEventListener('DOMContentLoaded', function() {
       updateProfile();
     }
   }); 
+
+  //for session sign up and schedule display
+  document.addEventListener('click',function(e){
+    if(e.target && e.target.id== 'personalTrainingButton'){
+      personalTrainingSession();
+    }
+  });
+
+  document.addEventListener('click',function(e){
+    if(e.target && e.target.id== 'groupFitnessButton'){
+      groupFitnessSession();
+    }
+  });
+
+  //when a trainer avatar is clicked
+  document.addEventListener('click',function(e){
+    if(e.target && e.target.className == 'trainerAvatar'){
+      bookWithTrainer(e.target.id);
+    }
+  });
 
     document.getElementById('profileNav').addEventListener('click', showProfile)
     document.getElementById('dashboardNav').addEventListener('click', showDashboard)

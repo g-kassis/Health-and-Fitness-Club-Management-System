@@ -40,57 +40,57 @@ CREATE TABLE trainers(
 
 CREATE TABLE trainer1Schedule(
 	time VARCHAR(5),
-	monday VARCHAR(50),
-	tuesday VARCHAR(50),
-	wednesday VARCHAR(50),
-	thursday VARCHAR(50),
-	friday VARCHAR(50),
-	saturday VARCHAR(50),
-	sunday VARCHAR(50)
+	mon VARCHAR(50),
+	tue VARCHAR(50),
+	wed VARCHAR(50),
+	thu VARCHAR(50),
+	fri VARCHAR(50),
+	sat VARCHAR(50),
+	sun VARCHAR(50)
 );
 
 CREATE TABLE trainer2Schedule(
 	time VARCHAR(5),
-	monday VARCHAR(50),
-	tuesday VARCHAR(50),
-	wednesday VARCHAR(50),
-	thursday VARCHAR(50),
-	friday VARCHAR(50),
-	saturday VARCHAR(50),
-	sunday VARCHAR(50)
+	mon VARCHAR(50),
+	tue VARCHAR(50),
+	wed VARCHAR(50),
+	thu VARCHAR(50),
+	fri VARCHAR(50),
+	sat VARCHAR(50),
+	sun VARCHAR(50)
 );
 
 CREATE TABLE trainer3Schedule(
 	time VARCHAR(5),
-	monday VARCHAR(50),
-	tuesday VARCHAR(50),
-	wednesday VARCHAR(50),
-	thursday VARCHAR(50),
-	friday VARCHAR(50),
-	saturday VARCHAR(50),
-	sunday VARCHAR(50)
+	mon VARCHAR(50),
+	tue VARCHAR(50),
+	wed VARCHAR(50),
+	thu VARCHAR(50),
+	fri VARCHAR(50),
+	sat VARCHAR(50),
+	sun VARCHAR(50)
 );
 
 CREATE TABLE trainer4Schedule(
 	time VARCHAR(5),
-	monday VARCHAR(50),
-	tuesday VARCHAR(50),
-	wednesday VARCHAR(50),
-	thursday VARCHAR(50),
-	friday VARCHAR(50),
-	saturday VARCHAR(50),
-	sunday VARCHAR(50)
+	mon VARCHAR(50),
+	tue VARCHAR(50),
+	wed VARCHAR(50),
+	thu VARCHAR(50),
+	fri VARCHAR(50),
+	sat VARCHAR(50),
+	sun VARCHAR(50)
 );
 
 CREATE TABLE trainer5Schedule(
 	time VARCHAR(5),
-	monday VARCHAR(50),
-	tuesday VARCHAR(50),
-	wednesday VARCHAR(50),
-	thursday VARCHAR(50),
-	friday VARCHAR(50),
-	saturday VARCHAR(50),
-	sunday VARCHAR(50)
+	mon VARCHAR(50),
+	tue VARCHAR(50),
+	wed VARCHAR(50),
+	thu VARCHAR(50),
+	fri VARCHAR(50),
+	sat VARCHAR(50),
+	sun VARCHAR(50)
 );
 
 --Admins section

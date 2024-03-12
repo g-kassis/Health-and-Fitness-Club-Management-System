@@ -196,15 +196,15 @@ app.post('/getTrainerSchedule', async (request, response) => {
       // Execute the provided query with parameterized query
       let result = ''
       if(request.body.username === 'trainer1'){
-        result = await client.query('SELECT * FROM trainer1Schedule');
+        result = await client.query('SELECT * FROM trainer1Schedule ORDER BY time');
       }else if(request.body.username === 'trainer2'){
-        result = await client.query('SELECT * FROM trainer2Schedule');
+        result = await client.query('SELECT * FROM trainer2Schedule ORDER BY time');
       }else if(request.body.username === 'trainer3'){
-        result = await client.query('SELECT * FROM trainer3Schedule');
+        result = await client.query('SELECT * FROM trainer3Schedule ORDER BY time');
       }else if(request.body.username === 'trainer4'){
-        result = await client.query('SELECT * FROM trainer4Schedule');
+        result = await client.query('SELECT * FROM trainer4Schedule ORDER BY time');
       }else if(request.body.username === 'trainer5'){
-        result = await client.query('SELECT * FROM trainer5Schedule');
+        result = await client.query('SELECT * FROM trainer5Schedule ORDER BY time');
       }else{
 
       }
@@ -214,6 +214,63 @@ app.post('/getTrainerSchedule', async (request, response) => {
         response.status(200).json(result.rows); // Account found
       }else{
         response.status(200).json(false); // Account not found
+          
+      }
+  } catch (error) {
+      // Handle errors
+      console.error('Error executing database query:', error);
+      response.status(500).json({ success: false, error: 'Internal Server Error' });
+  } 
+  
+  
+});
+
+app.post('/updateTrainerSchedule', async (request, response) => {
+  console.log('updateTrainerSchedule: '.concat(request.body.username));
+
+  try {
+      // Connect to the PostgreSQL database using a connection pool
+      await client.connect();
+
+      // Execute the provided query with parameterized query
+      let tableName = '';
+        switch (request.body.username) {
+            case 'trainer1':
+                tableName = 'trainer1Schedule';
+                break;
+            case 'trainer2':
+                tableName = 'trainer2Schedule';
+                break;
+            case 'trainer3':
+                tableName = 'trainer3Schedule';
+                break;
+            case 'trainer4':
+                tableName = 'trainer4Schedule';
+                break;
+            case 'trainer5':
+                tableName = 'trainer5Schedule';
+                break;
+            default:
+                // Handle unrecognized username
+                response.status(400).json({ success: false, error: 'Invalid username' });
+                return;
+        }
+
+        // Build the update query dynamically based on scheduleData
+        console.log(request.body)
+
+        result = await client.query(`UPDATE ${tableName} SET ${request.body.day} = $1 WHERE time = $2`, [request.body.newData, request.body.time]);
+
+        console.log(result)
+
+
+
+      console.log(result.rows);
+
+      if (result.rows.length == 0) {
+        response.status(200).json(result.rows); // data updated
+      }else{
+        response.status(200).json(false); 
           
       }
   } catch (error) {
