@@ -27,6 +27,61 @@ CREATE TABLE healthMetrics(
 	FOREIGN KEY (username) REFERENCES members(username)
 );
 
+CREATE TABLE member1Sessions(
+	time VARCHAR(5),
+	mon VARCHAR(50),
+	tue VARCHAR(50),
+	wed VARCHAR(50),
+	thu VARCHAR(50),
+	fri VARCHAR(50),
+	sat VARCHAR(50),
+	sun VARCHAR(50)
+);
+
+CREATE TABLE member2Sessions(
+	time VARCHAR(5),
+	mon VARCHAR(50),
+	tue VARCHAR(50),
+	wed VARCHAR(50),
+	thu VARCHAR(50),
+	fri VARCHAR(50),
+	sat VARCHAR(50),
+	sun VARCHAR(50)
+);
+
+CREATE TABLE member3Sessions(
+	time VARCHAR(5),
+	mon VARCHAR(50),
+	tue VARCHAR(50),
+	wed VARCHAR(50),
+	thu VARCHAR(50),
+	fri VARCHAR(50),
+	sat VARCHAR(50),
+	sun VARCHAR(50)
+);
+
+CREATE TABLE member4Sessions(
+	time VARCHAR(5),
+	mon VARCHAR(50),
+	tue VARCHAR(50),
+	wed VARCHAR(50),
+	thu VARCHAR(50),
+	fri VARCHAR(50),
+	sat VARCHAR(50),
+	sun VARCHAR(50)
+);
+
+CREATE TABLE member5Sessions(
+	time VARCHAR(5),
+	mon VARCHAR(50),
+	tue VARCHAR(50),
+	wed VARCHAR(50),
+	thu VARCHAR(50),
+	fri VARCHAR(50),
+	sat VARCHAR(50),
+	sun VARCHAR(50)
+);
+
 --Trainers section
 
 CREATE TABLE trainers(

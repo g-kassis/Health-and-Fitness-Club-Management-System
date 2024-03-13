@@ -50,10 +50,31 @@ app.post('/getProfileData', async (request, response) => {
 
   try {
       // Connect to the PostgreSQL database using a connection pool
-      await client.connect();
+      // await client.connect();
 
       // Execute the provided query with parameterized query
-      const result = await client.query('SELECT username, passwrd, first_name, last_name, age FROM members WHERE username = $1', [request.body.username]);
+      let result = await client.query(`
+      SELECT 
+          m.username, 
+          m.passwrd, 
+          m.first_name, 
+          m.last_name, 
+          m.age, 
+          m.gender,
+          fg.weight_goal,
+          fg.muscle_goal,
+          fg.endurance_goal,
+          fg.flexibility_goal,
+          hm.weight,
+          hm.height
+      FROM 
+          members m
+      LEFT JOIN 
+          fitnessGoals fg ON m.username = fg.username
+      LEFT JOIN 
+          healthMetrics hm ON m.username = hm.username
+      WHERE 
+          m.username = $1`, [request.body.username]);
       console.log(result.rows);
 
       if (result.rows.length !== 0) {
@@ -78,7 +99,7 @@ app.post('/updateProfile', async (request, response) => {
 
   try {
       // Connect to the PostgreSQL database using a connection pool
-      await client.connect();
+      // await client.connect();
 
       // Execute the provided query with parameterized query
       const checkResult = await client.query('SELECT username FROM members WHERE username = $1', [request.body.username]);
@@ -102,7 +123,7 @@ app.post('/getDashboardData', async (request, response) => {
 
   try {
       // Connect to the PostgreSQL database using a connection pool
-      await client.connect();
+      // await client.connect();
 
       // Execute the provided query with parameterized query
       const result = await client.query('SELECT username, passwrd, first_name, last_name FROM members WHERE username = $1', [request.body.username]);
@@ -128,7 +149,7 @@ app.post('/getScheduleData', async (request, response) => {
 
   try {
       // Connect to the PostgreSQL database using a connection pool
-      await client.connect();
+      // await client.connect();
 
       // Execute the provided query with parameterized query
       const result = await client.query('SELECT username, passwrd, first_name, last_name FROM members WHERE username = $1', [request.body.username]);
@@ -138,6 +159,87 @@ app.post('/getScheduleData', async (request, response) => {
         response.status(200).json(result.rows); // Account found
       } else {
         response.status(200).json(false); // Account not found
+          
+      }
+  } catch (error) {
+      // Handle errors
+      console.error('Error executing database query:', error);
+      response.status(500).json({ success: false, error: 'Internal Server Error' });
+  } 
+  
+  
+});
+
+app.post('/getMemeberSessions', async (request, response) => {
+  console.log('getMemeberSessions: '.concat(request.body.username));
+
+  try {
+      // Connect to the PostgreSQL database using a connection pool
+      // await client.connect();
+
+      //gets table name (string manipulation)
+      let tableName = request.body.username.replace('user','member');
+      tableName = tableName + 'Sessions'
+      console.log(tableName)
+        
+
+        // Build the update query dynamically based on scheduleData
+        console.log(request.body)
+
+        result = await client.query(`SELECT * FROM ${tableName} ORDER BY time`);
+
+        console.log(result)
+
+
+
+      console.log(result.rows);
+
+      if (result.rows.length !== 0) {
+        response.status(200).json(result.rows); // data found
+      }else{
+        response.status(200).json(false); 
+          
+      }
+  } catch (error) {
+      // Handle errors
+      console.error('Error executing database query:', error);
+      response.status(500).json({ success: false, error: 'Internal Server Error' });
+  } 
+  
+  
+});
+
+app.post('/updateMemberSessions', async (request, response) => {
+  console.log('updateMemberSessions: '.concat(request.body.newData));
+
+  //request.body.username = trainer username
+  //request.body.newData = memeber username
+
+  try {
+      // Connect to the PostgreSQL database using a connection pool
+      // await client.connect();
+
+      //gets table name for trainer schedule (depending on username)
+      let tableName = request.body.newData.replace('user','member');
+      tableName = tableName + 'Sessions'
+      console.log(tableName)
+
+        // Build the update query dynamically based on scheduleData
+        console.log(request.body)
+
+        result = await client.query(`UPDATE ${tableName} SET ${request.body.day} = $1 WHERE time = $2`, [request.body.username, request.body.time]);
+
+        console.log(result)
+
+
+
+      console.log(result.rows);
+
+      if (result.rows.length == 0) {
+        result = await client.query(`SELECT * FROM ${tableName} ORDER BY time`);
+        response.status(200).json(result.rows); // data updated
+      }else{
+        response.status(200).json(false); 
           
       }
   } catch (error) {
@@ -166,7 +268,7 @@ app.post('/lookFor', async (request, response) => {
 
   try {
       // Connect to the PostgreSQL database using a connection pool
-      await client.connect();
+      // await client.connect();
 
       // Execute the provided query with parameterized query
       const result = await client.query('SELECT first_name, last_name, age, gender FROM members WHERE first_name ILIKE $1', [request.body.firstname]);
@@ -191,23 +293,11 @@ app.post('/getTrainerSchedule', async (request, response) => {
 
   try {
       // Connect to the PostgreSQL database using a connection pool
-      await client.connect();
+      // await client.connect();
 
-      // Execute the provided query with parameterized query
-      let result = ''
-      if(request.body.username === 'trainer1'){
-        result = await client.query('SELECT * FROM trainer1Schedule ORDER BY time');
-      }else if(request.body.username === 'trainer2'){
-        result = await client.query('SELECT * FROM trainer2Schedule ORDER BY time');
-      }else if(request.body.username === 'trainer3'){
-        result = await client.query('SELECT * FROM trainer3Schedule ORDER BY time');
-      }else if(request.body.username === 'trainer4'){
-        result = await client.query('SELECT * FROM trainer4Schedule ORDER BY time');
-      }else if(request.body.username === 'trainer5'){
-        result = await client.query('SELECT * FROM trainer5Schedule ORDER BY time');
-      }else{
-
-      }
+      //gets all columns for trainer schedule (depending on username)
+      result = await client.query(`SELECT * FROM ${request.body.username+'Schedule'} ORDER BY time`);
+      
       console.log(result.rows);
 
       if (result.rows.length !== 0) {
@@ -230,31 +320,10 @@ app.post('/updateTrainerSchedule', async (request, response) => {
 
   try {
       // Connect to the PostgreSQL database using a connection pool
-      await client.connect();
+      // await client.connect();
 
-      // Execute the provided query with parameterized query
-      let tableName = '';
-        switch (request.body.username) {
-            case 'trainer1':
-                tableName = 'trainer1Schedule';
-                break;
-            case 'trainer2':
-                tableName = 'trainer2Schedule';
-                break;
-            case 'trainer3':
-                tableName = 'trainer3Schedule';
-                break;
-            case 'trainer4':
-                tableName = 'trainer4Schedule';
-                break;
-            case 'trainer5':
-                tableName = 'trainer5Schedule';
-                break;
-            default:
-                // Handle unrecognized username
-                response.status(400).json({ success: false, error: 'Invalid username' });
-                return;
-        }
+      //gets table name for trainer schedule (depending on username)
+      let tableName = request.body.username+'Schedule';
 
         // Build the update query dynamically based on scheduleData
         console.log(request.body)
@@ -292,7 +361,7 @@ app.post('/userLogIn', async (request, response) => {
 
   try {
       // Connect to the PostgreSQL database using a connection pool
-      await client.connect();
+      // await client.connect();
 
       // Execute the provided query with parameterized query
       let result = await client.query('SELECT username, passwrd FROM members WHERE username = $1 AND passwrd = $2', [request.body.username, request.body.password]);
@@ -328,7 +397,7 @@ app.post('/registration', async (request, response) => {
 
   try {
       // Connect to the PostgreSQL database using a connection pool
-      await client.connect();
+      // await client.connect();
 
       // Execute the provided query with parameterized query
       const checkResult = await client.query('SELECT username FROM members WHERE username = $1', [request.body.username]);
@@ -336,7 +405,25 @@ app.post('/registration', async (request, response) => {
       if(checkResult.rows.length !== 0){
         response.status(200).json(true) //account exists
       }else{
+        //adds member to members table
         await client.query('INSERT INTO members (username, passwrd, first_name, last_name) VALUES ($1, $2, $3, $4)', [request.body.username, request.body.password, request.body.fname, request.body.lname]);
+        //adds member to healthMetrics table and fitnessGoals
+        await client.query('INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal, flexibility_goal) VALUES ($1, $2, $3, $4, $5)',[request.body.username,'Gain','Maintain','Lose','Maintain']);
+        await client.query('INSERT INTO healthMetrics (username, weight, height) VALUES ($1, $2, $3)',[request.body.username,140,175]);
+
+        //creates sessions table and adds time
+        await client.query(`CREATE TABLE ${request.body.username+'Sessions'}(time VARCHAR(5),mon VARCHAR(50),tue VARCHAR(50),wed VARCHAR(50),thu VARCHAR(50),fri VARCHAR(50),sat VARCHAR(50),sun VARCHAR(50));`)
+        await client.query(`
+        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('9am', '', '', '', '', '', '', '');
+        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('10am', '', '', '', '', '', '', '');
+        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('11am', '', '', '', '', '', '', '');
+        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('12pm', '', '', '', '', '', '', '');
+        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('1pm', '', '', '', '', '', '', '');
+        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('2pm', '', '', '', '', '', '', '');
+        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('3pm', '', '', '', '', '', '', '');
+        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('4pm', '', '', '', '', '', '', '');
+        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('5pm', '', '', '', '', '', '', '');
+        `)
         response.status(200).json(false) //account does not exist (account created)
         
       }
