@@ -1,9 +1,9 @@
 --Members Table
-INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user1', 'ironman', 'Tony', 'Stark', '35', 'Male');
-INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user2', 'thor', 'Thor', 'Odinson', '30', 'Male');
-INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user3', 'blackWidow', 'Natasha', 'Romanoff', '30', 'Female');
-INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user4', 'cptAmerica', 'Steve', 'Rogers', '30', 'Male');
-INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user5', 'hulk', 'Bruce', 'Banner', '32', 'Male');
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender, numGroupFitness, numPersonalSessions) VALUES ('user1', 'ironman', 'Tony', 'Stark', '35', 'Male', 0, 0);
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender, numGroupFitness, numPersonalSessions) VALUES ('user2', 'thor', 'Thor', 'Odinson', '30', 'Male', 0, 0);
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender, numGroupFitness, numPersonalSessions) VALUES ('user3', 'blackWidow', 'Natasha', 'Romanoff', '30', 'Female', 0, 0);
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender, numGroupFitness, numPersonalSessions) VALUES ('user4', 'cptAmerica', 'Steve', 'Rogers', '30', 'Male', 0, 0);
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender, numGroupFitness, numPersonalSessions) VALUES ('user5', 'hulk', 'Bruce', 'Banner', '32', 'Male', 0, 0);
 
 --members fitness goals and health metrics
 INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal, flexibility_goal) VALUES ('user1', 'Gain', 'Gain', 'Gain', 'Maintain');

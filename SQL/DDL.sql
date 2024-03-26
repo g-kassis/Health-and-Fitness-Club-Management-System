@@ -8,7 +8,8 @@ CREATE TABLE members(
 	last_name VARCHAR(50),
 	age INT,
 	gender VARCHAR(6),
-	country VARCHAR(20)
+	numGroupFitness INT,
+	numPersonalSessions INT
 );
 
 CREATE TABLE fitnessGoals(
@@ -26,6 +27,7 @@ CREATE TABLE healthMetrics(
 	height INT,
 	FOREIGN KEY (username) REFERENCES members(username)
 );
+
 
 CREATE TABLE member1Sessions(
 	time VARCHAR(5),

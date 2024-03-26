@@ -370,7 +370,16 @@ function openInnerModal(slot){
     modal.style.display = "block";
     //sets the modal title to the box clicked
     let title = document.getElementById('innerModalTitle')
-    title.innerHTML = 'Book Personal Fitness Session on ' + slot.className;
+    title.innerHTML = 'Book Personal Training Session on ' + slot.className;
+
+  }else if (slot.innerHTML.includes('Group Fitness')){
+    //opens modal
+    let modal = document.getElementById('innerModal')
+    modal.style.display = "block";
+    //sets the modal title to the box clicked
+    let title = document.getElementById('innerModalTitle')
+    title.innerHTML = 'Book Group Fitness - on ' + slot.className;
+
 
   }else{
     //slot not available (do nothing)

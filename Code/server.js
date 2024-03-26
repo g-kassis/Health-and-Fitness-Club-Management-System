@@ -351,6 +351,55 @@ app.post('/updateTrainerSchedule', async (request, response) => {
   
 });
 
+//---------------------------------------------------------------------ADMINS--------------------------------------------
+
+app.get('/adminBilling',function(request, response) {
+  console.log('Member Profile')
+  response.render(__dirname + '/views/adminBilling')
+})
+
+app.get('/adminClassSchedule',function(request, response) {
+  console.log('Member Profile')
+  response.render(__dirname + '/views/adminClassSchedule')
+})
+
+app.get('/adminEquipmentMonitor',function(request, response) {
+  console.log('Member Profile')
+  response.render(__dirname + '/views/adminEquipmentMonitor')
+})
+
+app.get('/adminRoomManagement',function(request, response) {
+  console.log('Member Profile')
+  response.render(__dirname + '/views/adminRoomManagement')
+})
+
+
+app.post('/getAllMembers', async (request, response) => {
+  console.log('All Members');
+
+  try {
+      // Connect to the PostgreSQL database using a connection pool
+ 
+
+      result = await client.query(`SELECT * FROM members`);
+
+      console.log(result.rows);
+
+      if (result.rows.length != 0) {
+        response.status(200).json(result.rows); //found and send
+      }else{
+        response.status(200).json(false); 
+          
+      }
+  } catch (error) {
+      // Handle errors
+      console.error('Error executing database query:', error);
+      response.status(500).json({ success: false, error: 'Internal Server Error' });
+  } 
+  
+  
+});
+
 
 //------------------------------------------------------------------------------------------------
 
@@ -406,7 +455,7 @@ app.post('/registration', async (request, response) => {
         response.status(200).json(true) //account exists
       }else{
         //adds member to members table
-        await client.query('INSERT INTO members (username, passwrd, first_name, last_name) VALUES ($1, $2, $3, $4)', [request.body.username, request.body.password, request.body.fname, request.body.lname]);
+        await client.query('INSERT INTO members (username, passwrd, first_name, last_name, numGroupFitness, numPersonalSessions) VALUES ($1, $2, $3, $4)', [request.body.username, request.body.password, request.body.fname, request.body.lname, 0, 0]);
         //adds member to healthMetrics table and fitnessGoals
         await client.query('INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal, flexibility_goal) VALUES ($1, $2, $3, $4, $5)',[request.body.username,'Gain','Maintain','Lose','Maintain']);
         await client.query('INSERT INTO healthMetrics (username, weight, height) VALUES ($1, $2, $3)',[request.body.username,140,175]);

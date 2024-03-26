@@ -1,0 +1,111 @@
+<head>
+    <title>Health & Fitness Club</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="css/admin.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body onload="showEquipmentMonitor()">
+
+    <div id="navbar">
+        <a id="Booking">Room Booking</a>
+        <a id="Equipment_Monitoring" style="color: orange;">Equipment Monitoring</a>
+        <a id="Class_Schedule_Update">Class Schedule Update</a>
+        <a id="Billing&Payment">Billing & Payment</a>
+    </div>
+
+    <div class="mainContent">
+      <center><h2 style="margin: 7%; font-size: xx-large;">Equipment Monitor</h2></center>
+      <div class="equipmentRow">
+
+        <div class="equipmentColumn">
+          <div class="equipmentCard">
+            <img src="https://bh.fitness/cms/wp-content/archivos/2019/06/l480_isometric.png" alt="Jane" style="width:76%">
+            <div class="equipmentContainer">
+              <h2>Multi-Gym</h2>
+              <div class="w3-light-grey w3-round-xlarge">
+                <div id="multi-gym-progress" class="w3-container w3-red w3-round-xlarge" style="width:25%">25%</div>
+              </div>
+              <p><button id="maintain-multi-gym" class="equipmentButton">Maintain</button></p>
+            </div>
+          </div>
+        </div>
+      
+        <div class="equipmentColumn">
+          <div class="equipmentCard">
+            <img src="https://bh.fitness/cms/wp-content/archivos/2019/06/l820_isometric.png" alt="Mike" style="width:100%">
+            <div class="equipmentContainer">
+              <h2>Bench Press</h2>
+              <div class="w3-light-grey w3-round-xlarge">
+                <div id="bench-press-progress" class="w3-container w3-orange w3-round-xlarge" style="width:50%">50%</div>
+              </div>
+              <p><button id="maintain-bench-press" class="equipmentButton">Maintain</button></p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="equipmentColumn">
+          <div class="equipmentCard">
+            <img src="https://bh.fitness/cms/wp-content/archivos/2019/06/l150_isometric.png" alt="John" style="width:77%">
+            <div class="equipmentContainer">
+              <h2>Tricep Pushdown</h2>
+              <div class="w3-light-grey w3-round-xlarge">
+                <div id="tricep-pushdown-progress" class="w3-container w3-yellow w3-round-xlarge" style="width:75%">75%</div>
+              </div>
+              <p><button id="maintain-tricep-pushdown" class="equipmentButton">Maintain</button></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="equipmentRow">
+
+        <div class="equipmentColumn">
+          <div class="equipmentCard">
+            <img src="https://shop.wiitraining.com/2115-large_default/bh-fitness-back-pull.jpg" alt="Jane" style="width:100%">
+            <div class="equipmentContainer">
+              <h2>Lat Pulldown</h2>
+              <div class="w3-light-grey w3-round-xlarge">
+                <div id="lat-pulldown-progress" class="w3-container w3-green w3-round-xlarge" style="width:95%">95%</div>
+              </div>
+              <p><button id="maintain-lat-pulldown" class="equipmentButton">Maintain</button></p>
+            </div>
+          </div>
+        </div>
+      
+        <div class="equipmentColumn">
+          <div class="equipmentCard">
+            <img src="https://bh.fitness/cms/wp-content/archivos/2019/06/h923_isometric.png" alt="Mike" style="width:100%">
+            <div class="equipmentContainer">
+              <h2>Cardio Bike</h2>
+              <div class="w3-light-grey w3-round-xlarge">
+                <div id="cardio-bike-progress" class="w3-container w3-yellow w3-round-xlarge" style="width:65%">65%</div>
+              </div>
+              <p><button id="maintain-cardio-bike" class="equipmentButton">Maintain</button></p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="equipmentColumn">
+          <div class="equipmentCard">
+            <img src="https://bh.fitness/cms/wp-content/archivos/2019/06/l050_isometric.png" alt="John" style="width:80%">
+            <div class="equipmentContainer">
+              <h2>Leg Press</h2>
+              <div class="w3-light-grey w3-round-xlarge">
+                <div id="leg-press-progress" class="w3-container w3-green w3-round-xlarge" style="width:95%">95%</div>
+              </div>
+              <p><button id="maintain-leg-press" class="equipmentButton">Maintain</button></p>
+            </div>
+          </div>
+        </div>
+    
+      </div>
+
+    </div>
+    
+
+    <script type="text/javascript" src="js/admin.js"></script>
+</body>

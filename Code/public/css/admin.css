@@ -40,3 +40,186 @@ body{
 .sticky + .content {
   padding-top: 60px;
 }
+
+/*----------main content div----------*/
+.mainContent{
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+/*----------equpment sections----------*/
+
+.equipmentRow {
+  display: table;
+  box-sizing: inherit;
+}
+
+.equipmentColumn {
+  
+  float: left;
+  display: table-cell;
+  width: 32%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+@media screen and (max-width: 800px) {
+  .equipmentColumn {
+    width: 100%;
+    display: block;
+  }
+}
+
+.equipmentCard {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.equipmentContainer {
+  padding: 0 16px;
+}
+
+.equipmentContainer::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.equipmentTitle {
+  color: grey;
+}
+
+.equipmentButton {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.equipmentButton:hover {
+  background-color: #555;
+}
+
+
+/*-----------------------table showing members--------------------------*/
+
+
+
+.profileTable{
+    width: 100%;
+    font-family: 'lato', sans-serif;
+  }
+
+.table_header {
+  border-top: 2px solid red;
+  border-bottom: 2px solid red;
+  border-left: 0px;
+  border-right: 0px;
+  padding: 25px 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+
+  background-color: transparent;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+
+.table_row{
+  border-radius: 3px;
+  padding: 25px 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+
+  background-color: #ffffff;
+}
+
+
+/*-----------------------------------invoice open --------------------------------------*/
+
+
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+
+
+/* .overlay {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
+  }
+} */

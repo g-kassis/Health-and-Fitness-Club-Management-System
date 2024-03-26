@@ -89,7 +89,7 @@ function login(){
             window.location.href = '/trainerMemberViewer?username='+username
 
           }else if(username.includes('admin')){ // admin log in
-            window.location.href = '/admin?username='+username
+            window.location.href = '/adminEquipmentMonitor?username='+username
 
           }else{ //member log in
             window.location.href = '/memberDashboard?username='+username
