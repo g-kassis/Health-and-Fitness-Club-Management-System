@@ -2,50 +2,12 @@ body{
     margin: 0;
 }
 
-#navbar {
-  overflow: hidden;
-  background-color: #333;
-}
-
-/* Navbar links */
-#navbar a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px;
-  text-decoration: none;
-}
-
-#navbar a:hover {
-  color: orange;
-  cursor: pointer;
-}
-
-#navbar a:active {
-  color: white;
-}
-
-/* Page content */
-.content {
-  padding: 16px;
-}
-
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-.sticky + .content {
-  padding-top: 60px;
-}
 
 /*----------main content div----------*/
 .mainContent{
   margin-left: 10%;
   margin-right: 10%;
-  margin-top: 10%;
+  margin-top: 1%;
   margin-bottom: 10%;
 }
 
@@ -173,53 +135,113 @@ body{
   overflow: hidden;
 }
 
-
-/* .overlay {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.9);
-  overflow-x: hidden;
-  transition: 0.5s;
+/*------------------------------------------------------------------Room Management------------------------------------------------------------------------------------------------------*/
+#roomSelector{
+  height: 50px;
+  padding-left: 40%;
+  background-color: #F5F5F5;
+  border: solid 3px #e7e7e7;
+  border-radius: 12px;
+  margin-bottom: 2%;
 }
 
-.overlay-content {
-  position: relative;
-  top: 25%;
-  width: 100%;
-  text-align: center;
-  margin-top: 30px;
-}
-
-.overlay a {
-  padding: 8px;
+/* Pagination links */
+.pagination a {
+  color: black;
+  float: left;
+  margin-top: 8px;
+  padding: 8px 16px;
   text-decoration: none;
-  font-size: 36px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
+  transition: background-color .3s;
 }
 
-.overlay a:hover, .overlay a:focus {
-  color: #f1f1f1;
+/* Style the active/current link */
+.pagination a.active {
+  border-radius: 7px;
+  background-color: orange;
+  color: white;
 }
 
-.overlay .closebtn {
-  position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
+/* Add a grey background color on mouse-over */
+.pagination a:hover:not(.active) {background-color: #ddd;border-radius: 7px; cursor: pointer;}
+
+/* Create three equal columns that floats next to each other */
+.columnRooms {
+  float: left;
+  width: 67.35%;
+  padding: 10px;
+  height: 100%; /* Should be removed. Only for demonstration */
 }
 
-@media screen and (max-height: 450px) {
-  .overlay a {font-size: 20px}
-  .overlay .closebtn {
-  font-size: 40px;
-  top: 15px;
-  right: 35px;
+/* Clear floats after the columns */
+.rowRooms{
+  width: 100%;
+  border: solid 3px #F5F5F5;
+  border-radius: 12px;
+}
+
+.rowRooms:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.roomInfo{
+  color: #838890;
+  text-align: left;
+  margin-top: 0px;
+}
+
+@media screen and (max-width: 1400px) {
+  .columnRooms {
+    width: 66.3%;
+
   }
-} */
+}
+
+
+.groupFit {
+  vertical-align: middle;
+  width: 10%;
+  height: 10%;
+  margin: 3%;
+  border-radius: 50%;
+}
+
+.groupFit:hover {
+  background-color: white;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.bookRoomBtn {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #04AA6D;
+  border: none;
+  border-radius: 15px;
+}
+
+.bookRoomBtn:hover {background-color: #3e8e41}
+
+.bookRoomBtn:active {
+  background-color: #3e8e41;
+  transform: translateY(4px);
+}

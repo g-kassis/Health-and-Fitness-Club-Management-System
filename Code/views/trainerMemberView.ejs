@@ -3,18 +3,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="css/trainer.css">
+    <link type="text/css" rel="stylesheet" href="css/navbar.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
 <body onload="showProfileViewer()">
 
-    <div id="navbar">
+    <div id="mySidenav" class="sidenav">
+  <a  class="closebtn" onclick="closeNav()">&times;</a>
         <a id="memberProfileViewerNav" style="color: orange;">Member Profile Viewer</a>
         <a id="trainerScheduleNav">Schedule Management</a>
     </div>
+    
 
     <div class="mainContent" id="mainContent">
-        <h1>Member Profile Viewer</h1>
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+        <h1 style="margin-top: 5%;">Member Profile Viewer</h1>
 
         <input type="text" id="searchBar" placeholder="Search..">
         <h3 id="resultsFor"></h3>

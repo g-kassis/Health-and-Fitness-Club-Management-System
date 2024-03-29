@@ -157,8 +157,8 @@ function displayMembers(profiles){
         if(profiles[i][str] === 0){
           amountCell.innerHTML = '$0'
         }else{
-          amountCell.innerHTML = parseInt(profiles[i][price])*parseInt(profiles[i][str]);
-          amounts.push(parseInt(profiles[i][price])*parseInt(profiles[i][str]))
+          amountCell.innerHTML = '$'+parseInt(price)*parseInt(profiles[i][str]);
+          amounts.push(parseInt(price)*parseInt(profiles[i][str]))
         }
         
     
@@ -258,7 +258,31 @@ function maintainEquipment(equipmentName){
   }
 }
 
+//----------------------------------------------------------------------room management----------------------------------------------------
+
+
+function roomChange(roomID){
+
+  let roomImg = document.getElementById('roomImg')
+  let roomName = document.getElementById('roomName')
+  let roomCapcity = document.getElementById('roomCapcity')
+  let roomLayout = document.getElementById('roomLayout')
+  let roomEquipment1 = document.getElementById('roomEquipment1')
+
+}
+
+
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+
+
 //event handlers for admin
+
 
 document.addEventListener('DOMContentLoaded', function() {
     

@@ -193,7 +193,7 @@ function searchFor(){
 function scheduleEdit(scheduleSlot){
   console.log(scheduleSlot);
 
-  document.getElementById("myModal").style.display = "block";
+  document.getElementById("myNav").style.width = "100%";
   
   //sets the modal title to the box clicked
   let title = document.getElementById('formTitle')
@@ -206,13 +206,6 @@ function scheduleEdit(scheduleSlot){
     //do nothing
   }else{
     
-    let arrN = scheduleSlot.innerHTML.split('\n')
-    let t = arrN[0].split('Title: ')
-    let n =  arrN[1].split('Notes: ')
-
-    //fills textboxes if schedule slot is already filled
-    document.getElementById('titleText').value = t[1]
-    document.getElementById('notesText').value = n[1]
 
   }
 
@@ -274,32 +267,41 @@ function updateSchedule(newData,slot){
   xhttp.send(JSON.stringify(data))
 }
 
-
-//adds to schedule
-function addToSchedule(){
+function clearSlot(){
   let title = document.getElementById('formTitle').innerHTML
   let arr = title.split('Edit')
   scheduleSlot = arr[1]
   console.log(scheduleSlot);
-
-  //adds to scheduleSlot the notes and title
-  let slotTitle = document.getElementById('titleText').value
-  let slotNotes = document.getElementById('notesText').value
   
+  //clears slot
   let slot = document.getElementsByClassName(scheduleSlot)[0]
-  slot.innerHTML = 'Title: ' + slotTitle + '\n' + 'Notes: ' + slotNotes;
+  slot.innerHTML = '';
 
-  //clears text boxes
-  document.getElementById('titleText').value = ''
-  document.getElementById('notesText').value = ''
+
+  updateSchedule(slot.innerHTML,scheduleSlot)
+  
+  //closes modal
+  document.getElementById("myNav").style.width = "0%"
+}
+
+
+//adds to schedule
+function addToSchedule(add){
+  let title = document.getElementById('formTitle').innerHTML
+  let arr = title.split('Edit')
+  scheduleSlot = arr[1]
+  console.log(scheduleSlot);
+  
+  //adds group class to slot
+  let slot = document.getElementsByClassName(scheduleSlot)[0]
+  slot.innerHTML = 'Group Fitness: ' + add;
 
 
   updateSchedule(slot.innerHTML,scheduleSlot)
 
 
   //closes modal
-  let modal = document.getElementById('myModal')
-  modal.style.display = "none";
+  document.getElementById("myNav").style.width = "0%"
 
   
 }
@@ -316,20 +318,21 @@ function setUnavailable(){
   let slot = document.getElementsByClassName(scheduleSlot)[0]
   slot.innerHTML = 'UNAVAILABLE';
 
-  //clears text boxes
-  document.getElementById('titleText').value = ''
-  document.getElementById('notesText').value = ''
-
   updateSchedule(slot.innerHTML, scheduleSlot)
 
   //closes modal
-  let modal = document.getElementById('myModal')
-  modal.style.display = "none";
+  document.getElementById("myNav").style.width = "0%"
 
   
 }
 
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
 
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
 
 
 //event handlers for trainer
@@ -352,24 +355,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }); 
 
     document.addEventListener('click',function(e){
-      if(e.target && e.target.className== 'close'){
-        let modal = document.getElementById('myModal')
-        modal.style.display = "none";
+      if(e.target && e.target.className== 'closebtn'){
+        document.getElementById("myNav").style.width = "0%"
+      }
+    });
+    
+    //the clear button inside the modal to clear a slot
+    document.addEventListener('click',function(e){
+      if(e.target && e.target.id== 'clearbtn'){
+          clearSlot();
       }
     }); 
 
-    // When the user clicks anywhere outside of the modal, close it
-    document.addEventListener('click',function(e){
-      if(e.target && e.target.id== 'myModal'){
-        let modal = document.getElementById('myModal')
-        modal.style.display = "none";
-      }
-    }); 
 
-    //the add button inside the modal to edit a slot
+    //the group buttons inside the modal to add a class
     document.addEventListener('click',function(e){
-      if(e.target && e.target.id== 'addBtn'){
-          addToSchedule();
+      if(e.target && e.target.className== 'groupFit'){
+          addToSchedule(e.target.id);
       }
     }); 
 

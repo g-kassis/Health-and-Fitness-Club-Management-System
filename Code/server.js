@@ -105,7 +105,9 @@ app.post('/updateProfile', async (request, response) => {
       const checkResult = await client.query('SELECT username FROM members WHERE username = $1', [request.body.username]);
 
       if(checkResult.rows.length !== 0){
-        await client.query('UPDATE members SET first_name = $2, last_name = $3  WHERE username = $1', [request.body.username, request.body.fname, request.body.lname]);
+        await client.query('UPDATE members SET first_name = $2, last_name = $3, age = $4, gender = $5  WHERE username = $1', [request.body.username, request.body.fname, request.body.lname, request.body.age, request.body.gender]);
+        await client.query('UPDATE fitnessGoals SET weight_goal = $2, muscle_goal = $3, endurance_goal= $4, flexibility_goal = $5  WHERE username = $1', [request.body.username, request.body.weightGoal, request.body.muscleGoal, request.body.enduranceGoal, request.body.flexibilityGoal]);
+        await client.query('UPDATE healthMetrics SET weight = $2, height = $3  WHERE username = $1', [request.body.username, request.body.weightMetric, request.body.heightMetric]);
         response.status(200).json(true) //account exists
       }else{
         response.status(200).json(false) //account does not exist (account created)
@@ -226,6 +228,19 @@ app.post('/updateMemberSessions', async (request, response) => {
 
         // Build the update query dynamically based on scheduleData
         console.log(request.body)
+        
+        if(request.body.typeOfSession == 'personal' && request.body.cancel == false){
+          result = await client.query(`UPDATE members SET numPersonalSessions = numPersonalSessions + 1 WHERE username = $1`, [request.body.newData]);
+        }else if(request.body.typeOfSession == 'personal' && request.body.cancel == true){
+          result = await client.query(`UPDATE members SET numPersonalSessions = numPersonalSessions - 1 WHERE username = $1`, [request.body.newData]);
+
+        }else if(request.body.typeOfSession == 'group' && request.body.cancel == false){
+          result = await client.query(`UPDATE members SET numPersonalSessions = numPersonalSessions + 1 WHERE username = $1`, [request.body.newData]);
+
+        }else{  
+          result = await client.query(`UPDATE members SET numPersonalSessions = numPersonalSessions - 1 WHERE username = $1`, [request.body.newData]);
+
+        }
 
         result = await client.query(`UPDATE ${tableName} SET ${request.body.day} = $1 WHERE time = $2`, [request.body.username, request.body.time]);
 

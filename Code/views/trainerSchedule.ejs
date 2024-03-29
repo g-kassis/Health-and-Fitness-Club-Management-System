@@ -3,18 +3,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="css/trainer.css">
+    <link type="text/css" rel="stylesheet" href="css/navbar.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
 <body onload="showSchedule()">
 
-    <div id="navbar">
+    <div id="mySidenav" class="sidenav">
+        <a  class="closebtn" onclick="closeNav()">&times;</a>
         <a id="memberProfileViewerNav">Member Profile Viewer</a>
         <a id="trainerScheduleNav" style="color: orange;">Schedule Management</a>
     </div>
+    
 
     <div class="mainContent" id="mainContent">
-        <h1>Schedule Management</h1>
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+        <h1 style="margin-top: 5%;">Schedule Management</h1>
 
             <table id="schedule">
               <tr>
@@ -120,24 +124,34 @@
             </table>
             <br>
         </div>
-        
-        <div id="myModal" class="modal">
 
+
+        <div id="myNav" class="overlay">
+          <a  class="closebtn">&times;</a>
+          <div class="overlay-content">
             
-            <div class="modal-content">
-              <span class="close">&times;</span>
-              <h1 id="formTitle">Edit</h1>
-              
-                  <label for="title"><b>Title:</b></label>
-                  <input type="text" placeholder="Title" id="titleText" required>
-              
-                  <label for="notes"><b>Notes:</b></label>
-                  <input type="text" placeholder="Notes" id="notesText">
-              
-                  <button type="submit" id="addBtn" class="addBtn">Add</button>
-                  <button type="button" id="notAvailable" class="notAvailable">Not Available</button>
+            <h1 id="formTitle" style="color: white; margin-bottom: 3%;">Edit</h1>
+            <div id="left" style="width:50%; float:left;">
+              <h2 style="color: white;">Add a Group Class</h2>
+              <img src="https://cdn-icons-png.flaticon.com/512/5022/5022167.png" id='boxing' class="groupFit">
+              <img src="https://cdn-icons-png.flaticon.com/512/8145/8145683.png" id='football' class="groupFit">
+              <img src="https://cdn-icons-png.flaticon.com/512/2264/2264829.png" id='swimming' class="groupFit">
+              <br>
+              <img src="https://cdn-icons-png.flaticon.com/512/9571/9571346.png" id='strength' class="groupFit">
+              <img src="https://cdn-icons-png.flaticon.com/512/983/983534.png" id='cycling' class="groupFit">
+              <img src="https://cdn-icons-png.flaticon.com/512/3476/3476091.png" id='crossfit' class="groupFit">
+              <br>
+              <img src="https://cdn-icons-png.flaticon.com/512/3867/3867817.png" id='running' class="groupFit">
+              <img src="https://cdn-icons-png.flaticon.com/512/10823/10823177.png" id='basketball' class="groupFit">
+              <img src="https://cdn-icons-png.flaticon.com/512/2906/2906496.png" id='yoga' class="groupFit">
             </div>
-          
+            <div id="right" style="width:50%; float:right; display: block;" >
+              <button type="button" id="clearbtn" class="addBtn" style="margin: 2%;">Clear</button>
+              <br>
+              <button type="button" id="notAvailable" class="notAvailable" style="margin: 2%;">Not Available</button>
+            </div>
+
+          </div>
         </div>
 
 

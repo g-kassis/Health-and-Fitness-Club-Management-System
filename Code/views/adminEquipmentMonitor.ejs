@@ -3,20 +3,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="css/admin.css">
+    <link type="text/css" rel="stylesheet" href="css/navbar.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
 <body onload="showEquipmentMonitor()">
 
-    <div id="navbar">
+    <div id="mySidenav" class="sidenav">
+  <a  class="closebtn" onclick="closeNav()">&times;</a>
         <a id="Booking">Room Booking</a>
         <a id="Equipment_Monitoring" style="color: orange;">Equipment Monitoring</a>
         <a id="Class_Schedule_Update">Class Schedule Update</a>
         <a id="Billing&Payment">Billing & Payment</a>
     </div>
+    
 
     <div class="mainContent">
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
       <center><h2 style="margin: 7%; font-size: xx-large;">Equipment Monitor</h2></center>
       <div class="equipmentRow">
 

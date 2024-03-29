@@ -26,63 +26,23 @@ input[type=text] {
     background-color: #f1f1f1;
   }
 
-#navbar {
-    overflow: hidden;
-    background-color: #333;
-  }
-  
-  /* Navbar links */
-  #navbar a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px;
-    text-decoration: none;
-  }
-
-  #navbar a:hover {
-    color: orange;
-    cursor: pointer;
-  }
-
-  #navbar a:active {
-    color: white;
-  }
-  
-  /* Page content */
-  .content {
-    padding: 16px;
-  }
-  
-  .sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-  }
-  
-  .sticky + .content {
-    padding-top: 60px;
-  }
-
 /*-----------------------------------------------------------------------------------------------*/
-  /*profile*/
-  .profileContainer{
-    padding-left: 25%;
-    padding-right: 25%;
-    padding-top: 10%;
-    padding-bottom: 10%;
 
+  /*mainContent*/
+  .mainContent{
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 1%;
+    margin-bottom: 10%;
   }
 
-
-/*-----------------------------------------------------------------------------------------------*/
+/*----------------------------------dashboard -------------------------------------------------------------*/
 
   /*dashboard*/
   .dashboardContainer{
     padding-left: 15%;
     padding-right: 15%;
-    padding-top: 10%;
+    padding-top: 1%;
 
   }
 
@@ -129,6 +89,62 @@ input[type=text] {
   }
 }
 
+.fitnessAchievement{
+  border-radius: 50%;
+
+}
+
+.fitnessAchievement:hover{
+  background-color: #e2e2e2;
+  transform: scale(1.1);
+}
+
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+#statsTable{
+  background-color: white;
+  border-radius: 12px;
+}
+
+#statsTable tr{
+  background-color: white;
+  border-radius: 12px;
+}
+
+#achievementsTable{
+  background-color: white;
+  border-radius: 12px;
+}
+
+#achievementsTable tr{
+  background-color: white;
+  border-radius: 12px;
+}
+
+
 
 /*-----------------------------------------------------------------------------------------------*/
 
@@ -136,7 +152,7 @@ input[type=text] {
   .scheduleContainer{
     padding-left: 15%;
     padding-right: 15%;
-    padding-top: 10%;
+    padding-top: 7%;
 
   }
 
@@ -232,6 +248,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 
 /* Modal Content/Box */
 .modal-content {
+  border-radius: 10px;
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
@@ -304,8 +321,10 @@ tr:nth-child(even){background-color: #f2f2f2}
 /*-----------inner modal--------*/
 
 .innerModalContent{
+  border-radius: 12px;
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
+  margin-top: 2%;
   padding: 20px;
   border: 1px solid #888;
   width: 50%; /* Could be more or less, depending on screen size */
@@ -324,3 +343,264 @@ tr:nth-child(even){background-color: #f2f2f2}
   text-decoration: none;
   cursor: pointer;
 }
+
+
+.overlay {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  bottom: 10%;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
+  }
+}
+
+
+.bg {
+  border-radius: 12px;
+  background-color: #f8f6f6;
+  width: 480px;
+  overflow: hidden;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 40px;
+  font-family: 'Roboto';
+  margin-top: 40px;
+  
+}
+
+.cardPay {
+  
+  background-color: white;
+  width: 100%;
+  float: left;
+  margin-top: 40px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 80px 30px 25px 30px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+}
+  
+.cardPay__success {
+  
+  position: absolute;
+  top: -50px;
+  left: 145px;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  background-color: #60c878;
+  border: 5px solid white;
+  
+  i {
+    
+    color: white;
+    line-height: 100px;
+    font-size: 45px;
+    
+  }
+  
+}
+
+.cardPay__msg {
+  
+  text-transform: uppercase;
+  color: #55585b;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  
+}
+
+.cardPay__submsg {
+  
+  color: #959a9e;
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 0px;
+  
+}
+
+.cardPay__body {
+  
+  background-color: #f8f6f6;
+  border-radius: 12px;
+  width: 100%;
+  margin-top: 30px;
+  float: left;
+  box-sizing: border-box;
+  padding: 30px;
+  
+}
+
+.cardPay__avatar {
+  
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  display: inline-block;
+  margin-right: 10px;
+  position: relative;
+  top: 7px;
+  
+}
+
+.cardPay__recipient-info {
+  
+  display: inline-block;
+  
+}
+
+.cardPay__recipient {
+  
+  color: #232528;
+  text-align: left;
+  margin-bottom: 5px;
+  font-weight: 600;
+  
+}
+
+.cardPay__info {
+  
+  color: #838890;
+  text-align: left;
+  margin-top: 0px;
+  
+}
+
+.cardPay__price {
+  
+  color: #232528;
+  font-size: 70px;
+  margin-top: 25px;
+  margin-bottom: 30px;
+  
+  span {
+    
+    font-size: 60%;
+    
+  }
+  
+}
+
+.cardPay__method {
+  
+  color: #d3cece;
+  text-transform: uppercase;
+  text-align: left;
+  font-size: 11px;
+  margin-bottom: 5px;
+  
+}
+
+.cardPay__payment {
+  
+  background-color: white;
+  border-radius: 4px;
+  width: 100%;
+  height: 100px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.cardPay__credit-card {
+  
+  width: 50px;
+  display: inline-block;
+  margin-right: 15px;
+  
+}
+
+.cardPay__card-details {
+  
+  display: inline-block;
+  text-align: left;
+  
+}
+
+.cardPay__card-type {
+  
+  text-transform: uppercase;
+  color: #232528;
+  font-weight: 600;
+  font-size: 12px;
+  margin-bottom: 3px;
+  
+}
+
+.cardPay__card-number {
+  
+  color: #838890;
+  font-size: 12px;    
+  margin-top: 0px;
+  
+}
+
+.cardPay__tags {
+  
+  clear: both;
+  padding-top: 15px;
+  
+}
+
+.cardPay__tag {
+  
+  text-transform: uppercase;
+  background-color: #f8f6f6;
+  box-sizing: border-box;
+  padding: 3px 5px;
+  border-radius: 3px;
+  font-size: 10px;
+  color: #d3cece;
+  
+  
+}
+  
+  
+
+  

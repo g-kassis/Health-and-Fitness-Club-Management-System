@@ -3,19 +3,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="css/admin.css">
+    <link type="text/css" rel="stylesheet" href="css/navbar.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
 <body onload="showClassSchedule()">
 
-    <div id="navbar">
+    <div id="mySidenav" class="sidenav">
+  <a  class="closebtn" onclick="closeNav()">&times;</a>
         <a id="Booking">Room Booking</a>
         <a id="Equipment_Monitoring">Equipment Monitoring</a>
         <a id="Class_Schedule_Update" style="color: orange;">Class Schedule Update</a>
         <a id="Billing&Payment">Billing & Payment</a>
     </div>
-
+    
     <div class="mainContent">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
         <center><h2 style="margin: 7%; font-size: xx-large;">Class Schedule Update</h2></center>
 
     </div>

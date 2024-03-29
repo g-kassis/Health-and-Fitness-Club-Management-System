@@ -3,20 +3,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="css/admin.css">
+    <link type="text/css" rel="stylesheet" href="css/navbar.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
 <body onload="showRoomBooking()">
 
-    <div id="navbar">
+    <div id="mySidenav" class="sidenav">
+  <a  class="closebtn" onclick="closeNav()">&times;</a>
         <a id="Booking" style="color: orange;">Room Booking</a>
         <a id="Equipment_Monitoring">Equipment Monitoring</a>
         <a id="Class_Schedule_Update">Class Schedule Update</a>
         <a id="Billing&Payment">Billing & Payment</a>
     </div>
+    
 
     <div class="mainContent">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+        <center><h2 style="margin: 7%; font-size: xx-large;">Room Management</h2></center>
+        <div id="roomSelector">
+            <div class="pagination">
+                <a id="">&laquo;</a>
+                <a class="active" id="room1">1</a>
+                <a id="room2">2</a>
+                <a id="room3">3</a>
+                <a id="room4">4</a>
+                <a id="room5">5</a>
+                <a id="room6">6</a>
+                <a id="">&raquo;</a>
+              </div>
+        </div>
+        <div class="rowRooms">
+            <div class="columnRooms" style="background-color:white; width: 30%;">
+                <h2>Room Booking</h2>
+                <img id="roomImg" src="https://www.wbdg.org/images/fitness_5.jpg" width="100%" style="border-radius: 6px;">
+                <h3 id="roomName">Fully Fitted Gym Room</h3>
+                <p id="roomCapacity" class="roomInfo">Capacity: <p id="roomCapacityValue">20</p></p>
+                <p id="roomLayout" class="roomInfo">Layout: <p id="roomLayoutValue">240x240</p></p>
+                <p id="roomEquipment" class="roomInfo">Equipment:</p>
+                <ul id="equpmentList">
+                    <li id="equpment1">Multi-Gym</li>
+                    <li id="equpment2">Bench Press</li>
+                    <li id="equpment3">Tricep Pushdown</li>
+                    <li id="equpment4">Lat Pulldown</li>
+                    <li id="equpment5">Cardio Bike</li>
+                    <li id="equpment6">Leg Press</li>
+                </ul>
+            </div>
+            <div class="columnRooms" style="background-color:#F5F5F5;">
+              <h2>Book room for: </h2>
+              <img src="https://cdn-icons-png.flaticon.com/512/5022/5022167.png" id='boxing' class="groupFit" style="display: none;">
+              <img src="https://cdn-icons-png.flaticon.com/512/8145/8145683.png" id='football' class="groupFit" style="display: none;">
+              <img src="https://cdn-icons-png.flaticon.com/512/2264/2264829.png" id='swimming' class="groupFit" style="display: none;">
+              <img src="https://cdn-icons-png.flaticon.com/512/983/983534.png" id='cycling' class="groupFit" style="display: none;">
+              <img src="https://cdn-icons-png.flaticon.com/512/9571/9571346.png" id='strength' class="groupFit">
+              <img src="https://cdn-icons-png.flaticon.com/512/3476/3476091.png" id='crossfit' class="groupFit">
+              <img src="https://cdn-icons-png.flaticon.com/512/3867/3867817.png" id='running' class="groupFit" style="display: none;">
+              <img src="https://cdn-icons-png.flaticon.com/512/10823/10823177.png" id='basketball' class="groupFit" style="display: none;">
+              <img src="https://cdn-icons-png.flaticon.com/512/2906/2906496.png" id='yoga' class="groupFit" style="display: none;">
 
+              <h2>Book room on: </h2>
+
+
+              <center><button class="bookRoomBtn" id="bookRoomBtn">Book Room</button></center>
+            </div>
+          </div>
 
     </div>
     

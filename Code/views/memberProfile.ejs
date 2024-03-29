@@ -3,21 +3,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="css/member.css">
+    <link type="text/css" rel="stylesheet" href="css/navbar.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
 <body onload="showProfile()">
 
-    <div id="navbar">
+    <div id="mySidenav" class="sidenav">
+  <a  class="closebtn" onclick="closeNav()">&times;</a>
         <a id="profileNav" style="color: orange;">Profile</a>
         <a id="dashboardNav" >Dashboard</a>
         <a id="scheduleNav" >Schedule</a>
     </div>
+    
 
     <div class="mainContent" id="mainContent">
-        
-        <div class="profileContainer" id="profileContainer">
-            <h1 id="sectionTitle">Profile</h1>
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+            <h1 style="margin-top: 5%;" id="sectionTitle">Profile</h1>
 
             <div style="width:50%; float:left;">
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" width="300px">
@@ -86,7 +88,6 @@
             </form>
 
             <button id="saveProfile">Save</button>
-        </div>
 
     </div>
 

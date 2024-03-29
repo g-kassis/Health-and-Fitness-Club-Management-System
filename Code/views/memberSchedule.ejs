@@ -3,25 +3,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="css/member.css">
+    <link type="text/css" rel="stylesheet" href="css/navbar.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
 <body onload="showSchedule()">
 
-    <div id="navbar">
+    <div id="mySidenav" class="sidenav">
+        <a  class="closebtn" onclick="closeNav()">&times;</a>
         <a id="profileNav">Profile</a>
         <a id="dashboardNav" >Dashboard</a>
         <a id="scheduleNav" style="color: orange;">Schedule</a>
     </div>
+    
 
     <div class="mainContent" id="mainContent">
-      <div class="scheduleContainer" id="scheduleContainer">
-
         <div id="left" style="width:50%; float:left;">
-          <h1 id="title">What would you like to sign up for?</h1>
-          <button id="personalTrainingButton">Personal Training Sessions</button>
-          <button id="groupFitnessButton">Group Fitness Classes</button>
-          <div id="trainersSelection" style="display: none;">
+          <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+          <h1 id="titleT">What would you like to sign up for?</h1>
+          <div id="trainersSelection" style="display: block;">
             <img id="trainer1" name="BatmanAvatar" class="trainerAvatar" src="https://images.nightcafe.studio/jobs/48Amke79nr6OktAdkLqp/48Amke79nr6OktAdkLqp--1--gvi7p_2x.jpg?tr=w-1600,c-at_max" alt="Avatar" style="width:200px;border-radius: 50%;">
             <img id="trainer2" name="SupermanAvatar" class="trainerAvatar" src="https://storage.prompt-hunt.workers.dev/clfw24af3001qjt08bv6b0knp_1" alt="Avatar" style="width:200px;border-radius: 50%;">
             <img id="trainer3" name="Wonder-WomanAvatar" class="trainerAvatar" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ddbdd022-5484-490d-8d18-f975ab5ac08f/dfxk3ad-a988b17d-1af0-4398-968f-7f3200c64805.png/v1/fill/w_894,h_894,q_70,strp/wonder_woman_ai_generated_art__by_makethemcomealiveai_dfxk3ad-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MjA0OCIsInBhdGgiOiJcL2ZcL2RkYmRkMDIyLTU0ODQtNDkwZC04ZDE4LWY5NzVhYjVhYzA4ZlwvZGZ4azNhZC1hOTg4YjE3ZC0xYWYwLTQzOTgtOTY4Zi03ZjMyMDBjNjQ4MDUucG5nIiwid2lkdGgiOiI8PTIwNDgifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.l1nSGHYM2igEcazgZypM37huaEuDa-N2ZFXcRSs4oyk" alt="Avatar" style="width:200px;border-radius: 50%;">
@@ -29,7 +29,7 @@
             <img id="trainer5" name="ArrowAvatar" class="trainerAvatar" src="https://i.kym-cdn.com/entries/icons/original/000/016/265/grenarrow.png" alt="Avatar" style="width:200px;border-radius: 50%;">
           </div>
         </div>
-        <div id="right" style="width:50%; float:right; display: none;" >
+        <div id="right" style="width:50%; float:right; display: block;" >
           <h1 id="title">Your Currently Scheduled Sessions:</h1>
           <table class="profileTable">
             <tr class="table_header">
@@ -149,12 +149,53 @@
               </tr>
             </table>
             <br>
-            <div id="innerModal" class="modal">
-              <div class="innerModalContent">
-                <span class="closeInner">&times;</span>
-                <h1 id="innerModalTitle">Edit</h1>
-                <button type="submit" id="addBtn" class="addBtn">Book Personal Training </button>
-                <button type="submit" id="addBtn" class="addBtn">Book Group Fitness </button>
+            <div id="myNav" class="overlay">
+              <div class="overlay-content">
+                <a  class="closebtn">&times;</a>
+                <h1 id="innerModalTitle" style="color: white;">Edit</h1>
+
+                <div class="bg">
+  
+                  <div class="cardPay">
+                    
+                    <span class="cardPay__success"><i class="ion-checkmark"></i></span>
+                    
+                    <h1 class="cardPay__msg">Confirm Payement</h1>
+                    <h2 class="cardPay__submsg"></h2>
+                    
+                    <div class="cardPay__body">
+                      
+                      <div class="cardPay__recipient-info">
+                        <p id="userInfo" class="cardPay__recipient">Fname Lname</p>
+                        <p id="bookingInfo" class="cardPay__info">Session: </p>
+                        <p id="trainerInfo" class="cardPay__info">Trainer: </p>
+                        <p id="dateInfo" class="cardPay__info">Date: </p>
+                      </div>
+                      
+                      <h1 class="cardPay__price"><span>$</span><span id="price">50</span><span>.00</span></h1>
+                      
+                      <p class="cardPay__method">Payment method</p>
+                      <div class="cardPay__payment">
+                        <img src="https://seeklogo.com/images/V/VISA-logo-F3440F512B-seeklogo.com.png" class="cardPay__credit-card">
+                        <div class="cardPay__card-details">
+                          <p class="cardPay__card-type">Credit / debit card</p>
+                          <p class="cardPay__card-number">Visa ending in **89</p>          
+                        </div>
+                      </div>
+                      
+                    </div>
+                    
+                    <div class="cardPay__tags">
+       
+                    </div>
+                    
+                  </div>
+                  
+                </div>
+
+                <br>
+                <center><button type="submit" id="addBtn" class="addBtn">Book Personal Training </button></center>
+                <center><button type="submit" id="addGroupBtn" class="addBtn">Book Group Fitness </button></center>
               </div>
             </div>
           </div>

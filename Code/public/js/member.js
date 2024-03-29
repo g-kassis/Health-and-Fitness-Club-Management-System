@@ -92,11 +92,12 @@ function showSchedule(){
     
   console.log('schedule: '.concat(getUsername()))
   if(window.location.href.includes('/memberSchedule'+ window.location.search)){
+    personalTrainingSession()
 
   }else{
     //to redirect to schedule page (if not there already)
     window.location.href = '/memberSchedule'+ window.location.search
-
+    
   }
 
 }
@@ -110,7 +111,6 @@ function updateProfile(){
     data.lname = document.getElementById('lname').value
     data.age = document.getElementById('age').value
     data.gender = document.getElementById('gender').value
-    data.country = document.getElementById('country').value
 
     data.weightGoal = document.getElementById('weightGoal').value
     data.muscleGoal = document.getElementById('muscleGoal').value
@@ -249,21 +249,8 @@ function updateMemberSessions(SessionData){
 //displays and gets current scheduled sessions
 function personalTrainingSession(){
 
-  //hides buttons and updates title
-  let personalTrainingButton = document.getElementById('personalTrainingButton')
-  personalTrainingButton.style.display = 'none'
-  let groupFitnessButton = document.getElementById('groupFitnessButton')
-  groupFitnessButton.style.display = 'none'
-  let title = document.getElementById('title')
+  let title = document.getElementById('titleT')
   title.innerHTML = "Please Select your Trainer: "
-
-
-  //shows the trainers to choose from
-  let trainerSelector = document.getElementById('trainersSelection')
-  trainerSelector.style.display = 'block'
-
-  let currentScheduledSessions = document.getElementById('right')
-  currentScheduledSessions.style.display = 'block'
 
 
   let data = Object()
@@ -360,33 +347,52 @@ function selectTrainer(trainer){
 
 }
 
-function openInnerModal(slot){
+function openInnerModal(slot, trainer){
   //console.log(slot)
 
   //if slot is available
   if(slot.innerHTML == ''){
     //opens modal
-    let modal = document.getElementById('innerModal')
-    modal.style.display = "block";
+    document.getElementById("myNav").style.width = "100%"
     //sets the modal title to the box clicked
     let title = document.getElementById('innerModalTitle')
     title.innerHTML = 'Book Personal Training Session on ' + slot.className;
 
+    document.getElementById("userInfo").innerHTML = getUsername()
+    document.getElementById("bookingInfo").innerHTML ='Session: Personal Training Session'
+    document.getElementById("dateInfo").innerHTML = 'Time: '+ slot.className + amORpm(slot.className.substring(4,slot.className.length))
+    document.getElementById("trainerInfo").innerHTML = 'Trainer: '+ trainer
+    document.getElementById("price").innerHTML = '75'
+        
+    //hides the group fitness button
+    document.getElementById('addGroupBtn').style.display = 'none'
+    //shows the personal fitness button
+    document.getElementById('addBtn').style.display = 'block'
+
   }else if (slot.innerHTML.includes('Group Fitness')){
     //opens modal
-    let modal = document.getElementById('innerModal')
-    modal.style.display = "block";
+    document.getElementById("myNav").style.width = "100%"
     //sets the modal title to the box clicked
     let title = document.getElementById('innerModalTitle')
     title.innerHTML = 'Book Group Fitness - on ' + slot.className;
+
+    document.getElementById("userInfo").innerHTML = getUsername()
+    document.getElementById("bookingInfo").innerHTML ='Session: Group Fitness Session'
+    document.getElementById("dateInfo").innerHTML = 'Time: '+ slot.className +amORpm(slot.className.substring(4,slot.className.length))
+    document.getElementById("trainerInfo").innerHTML = 'Trainer: '+ trainer
+    document.getElementById("price").innerHTML = '50'
+    //shows the group fitness button
+    document.getElementById('addGroupBtn').style.display = 'block'
+    //hides the personal fitness button
+    document.getElementById('addBtn').style.display = 'none'
+
+
 
 
   }else{
     //slot not available (do nothing)
   }
 
-  
-  
 
 }
 
@@ -416,10 +422,11 @@ function amORpm(t){
 }
 
 //updates trainer schedule with new member personal session
-function bookWithTrainer(slot){
-  let trainer = slot.parentNode.parentNode.parentNode.children[2].children[0].children[2].children[2].getAttribute('Name')
-  let dateTime = slot.parentNode.children[1].innerHTML.replace('Book Personal Fitness Session on ','')
-  //console.log(dateTime)
+function bookWithTrainer(slot, sessionType){
+  let trainer = slot.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[2].children[2].getAttribute('Name')
+  let dateTime = slot.parentNode.parentNode.children[1].innerHTML.replace('Book Personal Training Session on ','')
+  console.log(dateTime)
+  
 
   //adds to gui schedule
   document.getElementsByClassName(dateTime).scheduleSlot.innerHTML = getUsername()
@@ -430,7 +437,8 @@ function bookWithTrainer(slot){
     data.day = dateTime.substring(0,3).toLowerCase()
     data.time = dateTime.substring(4,dateTime.length) + amORpm(dateTime.substring(4,dateTime.length))
     data.newData = getUsername() //takes members username
-
+    data.typeOfSession = sessionType
+    data.cancel = false
   //console.log(data)
 
   let xhttp = new XMLHttpRequest()
@@ -452,12 +460,11 @@ function bookWithTrainer(slot){
   xhttp.send(JSON.stringify(data))
 
   //closes the inner modal
-  let modal = document.getElementById('innerModal')
-  modal.style.display = "none";
+  document.getElementById("myNav").style.width = "0%"
 
 }
 
-function cancelBooking(booking){
+function cancelBooking(booking, sessionType){
   console.log('deleting: '+booking)
   let bookingData = booking.split('-')
   let data = Object()
@@ -465,6 +472,8 @@ function cancelBooking(booking){
     data.time = bookingData[1]
     data.username = bookingData[2] //trainer
     data.newData = ''
+    data.typeOfSession = sessionType
+    data.cancel = true
   console.log(data)
 
   //sends data to server for update/deletion from schedules and sessions
@@ -494,10 +503,13 @@ function cancelBooking(booking){
 
 //--------------------------------------------------------------group fitness---------------------------------------------
 
-function groupFitnessSession(){
-  
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
 }
 
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
 
 //event handlers for member
 
@@ -516,16 +528,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  document.addEventListener('click',function(e){
-    if(e.target && e.target.id== 'groupFitnessButton'){
-      groupFitnessSession();
-    }
-  });
+
 
   //the cancel button inside the table to delete a slot
   document.addEventListener('click',function(e){
     if(e.target && e.target.className== 'cancelBookingBtn'){
-      cancelBooking(e.target.parentNode.id);
+      cancelBooking(e.target.parentNode.id, 'personal');
     }
   }); 
 
@@ -558,22 +566,36 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('click',function(e){
     if(e.target && e.target.id== 'scheduleSlot'){
       
-      openInnerModal(e.target);
+      openInnerModal(e.target, e.target.getAttribute('name'));
     }
   }); 
 
   //x in top right to close inner modal
   document.addEventListener('click',function(e){
-    if(e.target && e.target.className== 'closeInner'){
-      let modal = document.getElementById('innerModal')
-      modal.style.display = "none";
+    if(e.target && e.target.className== 'closebtn'){
+      document.getElementById("myNav").style.width = "0%"
+    }
+  }); 
+
+  // When the user clicks anywhere outside of the inner modal content, close it
+  document.addEventListener('click',function(e){
+    if(e.target && e.target.className== 'overlay-content'){
+      document.getElementById("myNav").style.width = "0%"
     }
   }); 
 
    //the add button inside the inner modal to book a slot
    document.addEventListener('click',function(e){
     if(e.target && e.target.id== 'addBtn'){
-        bookWithTrainer(e.target);
+        bookWithTrainer(e.target, 'personal');
+    }
+  }); 
+
+  //achievements clicks
+  document.addEventListener('click',function(e){
+    if(e.target && e.target.className== 'fitnessAchievement'){
+      var popup = document.getElementById("myPopup");
+      popup.classList.toggle("show");
     }
   }); 
 
