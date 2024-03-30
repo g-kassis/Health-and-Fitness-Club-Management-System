@@ -328,10 +328,12 @@ function setUnavailable(){
 
 function openNav() {
   document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById('mainContent').style.paddingLeft = '250px'
 }
 
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
+  document.getElementById('mainContent').style.paddingLeft = '0px'
 }
 
 
@@ -354,11 +356,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }); 
 
-    document.addEventListener('click',function(e){
-      if(e.target && e.target.className== 'closebtn'){
-        document.getElementById("myNav").style.width = "0%"
-      }
-    });
+
     
     //the clear button inside the modal to clear a slot
     document.addEventListener('click',function(e){

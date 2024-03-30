@@ -504,11 +504,14 @@ function cancelBooking(booking, sessionType){
 //--------------------------------------------------------------group fitness---------------------------------------------
 
 function openNav() {
+  document.getElementById('mainContent').style.paddingLeft = '250px'
   document.getElementById("mySidenav").style.width = "250px";
+  
 }
 
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
+  document.getElementById('mainContent').style.paddingLeft = '0px'
 }
 
 //event handlers for member

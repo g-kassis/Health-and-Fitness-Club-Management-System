@@ -1,5 +1,11 @@
 body{
     margin: 0;
+    background-image: url('https://miro.medium.com/v2/resize:fit:960/1*9H3DLtOMUiIplPXnJ0_UKQ.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: black;
 }
 
 
@@ -7,11 +13,18 @@ body{
 
   /*mainContent*/
   .mainContent{
-    margin-left: 10%;
-    margin-right: 10%;
+    color: white;
+    margin-left: 20px;
+    margin-right: 20px;
     margin-top: 1%;
     margin-bottom: 10%;
+    padding: 20px;
+    padding-left: 250px;
+    
+    
   }
+
+
 
   #searchBar{
     width: 100%;
@@ -25,8 +38,14 @@ body{
   }
 
   .profileTable{
-    width: 100%;
-    font-family: 'lato', sans-serif;
+    width: 82vw;
+    height: 82vh;
+    background: rgba(black, 0.5);;
+    text-align: center;
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+    color: white;
+    overflow: hidden;
   }
 
   .table_header {
@@ -36,7 +55,8 @@ body{
     justify-content: space-between;
     margin-bottom: 25px;
 
-    background-color: #95A5A6;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.03em;
@@ -44,46 +64,55 @@ body{
 
 
   .row{
-    border-radius: 3px;
+    border-radius: 7px;
     padding: 25px 30px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
 
-    background-color: #ffffff;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.8);
     box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
     transition: transform .2s;
   }
 
   .row:hover{
-    background-color: #c0c0c0;
-    transform: scale(1.1);
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 1);
+    color: orange;
     cursor: pointer;
   }
 
   /*---------------------------------------------------------Schedule Management--------------------------------------------------------------------------*/
 
   #schedule {
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-    border: 1px solid #ddd;
+    width: 82vw;
+    height: 82vh;
+    background: rgba(black, 0.5);;
+    text-align: center;
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+    color: white;
+    overflow: hidden;
   }
   
   #scheduleTime, #scheduleDay {
-    background-color: rgb(161, 161, 161);
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
     padding: 16px;
     
   }
 
   #scheduleSlot{
-    background-color: rgb(219, 219, 219);
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.8);
     
 
   }
 
   #scheduleSlot:hover{
     background-color: orange;
+    color: black;
     transform: scale(1.1);
     cursor: pointer;
   }
@@ -194,3 +223,15 @@ body{
     background-color: #cc1f01;
     transform: translateY(4px);
   }
+
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td{
+  padding: 1rem;
+  text-align: center;
+}
+

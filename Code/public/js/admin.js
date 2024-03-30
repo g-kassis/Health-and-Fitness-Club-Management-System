@@ -97,18 +97,6 @@ function displayMembers(profiles){
 
       //info list
       let list = document.createElement('ul')
-      let usernameEntry = document.createElement('li')
-      usernameEntry.innerHTML = 'Username: ' + profiles[i].username;
-      let firstNameEntry = document.createElement('li')
-      firstNameEntry.innerHTML = 'First Name: ' + profiles[i].first_name;
-      let lastNameEntry = document.createElement('li')
-      lastNameEntry.innerHTML = 'Last Name: ' + profiles[i].last_name;
-      let Entry = document.createElement('li')
-      list.appendChild(usernameEntry)
-      list.appendChild(firstNameEntry)
-      list.appendChild(lastNameEntry)
-      list.appendChild(Entry)
-
       panel.appendChild(list)
       
 
@@ -170,12 +158,21 @@ function displayMembers(profiles){
         table.appendChild(row);
       }
 
-      let total = document.createElement('p')
+      let total = document.createElement('h2')
       total.innerHTML = 'Total: $' + calculateTotal(amounts)
+      total.style.float = 'right'
+
+      let processButton = document.createElement('button')
+      processButton.id = 'process' + profiles[i].username
+      processButton.className = 'processButton'
+      processButton.style.float = 'left'
+      processButton.innerHTML = 'Process Payment'
+
       
       panel.appendChild(list)
       panel.appendChild(table)
       panel.appendChild(total)
+      panel.appendChild(processButton)
       amounts = []
       
     }
@@ -262,22 +259,87 @@ function maintainEquipment(equipmentName){
 
 
 function roomChange(roomID){
-
+  
   let roomImg = document.getElementById('roomImg')
   let roomName = document.getElementById('roomName')
-  let roomCapcity = document.getElementById('roomCapcity')
-  let roomLayout = document.getElementById('roomLayout')
+  let roomCapcity = document.getElementById('roomCapcityValue')
+  let roomLayout = document.getElementById('roomLayoutValue')
   let roomEquipment1 = document.getElementById('roomEquipment1')
+  let roomEquipment2 = document.getElementById('roomEquipment2')
+  let roomEquipment3 = document.getElementById('roomEquipment3')
+  let roomEquipment4 = document.getElementById('roomEquipment4')
+  let roomEquipment5 = document.getElementById('roomEquipment5')
+  let roomEquipment6 = document.getElementById('roomEquipment6')
+
+  if(roomID == 'room1'){
+
+    roomImg.src = 'https://www.wbdg.org/images/fitness_5.jpg'
+    roomName.innerHTML = 'Fully Fitted Gym Room'
+    roomCapcity.innerHTML = '20'
+    roomLayout.innerHTML = '240x240'
+    roomEquipment1.innerHTML = 'Multi-Gym'
+    roomEquipment2.innerHTML = 'Bench Press'
+    roomEquipment3.innerHTML = 'Tricep Pushdown'
+    roomEquipment4.innerHTML = 'Lat Pulldown'
+    roomEquipment5.innerHTML = 'Cardio Bike'
+    roomEquipment6.innerHTML = 'Leg Press'
+
+
+  }else if(roomID == 'room2'){
+
+    roomImg.src = 'https://blog.anytimefitness.co.uk/wp-content/uploads/2019/01/treadmills-800x400.jpg'
+    roomName.innerHTML = ''
+    roomCapcity.innerHTML = ''
+    roomLayout.innerHTML = ''
+    roomEquipment1.innerHTML =''
+
+  }else if(roomID == 'room3'){
+
+    roomImg.src = ''
+    roomName.innerHTML = ''
+    roomCapcity.innerHTML = ''
+    roomLayout.innerHTML = ''
+    roomEquipment1.innerHTML =''
+    
+  }else if(roomID == 'room4'){
+
+    roomImg.src = ''
+    roomName.innerHTML = ''
+    roomCapcity.innerHTML = ''
+    roomLayout.innerHTML = ''
+    roomEquipment1.innerHTML =''
+    
+  }else if(roomID == 'room5'){
+
+    roomImg.src = ''
+    roomName.innerHTML = ''
+    roomCapcity.innerHTML = ''
+    roomLayout.innerHTML = ''
+    roomEquipment1.innerHTML =''
+    
+  }else if(roomID == 'room6'){
+
+    roomImg.src = ''
+    roomName.innerHTML = ''
+    roomCapcity.innerHTML = ''
+    roomLayout.innerHTML = ''
+    roomEquipment1.innerHTML =''
+    
+  }
+
+  
 
 }
 
 
 function openNav() {
   document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById('mainContent').style.paddingLeft = '250px'
 }
 
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
+  document.getElementById('mainContent').style.paddingLeft = '0px'
 }
 
 
@@ -297,6 +359,13 @@ document.addEventListener('DOMContentLoaded', function() {
         bill(e.target);
       }
     }); 
+
+    document.addEventListener('click',function(e){
+      if(e.target && e.target.id.includes('room')){
+        roomChange(e.target.id);
+      }
+    }); 
+
 
   
     document.getElementById('Booking').addEventListener('click', showRoomBooking)

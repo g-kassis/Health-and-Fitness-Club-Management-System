@@ -1,16 +1,25 @@
 body{
-    margin: 0;
+  margin: 0;
+  background-image: url('https://miro.medium.com/v2/resize:fit:960/1*9H3DLtOMUiIplPXnJ0_UKQ.jpeg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: black;
 }
+
 
 
 /*----------main content div----------*/
 .mainContent{
-  margin-left: 10%;
-  margin-right: 10%;
+  color: white;
+  margin-left: 20px;
+  margin-right: 20px;
   margin-top: 1%;
   margin-bottom: 10%;
+  padding: 20px;
+  padding-left: 250px;
 }
-
 /*----------equpment sections----------*/
 
 .equipmentRow {
@@ -69,41 +78,7 @@ body{
 }
 
 
-/*-----------------------table showing members--------------------------*/
 
-
-
-.profileTable{
-    width: 100%;
-    font-family: 'lato', sans-serif;
-  }
-
-.table_header {
-  border-top: 2px solid red;
-  border-bottom: 2px solid red;
-  border-left: 0px;
-  border-right: 0px;
-  padding: 25px 30px;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 25px;
-
-  background-color: transparent;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
-
-.table_row{
-  border-radius: 3px;
-  padding: 25px 30px;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 25px;
-
-  background-color: #ffffff;
-}
 
 
 /*-----------------------------------invoice open --------------------------------------*/
@@ -111,8 +86,10 @@ body{
 
 /* Style the buttons that are used to open and close the accordion panel */
 .accordion {
-  background-color: #eee;
-  color: #444;
+  font-size: x-large;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.8);
+  color: white;
   cursor: pointer;
   padding: 18px;
   width: 100%;
@@ -124,30 +101,82 @@ body{
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .accordion:hover {
-  background-color: #ccc;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  color: orange;
 }
 
 /* Style the accordion panel. Note: hidden by default */
 .panel {
   padding: 0 18px;
-  background-color: white;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  color: white;
   display: none;
   overflow: hidden;
+}
+
+
+/*-----------------------table showing members--------------------------*/
+
+
+
+.profileTable{
+  width: 100%;
+    height: 40vh;
+    background: rgba(black, 0.5);;
+    text-align: center;
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+    color: white;
+    overflow: hidden;
+}
+
+.table_header {
+border-top: 2px solid orange;
+border-bottom: 2px solid orange;
+border-left: 0px;
+border-right: 0px;
+padding: 25px 30px;
+display: flex;
+justify-content: space-between;
+margin-bottom: 25px;
+color: white;
+background-color: transparent;
+font-size: 14px;
+text-transform: uppercase;
+letter-spacing: 0.03em;
+}
+
+
+.table_row{
+border-radius: 3px;
+padding: 25px 30px;
+display: flex;
+justify-content: space-between;
+margin-bottom: 25px;
+color: black;
+background-color: #ffffff;
+}
+
+.processButton{
+
 }
 
 /*------------------------------------------------------------------Room Management------------------------------------------------------------------------------------------------------*/
 #roomSelector{
   height: 50px;
   padding-left: 40%;
-  background-color: #F5F5F5;
-  border: solid 3px #e7e7e7;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
   border-radius: 12px;
   margin-bottom: 2%;
+  color: white;
+
 }
 
 /* Pagination links */
 .pagination a {
-  color: black;
   float: left;
   margin-top: 8px;
   padding: 8px 16px;
@@ -168,16 +197,18 @@ body{
 /* Create three equal columns that floats next to each other */
 .columnRooms {
   float: left;
+  background-color: transparent;
   width: 67.35%;
   padding: 10px;
-  height: 100%; /* Should be removed. Only for demonstration */
+  
 }
 
 /* Clear floats after the columns */
 .rowRooms{
   width: 100%;
-  border: solid 3px #F5F5F5;
   border-radius: 12px;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
 }
 
 .rowRooms:after {
