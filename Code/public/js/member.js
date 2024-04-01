@@ -31,7 +31,6 @@ function showProfile(){
           document.getElementById('weightGoal').value = responseObj[0].weight_goal
           document.getElementById('muscleGoal').value = responseObj[0].muscle_goal
           document.getElementById('enduranceGoal').value = responseObj[0].endurance_goal
-          document.getElementById('flexibilityGoal').value = responseObj[0].flexibility_goal
       
           document.getElementById('weightMetric').value = responseObj[0].weight
           document.getElementById('heightMetric').value = responseObj[0].height
@@ -56,28 +55,35 @@ function showDashboard(){
     
   console.log('dashboard: '.concat(getUsername()))
   if(window.location.href.includes('/memberDashboard'+ window.location.search)){
-    // let data = Object()
-    // data.username = getUsername()
+    let data = Object()
+    data.username = getUsername()
 
 
-    // let xhttp = new XMLHttpRequest()
-    // xhttp.onreadystatechange = function() {
-    //   if (this.readyState == 4 && this.status == 200) {
-    //     //console.log("data: " + this.responseText)
+    let xhttp = new XMLHttpRequest()
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        //console.log("data: " + this.responseText)
 
-    //     let responseObj = JSON.parse(this.responseText)
-    //     if(responseObj){
-    //       console.log(responseObj[0])
-    //       document.getElementById('sectionTitle').innerHTML =  responseObj[0].first_name+"'s Dashboard"
-          
-    //     }else{
-    //       console.log('User Does not Exists')
-    //     }
-    //   }
-    // }
-    // xhttp.open("POST", "/getDashboardData") 
-    // xhttp.setRequestHeader("Content-Type", "application/json");
-    // xhttp.send(JSON.stringify(data))
+        let responseObj = JSON.parse(this.responseText)
+        if(responseObj){
+          console.log(responseObj[0])
+          //stats
+          document.getElementById('avgWeightValue').innerHTML =  Math.round(responseObj[0].average_weight) + ' lbs'
+          document.getElementById('avgHeightValue').innerHTML =  Math.round(responseObj[0].average_height) + ' cm'
+
+          //goals
+          document.getElementById('avgWeightGoal').innerHTML =  Math.round(responseObj[0].average_weight_goal) + ' lbs' 
+          document.getElementById('avgMuscleGoal').innerHTML =  Math.round(responseObj[0].average_muscle_goal) + ' lbs'
+          document.getElementById('avgEnduranceGoal').innerHTML =  Math.round(responseObj[0].average_endurance_goal) + ' km/h'
+          //document.getElementById('sectionTitle').innerHTML =  responseObj[0].first_name
+        }else{
+          console.log('User Does not Exists')
+        }
+      }
+    }
+    xhttp.open("POST", "/getDashboardData") 
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(data))
 
   }else{
     //to redirect to dashboard page (if not there already)

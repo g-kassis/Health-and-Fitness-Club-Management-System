@@ -6,11 +6,11 @@ INSERT INTO members (username, passwrd, first_name, last_name, age, gender, numG
 INSERT INTO members (username, passwrd, first_name, last_name, age, gender, numGroupFitness, numPersonalSessions) VALUES ('user5', 'hulk', 'Bruce', 'Banner', '32', 'Male', 0, 0);
 
 --members fitness goals and health metrics
-INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal, flexibility_goal) VALUES ('user1', 'Gain', 'Gain', 'Gain', 'Maintain');
-INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal, flexibility_goal) VALUES ('user2', 'Gain', 'Gain', 'Gain', 'Gain');
-INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal, flexibility_goal) VALUES ('user3', 'Lose', 'Maintain', 'Gain', 'Maintain');
-INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal, flexibility_goal) VALUES ('user4', 'Gain', 'Gain', 'Gain', 'Gain');
-INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal, flexibility_goal) VALUES ('user5', 'Gain', 'Gain', 'Maintain', 'Gain');
+INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user1', 250, 10, 12);
+INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user2', 600, 5, 6);
+INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user3', 150, 10, 10);
+INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user4', 210, 15, 15);
+INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user5', 120, 8, 8);
 
 INSERT INTO healthMetrics (username, weight, height) VALUES ('user1', 225, 185);
 INSERT INTO healthMetrics (username, weight, height) VALUES ('user2', 640, 198);

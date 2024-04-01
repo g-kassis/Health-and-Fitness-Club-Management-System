@@ -1,6 +1,6 @@
 body{
   margin: 0;
-  background-image: url('https://miro.medium.com/v2/resize:fit:960/1*9H3DLtOMUiIplPXnJ0_UKQ.jpeg');
+  background-image: url('https://png.pngtree.com/background/20230519/original/pngtree-an-old-gym-setting-with-dumbbells-picture-image_2667256.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
@@ -67,27 +67,25 @@ input[type=text] {
 /* Create two unequal columns that floats next to each other */
 /* Left column */
 .leftcolumn {   
+  border-radius: 12px;
   float: left;
   width: 70%;
 }
 
 /* Right column */
 .rightcolumn {
+  border-radius: 12px;
   float: left;
   width: 25%;
   padding-left: 20px;
 }
 
-/* Fake image */
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
-}
 
 /* Add a card effect for articles */
 .card {
-   background-color: white;
+  border-radius: 12px;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.8);
    padding: 20px;
    margin-top: 20px;
 }
@@ -142,6 +140,7 @@ input[type=text] {
   visibility: visible;
 }
 
+
 #statsTable{
   background-color: white;
   border-radius: 12px;
@@ -161,6 +160,55 @@ input[type=text] {
   background-color: white;
   border-radius: 12px;
 }
+
+
+/* Float four columns side by side */
+.columnStats {
+  float: left;
+  width: 100%;
+  padding: 0 5px;
+  margin-bottom: 2%;
+  
+  
+}
+
+.rowStats {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.rowStats:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .columnStats {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+
+/* Style the counter cards */
+.cardStats {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #444;
+  color: white;
+  border-radius: 10px;
+  margin-right: 8px;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.6);
+}
+
+.cardStats:hover{
+  color: orange;
+  cursor: pointer;
+}
+
+.fa {font-size:50px;}
 
 
 

@@ -5,6 +5,9 @@
     <link type="text/css" rel="stylesheet" href="css/member.css">
     <link type="text/css" rel="stylesheet" href="css/navbar.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+
 </head>
 
 <body onload="showDashboard()">
@@ -30,7 +33,39 @@
                         Whether you're hitting the gym or working out at home, our dashboard helps you stay organized and focused on your fitness goals. 
                         Let's get moving towards a healthier, stronger you!
                     </p>
-                    <div class="fakeimg" style="height:200px;"></div>
+                    <div class="rowStats">
+                        <div class="columnStats" style="width: 24%;">
+                          <div class="cardStats">
+                            <p><i class="fa fa-street-view"></i></p>
+                            <h3 id="exercise1"></h3>
+                            <p>Average Weight</p>
+                          </div>
+                        </div>
+                      
+                        <div class="columnStats" style="width: 24%;">
+                          <div class="cardStats">
+                            <i class="fa fa-child"></i>
+                            <h3 id="exercise2"></h3>
+                            <p>Average Height</p>
+                          </div>
+                        </div>
+                        
+                        <div class="columnStats" style="width: 24%;">
+                          <div class="cardStats">
+                            <i class="fa fa-trophy"></i>
+                            <h3 id="exercise3"></h3>
+                            <p>Average Weight Goal</p>
+                          </div>
+                        </div>
+                        
+                        <div class="columnStats" style="width: 24%;">
+                          <div class="cardStats">
+                            <i class="fa fa-trophy"></i>
+                            <h3 id="exercise4"></h3>
+                            <p>Average Muscle Goal</p>
+                          </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card">
                     <h3>Fitness Achievements</h3>
@@ -101,28 +136,66 @@
             <div class="rightcolumn">
                 <div class="card">
                     <h3>Health Statistics</h3>
-                    <p>
-                        Explore your Health Statistics on your Dashboard, where you'll find a detailed overview of your vital metrics. 
-                        Stay informed, stay motivated.
-                    </p>
-                    <table id="statsTable" style="height: 100%; border-radius: 12px;">
-                        <tr>
-                            <td>Peter</td>
-                            <td>Griffin</td>
-                        </tr>
-                        <tr>
-                            <td>Peter</td>
-                            <td>Griffin</td>
-                        </tr>
-                        <tr>
-                            <td>Lois</td>
-                            <td>Griffin</td>
-                        </tr>
-                        <tr>
-                            <td>Joe</td>
-                            <td>Swanson</td>
-                        </tr>
-                    </table>
+
+                    <div class="rowStats">
+                        <div class="columnStats">
+                          <div class="cardStats">
+                            <p><i class="fa fa-street-view"></i></p>
+                            <h3 id="avgWeightValue"></h3>
+                            <p>Average Weight</p>
+                          </div>
+                        </div>
+                      
+                        <div class="columnStats">
+                          <div class="cardStats">
+                            <i class="fa fa-child"></i>
+                            <h3 id="avgHeightValue"></h3>
+                            <p>Average Height</p>
+                          </div>
+                        </div>
+                        
+                        <div class="columnStats" style="width: 47%; float: left; padding-right: 0;">
+                          <div class="cardStats">
+                            <i class="fa fa-trophy"></i>
+                            <h3 id="avgWeightGoal"></h3>
+                            <p>Average Weight Goal</p>
+                          </div>
+                        </div>
+                        
+                        <div class="columnStats" style="width: 47%; float: right; padding-left: 0; padding-right: 0%;">
+                          <div class="cardStats">
+                            <i class="fa fa-trophy"></i>
+                            <h3 id="avgMuscleGoal"></h3>
+                            <p>Average Muscle Goal</p>
+                          </div>
+                        </div>
+
+                        <div class="columnStats">
+                            <div class="cardStats">
+                                <i class="fa fa-trophy"></i>
+                              <h3 id="avgEnduranceGoal"></h3>
+                              <p>Average Endurance Goal</p>
+                            </div>
+                          </div>
+                          
+                          <br>
+                        <h3 style="padding-top: 90%;">Extra Statistics</h3>
+                        <div class="columnStats">
+                            <div class="cardStats">
+                                <p><i class="fa fa-user"></i></p>
+                              <h3 id="numberOfMembers"></h3>
+                              <p>Enrolled Members</p>
+                            </div>
+                          </div>
+
+                          <div class="columnStats">
+                            <div class="cardStats">
+                                <i class="fa fa-group"></i>
+                              <h3>5+</h3>
+                              <p>Group Fitness Classes</p>
+                            </div>
+                          </div>
+                      </div>
                 </div>
             </div>
         </div>

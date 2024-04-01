@@ -64,7 +64,6 @@ app.post('/getProfileData', async (request, response) => {
           fg.weight_goal,
           fg.muscle_goal,
           fg.endurance_goal,
-          fg.flexibility_goal,
           hm.weight,
           hm.height
       FROM 
@@ -124,11 +123,20 @@ app.post('/getDashboardData', async (request, response) => {
   console.log(request.body);
 
   try {
-      // Connect to the PostgreSQL database using a connection pool
-      // await client.connect();
+      
 
-      // Execute the provided query with parameterized query
-      const result = await client.query('SELECT username, passwrd, first_name, last_name FROM members WHERE username = $1', [request.body.username]);
+      const result = await client.query(`
+      SELECT 
+        AVG(hm.weight) AS average_weight,
+        AVG(hm.height) AS average_height,
+        AVG(fg.weight_goal) AS average_weight_goal,
+        AVG(fg.muscle_goal) AS average_muscle_goal,
+        AVG(fg.endurance_goal) AS average_endurance_goal
+      FROM 
+        healthMetrics hm
+      JOIN 
+        fitnessGoals fg ON hm.username = fg.username;`)
+
       console.log(result.rows);
 
       if (result.rows.length !== 0) {
@@ -415,6 +423,61 @@ app.post('/getAllMembers', async (request, response) => {
   
 });
 
+app.post('/createEvent', async (request, response) => {
+  console.log('createEvent');
+
+  try {
+      // Connect to the PostgreSQL database using a connection pool
+ 
+
+      result = await client.query('INSERT INTO currentEvents (roomID, dayBooked, timeBooked, event, trainer) VALUES ($1, $2, $3, $4, $5)', [0, request.body.day, request.body.time, request.body.newData, request.body.username]);
+
+
+      console.log(result.rows);
+
+      if (result.rows.length == 0) {
+        response.status(200).json(result.rows);
+      }else{
+        response.status(200).json(false); 
+          
+      }
+  } catch (error) {
+      // Handle errors
+      console.error('Error executing database query:', error);
+      response.status(500).json({ success: false, error: 'Internal Server Error' });
+  } 
+  
+  
+});
+
+app.post('/getCurrentlyScheduledEvents', async (request, response) => {
+  console.log('Get Events');
+
+  try {
+      // Connect to the PostgreSQL database using a connection pool
+ 
+
+      result = await client.query('SELECT * FROM currentEvents');
+
+
+      console.log(result.rows);
+
+      if (result.rows.length != 0) {
+        response.status(200).json(result.rows);
+      }else{
+        response.status(200).json(false); 
+          
+      }
+  } catch (error) {
+      // Handle errors
+      console.error('Error executing database query:', error);
+      response.status(500).json({ success: false, error: 'Internal Server Error' });
+  } 
+  
+  
+});
+
+
 
 //------------------------------------------------------------------------------------------------
 
@@ -472,7 +535,7 @@ app.post('/registration', async (request, response) => {
         //adds member to members table
         await client.query('INSERT INTO members (username, passwrd, first_name, last_name, numGroupFitness, numPersonalSessions) VALUES ($1, $2, $3, $4)', [request.body.username, request.body.password, request.body.fname, request.body.lname, 0, 0]);
         //adds member to healthMetrics table and fitnessGoals
-        await client.query('INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal, flexibility_goal) VALUES ($1, $2, $3, $4, $5)',[request.body.username,'Gain','Maintain','Lose','Maintain']);
+        await client.query('INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal) VALUES ($1, $2, $3, $4, $5)',[request.body.username,160,10,7]);
         await client.query('INSERT INTO healthMetrics (username, weight, height) VALUES ($1, $2, $3)',[request.body.username,140,175]);
 
         //creates sessions table and adds time

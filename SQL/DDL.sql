@@ -14,10 +14,9 @@ CREATE TABLE members(
 
 CREATE TABLE fitnessGoals(
 	username VARCHAR(50),
-	weight_goal VARCHAR(15),
-	muscle_goal VARCHAR(15),
-	endurance_goal VARCHAR(15),
-	flexibility_goal VARCHAR(15),
+	weight_goal INT,
+	muscle_goal INT,
+	endurance_goal INT,
 	FOREIGN KEY (username) REFERENCES members(username)
 );
 
@@ -158,4 +157,27 @@ CREATE TABLE admins(
 	first_name VARCHAR(50),
 	last_name VARCHAR(50)
 
-)
+);
+
+
+CREATE TABLE rooms(
+	roomID INT,
+	capacity INT,
+	layout VARCHAR(20),
+	equipment VARCHAR(100),
+	dayBooked VARCHAR(5),
+	timeBooked VARCHAR(5),
+	trainer VARCHAR(50),
+	event VARCHAR(50),
+	FOREIGN KEY (trainer) REFERENCES trainers(username)
+);
+
+CREATE TABLE currentEvents(
+	roomID INT,
+	dayBooked VARCHAR(5),
+	timeBooked VARCHAR(5),
+	event VARCHAR(50),
+	trainer VARCHAR(50),
+	FOREIGN KEY (roomID) REFERENCES rooms(roomID),
+	FOREIGN KEY (trainer) REFERENCES trainers(username)
+);

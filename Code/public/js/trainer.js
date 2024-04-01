@@ -356,6 +356,12 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }); 
 
+    //the close button inside the modal to close the modal
+    document.addEventListener('click',function(e){
+      if(e.target && e.target.className== 'closebtn'){
+        document.getElementById("myNav").style.width = "0";
+      }
+    }); 
 
     
     //the clear button inside the modal to clear a slot

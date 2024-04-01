@@ -1,4 +1,3 @@
-
 function getUsername(){
     const queryParams = new URLSearchParams(window.location.search);
     const username = queryParams.get('username');
@@ -10,12 +9,31 @@ function showRoomBooking(){
     console.log('showRoomBooking')
     if(window.location.href.includes('/adminRoomManagement'+ window.location.search)){
       
+      let xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            //console.log("data: " + this.responseText)
 
+            let responseObj = JSON.parse(this.responseText)
+            console.log(responseObj)
+            if(responseObj){
+              console.log('Success: Data recieved')
+              showScheduledEvents(responseObj)
+              
+            }else{
+              console.log('empty')
+            }
+          }
+        }
+        xhttp.open("POST", "/getCurrentlyScheduledEvents") 
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify())
 
     }else{
   
       //to redirect to room booking page (if not there already)
       window.location.href = '/adminRoomManagement'+ window.location.search
+
       
     }
 
@@ -327,10 +345,247 @@ function roomChange(roomID){
     
   }
 
+}
+
+//-----------------------------------------------------------------class schedule update------------------------------------------------------
+let currentlySelected = Object()
+  currentlySelected.event = ''
+  currentlySelected.trainer = ''
+  currentlySelected.time = ''
+
+function onTrainerSelectShowSchedule(trainer){
+  document.getElementById('schedule').style.display = 'block'
+
+  let data = Object()
+      data.username = trainer.id
   
+  
+      let xhttp = new XMLHttpRequest()
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          //console.log("data: " + this.responseText)
+  
+          let responseObj = JSON.parse(this.responseText)
+          if(responseObj){
+            //console.log(responseObj)
+
+            //turns responeobj array to a JSON object
+            const jsObject = {};
+            responseObj.forEach(entry => {
+              const { time, ...rest } = entry;
+              const key = time.replace(/[ap]m/g, ''); // Remove "am" and "pm"
+              jsObject[key] = rest;
+            });
+            //console.log(jsObject);
+
+            const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+            for (let hour = 9; hour <= 12; hour++) {
+              for (let i = 0; i < daysOfWeek.length; i++) {
+                const className = `${daysOfWeek[i]}-${hour}`;
+                const day = daysOfWeek[i].toLowerCase()
+                document.getElementsByClassName(className).scheduleSlot.innerHTML = jsObject[hour][day];
+                document.getElementsByClassName(className).scheduleSlot.setAttribute("Name", trainer.id) 
+              }
+            }
+
+            for (let hour = 1; hour <= 5; hour++) {
+              for (let i = 0; i < daysOfWeek.length; i++) {
+                const className = `${daysOfWeek[i]}-${hour}`;
+                day = daysOfWeek[i].toLowerCase()
+                document.getElementsByClassName(className).scheduleSlot.innerHTML = jsObject[hour][day];
+                document.getElementsByClassName(className).scheduleSlot.setAttribute("Name", trainer.id) 
+              }
+            }
+
+            
+          }else{
+            console.log('User Does not Exists')
+          }
+        }
+      }
+      xhttp.open("POST", "/getTrainerSchedule") 
+      xhttp.setRequestHeader("Content-Type", "application/json");
+      xhttp.send(JSON.stringify(data))
+}
+
+function amORpm(t){
+  switch (t) {
+    case '9':
+      return 'am'
+    case '10':
+      return 'am'
+    case '11':
+      return 'am'
+    case '12':
+      return 'pm'
+    case '1':
+      return 'pm'
+    case '2':
+      return 'pm'
+    case '3':
+      return 'pm'
+    case '4':
+      return 'pm'
+    case '5':
+      return 'pm'
+    default:
+      return t
+  }
+}
+
+function createEvent(data){
+  let xhttp = new XMLHttpRequest()
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      //console.log("data: " + this.responseText)
+
+      let responseObj = JSON.parse(this.responseText)
+      console.log("from server: "+responseObj)
+      if(responseObj){
+        console.log('Success: Event Created')
+        
+      }else{
+        console.log('Error: Event not Created')
+      }
+    }
+  }
+  xhttp.open("POST", "/createEvent") 
+  xhttp.setRequestHeader("Content-Type", "application/json");
+  xhttp.send(JSON.stringify(data))
 
 }
 
+function updateSchedule(newData,slot){
+
+  let arr = slot.split('-')
+  let data = Object()
+    data.username = currentlySelected.trainer
+    data.day = arr[0]
+    data.time = arr[1] + amORpm(arr[1])
+    data.newData = newData
+
+  console.log(data)
+
+  let xhttp = new XMLHttpRequest()
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      //console.log("data: " + this.responseText)
+
+      let responseObj = JSON.parse(this.responseText)
+      console.log("from server: "+responseObj)
+      if(responseObj){
+        console.log('Success: Data updated')
+        createEvent(data)
+        
+      }else{
+        console.log('Error: Data not updated')
+      }
+    }
+  }
+  xhttp.open("POST", "/updateTrainerSchedule") 
+  xhttp.setRequestHeader("Content-Type", "application/json");
+  xhttp.send(JSON.stringify(data))
+}
+
+//adds to schedule
+function addToSchedule(add, time){
+  
+  //adds group class to slot
+  let slot = document.getElementsByClassName(time)[0]
+  slot.innerHTML = 'Group Fitness: ' + add;
+}
+
+
+function showScheduledEvents(events){
+
+  let right = document.getElementById('columnRooms')
+  console.log(right)
+  let containsTable = right.querySelector('table')
+  
+  console.log(containsTable)
+  if(containsTable){
+    containsTable.remove()
+  }
+
+  //creation of table and its headers
+  let table = document.createElement('TABLE')
+  table.className = "profileTable"
+  const headers = document.createElement('tr');
+  headers.className = 'table_header';
+
+  const eventImg = document.createElement('th');
+  eventImg.textContent = '';
+  const eventHeader = document.createElement('th');
+  eventHeader.textContent = 'Event';
+  const timeHeader = document.createElement('th');
+  timeHeader.textContent = 'Time';
+  const trainerHeader = document.createElement('th');
+  trainerHeader.textContent = 'Trainer';
+  const bookHeader = document.createElement('th');
+  bookHeader.textContent = 'Book Room';
+  
+
+  headers.appendChild(eventImg);
+  headers.appendChild(eventHeader);
+  headers.appendChild(timeHeader);
+  headers.appendChild(trainerHeader)
+  headers.appendChild(bookHeader)
+
+  table.appendChild(headers);
+
+  // Append the table to right div
+  right.appendChild(table);
+  
+
+  //creating rows based on the number of returned results from the query
+  for (let i = 0; i < events.length; i++) {
+
+    
+    const row = document.createElement('tr');
+    row.className = 'table_row'
+    const eventImgCell = document.createElement('td');
+    const eventCell = document.createElement('td');
+    const timeCell = document.createElement('td');
+    const trainerCell = document.createElement('td');
+    const bookCell = document.createElement('td');
+
+    eventCell.textContent = events[i].event;
+    timeCell.textContent = events[i].daybooked + ' - ' + events[i].timebooked;
+    trainerCell.textContent =  events[i].trainer;
+
+    //book button 
+    let bookButton = document.createElement('button')
+    bookButton.id = 'bookRoomBtn'
+    bookButton.className = 'bookRoomBtn' 
+    bookButton.innerHTML = 'Book Room'
+    bookCell.appendChild(bookButton)
+
+    //cancel cell with button
+    let eventImage = document.createElement('img')
+
+    
+
+
+    row.appendChild(eventImgCell);
+    row.appendChild(eventCell);
+    row.appendChild(timeCell);
+    row.appendChild(trainerCell)
+    row.appendChild(bookCell)
+
+    table.appendChild(row);
+
+  }
+    
+}
+
+function onEventClick(event){
+  console.log(event.parentNode.parentNode)
+
+  //book room send to server
+
+  //display the booking
+}
 
 function openNav() {
   document.getElementById("mySidenav").style.width = "250px";
@@ -363,6 +618,50 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click',function(e){
       if(e.target && e.target.id.includes('room')){
         roomChange(e.target.id);
+      }
+    }); 
+
+    //when a trainer is clicked in class schedule update
+    document.addEventListener('click',function(e){
+      if(e.target && e.target.id.includes('trainer')){
+        document.getElementById('scheduleTitle').innerHTML = 'Schedule Class On: '
+        onTrainerSelectShowSchedule(e.target);
+        currentlySelected.trainer = e.target.id
+        console.log(currentlySelected)
+      }
+    }); 
+
+    document.addEventListener('click',function(e){
+      if(e.target && e.target.className == 'groupFit'){
+        currentlySelected.event = e.target.id
+        console.log(currentlySelected)
+      }
+    }); 
+
+    //when a row is clicked (to be selected)
+    document.addEventListener('click',function(e){
+      if(e.target && e.target.className == 'bookRoomBtn'){
+        onEventClick(e.target)
+      }
+    }); 
+
+    document.addEventListener('click',function(e){
+      if(e.target && e.target.id == 'scheduleSlot'){
+        if(currentlySelected.event == ''){
+          //warn user to select event
+        }else{
+          addToSchedule(currentlySelected.event, e.target.className)
+          currentlySelected.time = e.target.className
+          console.log(currentlySelected)
+        }
+        
+      }
+    }); 
+
+    document.addEventListener('click',function(e){
+      if(e.target && e.target.id== 'updateClassScheduleBtn'){
+        let slot = document.getElementsByClassName(currentlySelected.time)
+        updateSchedule(slot.scheduleSlot.innerHTML,currentlySelected.time)
       }
     }); 
 

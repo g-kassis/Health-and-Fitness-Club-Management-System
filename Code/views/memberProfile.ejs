@@ -49,34 +49,17 @@
             
 
             <h1>Fitness Goals</h1>
-            <h3>Weight Goal:</h3>
-            <select name="Weight" id="weightGoal">
-                <option value="null" selected disabled hidden>Not Set</option>
-                <option value="Gain">Gain</option>
-                <option value="Maintain">Maintain</option>
-                <option value="Lose">Lose</option>
-            </select>
-            <h3>Muscle Goal:</h3>
-            <select name="Muscle" id="muscleGoal">
-                <option value="null" selected disabled hidden>Not Set</option>
-                <option value="Gain">Gain</option>
-                <option value="Maintain">Maintain</option>
-                <option value="Lose">Lose</option>
-            </select>
-            <h3>Endurance Goal:</h3>
-            <select name="Endurance" id="enduranceGoal">
-                <option value="null" selected disabled hidden>Not Set</option>
-                <option value="Gain">Gain</option>
-                <option value="Maintain">Maintain</option>
-                <option value="Lose">Lose</option>
-            </select>
-            <h3>Flexibility Goal:</h3>
-            <select name="Flexibility" id="flexibilityGoal">
-                <option value="null" selected disabled hidden>Not Set</option>
-                <option value="Gain">Gain</option>
-                <option value="Maintain">Maintain</option>
-                <option value="Lose">Lose</option>
-            </select>
+                <label for="Weight">Weight Goal: (lbs)</label>
+                <br>
+                <input type="text" id="weightGoal" value="Not Set">
+                <br>
+                <label for="Muscle">Muscle Goal: (lbs)</label>
+                <br>
+                <input type="text" id="muscleGoal" value="Not Set">
+                <br>
+                <label for="Endurance">Endurance Goal: (km/h)</label>
+                <br>
+                <input type="text" id="enduranceGoal" value="Not Set">
 
             <h1>Health Metrics</h1>
             <form>
@@ -89,7 +72,7 @@
                 <input type="text" id="heightMetric" value="Not Set">
             </form>
 
-            <button id="saveProfile">Save</button>
+            <center><button id="saveProfile">Save</button></center>
     </div>
     </div>
 
