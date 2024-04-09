@@ -18,6 +18,18 @@ INSERT INTO healthMetrics (username, weight, height) VALUES ('user3', 131, 170);
 INSERT INTO healthMetrics (username, weight, height) VALUES ('user4', 240, 187);
 INSERT INTO healthMetrics (username, weight, height) VALUES ('user5', 128, 175);
 
+INSERT INTO exerciseRoutines (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user1', 250, 10, 12);
+INSERT INTO exerciseRoutines (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user2', 600, 5, 6);
+INSERT INTO exerciseRoutines (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user3', 150, 10, 10);
+INSERT INTO exerciseRoutines (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user4', 210, 15, 15);
+INSERT INTO exerciseRoutines (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user5', 120, 8, 8);
+
+INSERT INTO fitnessAchievements (username, enduranceAchievement, basketballAchievement, memberAchievement, weightAchievement, cyclingAchievement, footballAchievement) VALUES ('user1', 'true', 'false', 'true', 'true', 'true', 'true');
+INSERT INTO fitnessAchievements (username, enduranceAchievement, basketballAchievement, memberAchievement, weightAchievement, cyclingAchievement, footballAchievement) VALUES ('user2', 'true', 'false', 'true', 'true', 'false', 'false');
+INSERT INTO fitnessAchievements (username, enduranceAchievement, basketballAchievement, memberAchievement, weightAchievement, cyclingAchievement, footballAchievement) VALUES ('user3', 'false', 'true', 'true', 'false', 'true', 'true');
+INSERT INTO fitnessAchievements (username, enduranceAchievement, basketballAchievement, memberAchievement, weightAchievement, cyclingAchievement, footballAchievement) VALUES ('user4', 'true', 'true', 'true', 'true', 'false', 'true');
+INSERT INTO fitnessAchievements (username, enduranceAchievement, basketballAchievement, memberAchievement, weightAchievement, cyclingAchievement, footballAchievement) VALUES ('user5', 'true', 'false', 'true', 'true', 'true', 'false');
+
 --members sessions 
 INSERT INTO member1Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('9am', '', '', '', '', '', '', '');
 INSERT INTO member1Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('10am', '', '', '', '', '', '', '');

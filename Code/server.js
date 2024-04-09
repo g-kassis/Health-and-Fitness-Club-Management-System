@@ -137,10 +137,35 @@ app.post('/getDashboardData', async (request, response) => {
       JOIN 
         fitnessGoals fg ON hm.username = fg.username;`)
 
+        const resultRoutines = await client.query(`
+        SELECT 
+          exercise
+        FROM 
+          exerciseRoutines;
+      `);
+      
+      const resultAchievements = await client.query(`
+        SELECT 
+          enduranceAchievement,
+          basketballAchievement,
+          memberAchievement,
+          weightAchievement,
+          cyclingAchievement,
+          footballAchievement
+        FROM 
+          fitnessAchievements;
+      `);
+
+      const combinedResults = {
+        metrics: result.rows[0],
+        routines: resultRoutines.rows,
+        achievements: resultAchievements.rows[0]
+      };
+
       console.log(result.rows);
 
       if (result.rows.length !== 0) {
-        response.status(200).json(result.rows); // Account found
+        response.status(200).json(combinedResults); // Account found
       } else {
         response.status(200).json(false); // Account not found
           

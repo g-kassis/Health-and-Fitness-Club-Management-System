@@ -111,7 +111,6 @@ input[type=text] {
 }
 
 .fitnessAchievement:hover{
-  background-color: #e2e2e2;
   transform: scale(1.1);
 }
 
@@ -125,8 +124,8 @@ input[type=text] {
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 120px;
-  background-color: black;
-  color: #fff;
+  background-color: rgb(255, 255, 255);
+  color: #000000;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
@@ -152,12 +151,15 @@ input[type=text] {
 }
 
 #achievementsTable{
-  background-color: white;
+  border: none;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.8);
   border-radius: 12px;
 }
 
 #achievementsTable tr{
-  background-color: white;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.8);
   border-radius: 12px;
 }
 

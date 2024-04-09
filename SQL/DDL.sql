@@ -27,6 +27,23 @@ CREATE TABLE healthMetrics(
 	FOREIGN KEY (username) REFERENCES members(username)
 );
 
+CREATE TABLE exerciseRoutines(
+	username VARCHAR(50),
+	exercise VARCHAR(50),
+	FOREIGN KEY (username) REFERENCES members(username)
+);
+
+CREATE TABLE fitnessAchievements(
+	username VARCHAR(50),
+	enduranceAchievement boolean,
+	basketballAchievement boolean,
+	memberAchievement boolean,
+	weightAchievement boolean,
+	cyclingAchievement boolean,
+	footballAchievement boolean,
+	FOREIGN KEY (username) REFERENCES members(username)
+);
+
 
 CREATE TABLE member1Sessions(
 	time VARCHAR(5),
@@ -94,6 +111,13 @@ CREATE TABLE trainers(
 	gender VARCHAR(6)
 );
 
+CREATE TABLE trainerSchedules(
+	trainer VARCHAR(50),
+	day VARCHAR(5),
+	time VARCHAR(5),
+	FOREIGN KEY (trainer) REFERENCES trainers(username)
+);
+
 CREATE TABLE trainer1Schedule(
 	time VARCHAR(5),
 	mon VARCHAR(50),
@@ -159,7 +183,6 @@ CREATE TABLE admins(
 
 );
 
-
 CREATE TABLE rooms(
 	roomID INT,
 	capacity INT,
@@ -180,4 +203,8 @@ CREATE TABLE currentEvents(
 	trainer VARCHAR(50),
 	FOREIGN KEY (roomID) REFERENCES rooms(roomID),
 	FOREIGN KEY (trainer) REFERENCES trainers(username)
+);
+
+CREATE TABLE equipment(
+
 );

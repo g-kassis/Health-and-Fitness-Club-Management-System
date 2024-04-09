@@ -66,16 +66,51 @@ function showDashboard(){
 
         let responseObj = JSON.parse(this.responseText)
         if(responseObj){
-          console.log(responseObj[0])
+          console.log(responseObj)
           //stats
-          document.getElementById('avgWeightValue').innerHTML =  Math.round(responseObj[0].average_weight) + ' lbs'
-          document.getElementById('avgHeightValue').innerHTML =  Math.round(responseObj[0].average_height) + ' cm'
+          document.getElementById('avgWeightValue').innerHTML =  Math.round(responseObj.metrics.average_weight) + ' lbs'
+          document.getElementById('avgHeightValue').innerHTML =  Math.round(responseObj.metrics.average_height) + ' cm'
 
           //goals
-          document.getElementById('avgWeightGoal').innerHTML =  Math.round(responseObj[0].average_weight_goal) + ' lbs' 
-          document.getElementById('avgMuscleGoal').innerHTML =  Math.round(responseObj[0].average_muscle_goal) + ' lbs'
-          document.getElementById('avgEnduranceGoal').innerHTML =  Math.round(responseObj[0].average_endurance_goal) + ' km/h'
-          //document.getElementById('sectionTitle').innerHTML =  responseObj[0].first_name
+          document.getElementById('avgWeightGoal').innerHTML =  Math.round(responseObj.metrics.average_weight_goal) + ' lbs' 
+          document.getElementById('avgMuscleGoal').innerHTML =  Math.round(responseObj.metrics.average_muscle_goal) + ' lbs'
+          document.getElementById('avgEnduranceGoal').innerHTML =  Math.round(responseObj.metrics.average_endurance_goal) + ' km/h'
+          
+          //exercise routines
+          // document.getElementById('avgWeightValue').innerHTML =  Math.round(responseObj[0].average_weight) + ' lbs'
+          // document.getElementById('avgHeightValue').innerHTML =  Math.round(responseObj[0].average_height) + ' cm'
+          // document.getElementById('avgWeightValue').innerHTML =  Math.round(responseObj[0].average_weight) + ' lbs'
+          // document.getElementById('avgHeightValue').innerHTML =  Math.round(responseObj[0].average_height) + ' cm'
+
+
+          //fitness achievements
+          const achText = {
+            basketballachievement: 'you have registered for a basketball class',
+            cyclingachievement: 'you have won first place in cycling',
+            enduranceachievement: 'you have completed a race',
+            footballachievement: 'you have won a football title',
+            memberachievement: 'you are a valued member',
+            weightachievement: 'you have reached your weight goal'
+          };
+
+          const achSrc = {
+            basketballachievement: "https://cdn-icons-png.flaticon.com/512/5182/5182243.png",
+            cyclingachievement: "https://cdn-icons-png.flaticon.com/512/5182/5182205.png",
+            enduranceachievement: "https://cdn-icons-png.flaticon.com/512/8145/8145752.png",
+            footballachievement: "https://cdn-icons-png.flaticon.com/512/5182/5182254.png",
+            memberachievement: "https://cdn-icons-png.flaticon.com/512/5182/5182296.png",
+            weightachievement: "https://cdn-icons-png.flaticon.com/512/5182/5182322.png"
+          };
+
+          for (const key in responseObj.achievements) {
+            if (responseObj.achievements[key] !== false) {
+              console.log(key)
+              document.getElementById(key + 'Text').innerHTML = achText[key]
+              document.getElementById(key).src = achSrc[key]
+              
+            }
+          }
+
         }else{
           console.log('User Does not Exists')
         }
