@@ -555,6 +555,10 @@ function closeNav() {
   document.getElementById('mainContent').style.paddingLeft = '0px'
 }
 
+function logOut(){
+  window.location.href = '/'
+}
+
 //event handlers for member
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -646,6 +650,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('profileNav').addEventListener('click', showProfile)
     document.getElementById('dashboardNav').addEventListener('click', showDashboard)
     document.getElementById('scheduleNav').addEventListener('click', showSchedule)
-
+    document.getElementById('logOut').addEventListener('click', logOut)
     
 })

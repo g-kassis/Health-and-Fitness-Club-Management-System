@@ -699,10 +699,11 @@ function closeNav() {
   document.getElementById('mainContent').style.paddingLeft = '0px'
 }
 
+function logOut(){
+  window.location.href = '/'
+}
 
 //event handlers for admin
-
-
 document.addEventListener('DOMContentLoaded', function() {
     
     document.addEventListener('click',function(e){
@@ -776,6 +777,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('Equipment_Monitoring').addEventListener('click', showEquipmentMonitor)
     document.getElementById('Class_Schedule_Update').addEventListener('click', showClassSchedule)
     document.getElementById('Billing&Payment').addEventListener('click', showBilling)
+    document.getElementById('logOut').addEventListener('click', logOut)
   
       
   })

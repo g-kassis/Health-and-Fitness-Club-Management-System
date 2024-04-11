@@ -336,6 +336,10 @@ function closeNav() {
   document.getElementById('mainContent').style.paddingLeft = '0px'
 }
 
+function logOut(){
+  window.location.href = '/'
+}
+
 
 //event handlers for trainer
 document.addEventListener('DOMContentLoaded', function() {
@@ -385,5 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
           setUnavailable();
       }
     }); 
+
+    document.getElementById('logOut').addEventListener('click', logOut)
 
 })
