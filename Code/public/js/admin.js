@@ -42,6 +42,31 @@ function showRoomBooking(){
 function showEquipmentMonitor(){
     console.log('showEquipmentMonitor')
     if(window.location.href.includes('/adminEquipmentMonitor'+ window.location.search)){
+
+      let xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            //console.log("data: " + this.responseText)
+
+            let responseObj = JSON.parse(this.responseText)
+            console.log(responseObj)
+            if(responseObj){
+              console.log('Success: Data recieved')
+
+              for(let i = 0; i < responseObj.length; i++){
+                let equipmentName = responseObj[i].equipmentname.toLowerCase().replace(' ', '-')
+                let eq = document.getElementById(equipmentName + '-progress')
+                eq.innerHTML = responseObj[i].equipmentstatus + '%'
+              }
+              
+            }else{
+              console.log('empty')
+            }
+          }
+        }
+        xhttp.open("POST", "/getEquipments") 
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify())
       
     }else{
   
@@ -270,6 +295,35 @@ function maintainEquipment(equipmentName){
     equipmentBar.style.width = 100 + '%'
     equipmentBar.className = 'w3-container w3-green w3-round-xlarge'
     equipmentBar.innerHTML = '100%'
+
+    let eq = equipmentName.split('-')
+
+   
+    let up1 =  eq[0].charAt(0).toUpperCase() +  eq[0].slice(1)
+    let up2 = eq[1].charAt(0).toUpperCase() +  eq[1].slice(1)
+
+    let data = Object()
+      data.status = 100
+      data.equipmentName = up1 + ' ' + up2
+
+    let xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            //console.log("data: " + this.responseText)
+
+            let responseObj = JSON.parse(this.responseText)
+            console.log(responseObj)
+            if(responseObj){
+              console.log('Success: Equipment Data Updated')
+              
+            }else{
+              console.log('Equipment Data NOT Updated')
+            }
+          }
+        }
+        xhttp.open("POST", "/updateEquipments") 
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(data))
   }
 }
 
@@ -306,7 +360,7 @@ function roomChange(roomID){
   }else if(roomID == 'room2'){
 
     roomImg.src = 'https://blog.anytimefitness.co.uk/wp-content/uploads/2019/01/treadmills-800x400.jpg'
-    roomName.innerHTML = ''
+    roomName.innerHTML = 'Treadmill Room'
     roomCapcity.innerHTML = ''
     roomLayout.innerHTML = ''
     roomEquipment1.innerHTML =''
@@ -318,31 +372,6 @@ function roomChange(roomID){
     roomCapcity.innerHTML = ''
     roomLayout.innerHTML = ''
     roomEquipment1.innerHTML =''
-    
-  }else if(roomID == 'room4'){
-
-    roomImg.src = ''
-    roomName.innerHTML = ''
-    roomCapcity.innerHTML = ''
-    roomLayout.innerHTML = ''
-    roomEquipment1.innerHTML =''
-    
-  }else if(roomID == 'room5'){
-
-    roomImg.src = ''
-    roomName.innerHTML = ''
-    roomCapcity.innerHTML = ''
-    roomLayout.innerHTML = ''
-    roomEquipment1.innerHTML =''
-    
-  }else if(roomID == 'room6'){
-
-    roomImg.src = ''
-    roomName.innerHTML = ''
-    roomCapcity.innerHTML = ''
-    roomLayout.innerHTML = ''
-    roomEquipment1.innerHTML =''
-    
   }
 
 }
@@ -476,10 +505,14 @@ function updateSchedule(newData,slot){
       console.log("from server: "+responseObj)
       if(responseObj){
         console.log('Success: Data updated')
+        document.getElementById('warning').style.color = 'green'
+        document.getElementById('warning').innerHTML = 'Event Scheduled'
         createEvent(data)
         
       }else{
         console.log('Error: Data not updated')
+        document.getElementById('warning').style.color = 'red'
+        document.getElementById('warning').innerHTML = 'Error Event NOT Scheduled'
       }
     }
   }
@@ -511,6 +544,7 @@ function showScheduledEvents(events){
   //creation of table and its headers
   let table = document.createElement('TABLE')
   table.className = "profileTable"
+  table.id = 'currentScheduleTable'
   const headers = document.createElement('tr');
   headers.className = 'table_header';
 
@@ -579,10 +613,78 @@ function showScheduledEvents(events){
     
 }
 
+function getRoomID(){
+  let roomName = document.getElementById('roomName').innerHTML
+  if(roomName == 'Fully Fitted Gym Room'){
+    return 1
+  }else if(roomName == 'Treadmill Room'){
+    return 2
+  }else{
+    return 3
+  }
+}
+
+function removeFromScheduledEvents(event, data){
+  console.log(event)
+  let table = document.getElementById('currentScheduleTable')
+  table.removeChild(event)
+
+  let xhttp = new XMLHttpRequest()
+      xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        //console.log("data: " + this.responseText)
+
+        let responseObj = JSON.parse(this.responseText)
+        if(responseObj){
+          console.log(responseObj)
+          console.log('removed from currently scheduled')
+          
+        }else{
+          console.log('Not removed from currently scheduled')
+
+        }
+      }
+    }
+    xhttp.open("POST", "/removeFromCurrentlyScheduled") 
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(data))
+
+
+}
+
 function onEventClick(event){
-  console.log(event.parentNode.parentNode)
+  let data = Object()
+    data.roomId = getRoomID()
+    data.day = event.parentNode.parentNode.children[2].innerHTML.split(' - ')[0]
+    data.time = event.parentNode.parentNode.children[2].innerHTML.split(' - ')[1]
+    data.event = event.parentNode.parentNode.children[1].innerHTML
+    data.trainer = event.parentNode.parentNode.children[3].innerHTML
+    
 
   //book room send to server
+  let xhttp = new XMLHttpRequest()
+      xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        //console.log("data: " + this.responseText)
+
+        let responseObj = JSON.parse(this.responseText)
+        if(responseObj){
+          console.log(responseObj)
+          document.getElementById('warning').style.color = 'green'
+          document.getElementById('warning').innerHTML = 'Booked Succefully'
+          removeFromScheduledEvents(event.parentNode.parentNode, data)
+          
+        }else{
+          console.log('Not booked')
+          document.getElementById('warning').style.color = 'red'
+          document.getElementById('warning').innerHTML = 'Room already booked for this date and time'
+
+        }
+      }
+    }
+    xhttp.open("POST", "/bookRoom") 
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(data))
 
   //display the booking
 }
@@ -634,13 +736,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click',function(e){
       if(e.target && e.target.className == 'groupFit'){
         currentlySelected.event = e.target.id
+        document.getElementById('warning').innerHTML = ''
         console.log(currentlySelected)
       }
     }); 
 
     //when a row is clicked (to be selected)
     document.addEventListener('click',function(e){
-      if(e.target && e.target.className == 'bookRoomBtn'){
+      if(e.target && e.target.id == 'bookRoomBtn'){
         onEventClick(e.target)
       }
     }); 
@@ -649,6 +752,8 @@ document.addEventListener('DOMContentLoaded', function() {
       if(e.target && e.target.id == 'scheduleSlot'){
         if(currentlySelected.event == ''){
           //warn user to select event
+          document.getElementById('warning').style.color = 'red'
+          document.getElementById('warning').innerHTML = 'Please Select an Event First'
         }else{
           addToSchedule(currentlySelected.event, e.target.className)
           currentlySelected.time = e.target.className

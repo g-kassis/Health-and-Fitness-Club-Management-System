@@ -23,14 +23,11 @@
         <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
         <center><h2 style="margin: 2%; font-size: xx-large;">Room Management</h2></center>
         <div id="roomSelector">
-            <div class="pagination">
+            <div id="pagination" class="pagination">
                 <a id="">&laquo;</a>
                 <a class="active" id="room1">1</a>
                 <a id="room2">2</a>
                 <a id="room3">3</a>
-                <a id="room4">4</a>
-                <a id="room5">5</a>
-                <a id="room6">6</a>
                 <a id="">&raquo;</a>
               </div>
         </div>
@@ -52,7 +49,8 @@
                 </ul>
             </div>
             <div id="columnRooms" class="columnRooms">
-              <h2>Currently Scheduled Events/Classes: </h2>
+              <h2>Events/Classes in Need of a Room: </h2>
+              <h2 id="warning" style="color: red;"></h2>
               
               <table class="profileTable">
                 <tr class="table_header">
@@ -62,6 +60,7 @@
                   <th>Trainer</th>
                 </tr>
               </table>
+              <br>
 
             </div>
         </div>

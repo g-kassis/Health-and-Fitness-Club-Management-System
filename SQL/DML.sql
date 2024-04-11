@@ -145,3 +145,15 @@ INSERT INTO admins (username, passwrd, first_name, last_name) VALUES ('admin2', 
 INSERT INTO admins (username, passwrd, first_name, last_name) VALUES ('admin3', 'mo10', 'Mohamed', 'Salah');
 INSERT INTO admins (username, passwrd, first_name, last_name) VALUES ('admin4', 'N10', 'Neymar', 'Jr');
 INSERT INTO admins (username, passwrd, first_name, last_name) VALUES ('admin5', 'TK8', 'Toni', 'Kroos');
+
+
+INSERT INTO rooms (roomID, capacity, layout) VALUES (1, 20, '240 x 240');
+INSERT INTO rooms (roomID, capacity, layout) VALUES (2, 20, '400 x 400');
+INSERT INTO rooms (roomID, capacity, layout) VALUES (3, 100, '1000 x 1000');
+
+INSERT INTO equipment (roomID, equipmentName, equipmentStatus, equipmentLastMaintenance) VALUES (1,'Multi Gym',25,'2024-01-01');
+INSERT INTO equipment (roomID, equipmentName, equipmentStatus, equipmentLastMaintenance) VALUES (1, 'Bench Press',50, '2024-01-01');
+INSERT INTO equipment (roomID, equipmentName, equipmentStatus, equipmentLastMaintenance) VALUES (1, 'Tricep Pushdown',72, '2024-01-01');
+INSERT INTO equipment (roomID, equipmentName, equipmentStatus, equipmentLastMaintenance) VALUES (1,'Lat Pulldown',98,'2024-01-01');
+INSERT INTO equipment (roomID, equipmentName, equipmentStatus, equipmentLastMaintenance) VALUES (1, 'Cardio Bike',65, '2024-01-01');
+INSERT INTO equipment (roomID, equipmentName, equipmentStatus, equipmentLastMaintenance) VALUES (1, 'Leg Press',91, '2024-01-01');

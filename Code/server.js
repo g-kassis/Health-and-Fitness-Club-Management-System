@@ -220,8 +220,12 @@ app.post('/getMemeberSessions', async (request, response) => {
 
         // Build the update query dynamically based on scheduleData
         console.log(request.body)
+        try {
+          result = await client.query(`SELECT * FROM ${tableName} ORDER BY time`);
+        }catch {
 
-        result = await client.query(`SELECT * FROM ${tableName} ORDER BY time`);
+          result = await client.query(`SELECT * FROM ${request.body.username + 'Sessions'} ORDER BY time`);
+        }
 
         console.log(result)
 
@@ -274,8 +278,13 @@ app.post('/updateMemberSessions', async (request, response) => {
           result = await client.query(`UPDATE members SET numPersonalSessions = numPersonalSessions - 1 WHERE username = $1`, [request.body.newData]);
 
         }
+        
+        try {
+          result = await client.query(`UPDATE ${tableName} SET ${request.body.day} = $1 WHERE time = $2`, [request.body.username, request.body.time]);
+        }catch {
 
-        result = await client.query(`UPDATE ${tableName} SET ${request.body.day} = $1 WHERE time = $2`, [request.body.username, request.body.time]);
+          result = await client.query(`UPDATE ${request.body.newData + 'Sessions'} SET ${request.body.day} = $1 WHERE time = $2`, [request.body.username, request.body.time]);
+        }
 
         console.log(result)
 
@@ -284,7 +293,14 @@ app.post('/updateMemberSessions', async (request, response) => {
       console.log(result.rows);
 
       if (result.rows.length == 0) {
-        result = await client.query(`SELECT * FROM ${tableName} ORDER BY time`);
+        try {
+          result = await client.query(`SELECT * FROM ${tableName} ORDER BY time`);
+        }catch {
+
+          result = await client.query(`SELECT * FROM ${request.body.newData + 'Sessions'} ORDER BY time`);
+        }
+
+        
         response.status(200).json(result.rows); // data updated
       }else{
         response.status(200).json(false); 
@@ -455,7 +471,7 @@ app.post('/createEvent', async (request, response) => {
       // Connect to the PostgreSQL database using a connection pool
  
 
-      result = await client.query('INSERT INTO currentEvents (roomID, dayBooked, timeBooked, event, trainer) VALUES ($1, $2, $3, $4, $5)', [0, request.body.day, request.body.time, request.body.newData, request.body.username]);
+      result = await client.query('INSERT INTO currentEvents (dayBooked, timeBooked, event, trainer) VALUES ($1, $2, $3, $4)', [request.body.day, request.body.time, request.body.newData, request.body.username]);
 
 
       console.log(result.rows);
@@ -502,6 +518,123 @@ app.post('/getCurrentlyScheduledEvents', async (request, response) => {
   
 });
 
+app.post('/removeFromCurrentlyScheduled', async (request, response) => {
+  console.log('Room Booking');
+  console.log(request.body)
+
+  try {
+      // Connect to the PostgreSQL database using a connection pool
+ 
+
+      result = await client.query('DELETE FROM currentEvents WHERE dayBooked = $1 AND timeBooked = $2 AND trainer = $3 AND event = $4', [request.body.day, request.body.time, request.body.trainer, request.body.event]);
+      
+
+      console.log(result.rows);
+
+      if (result.rows.length == 0) {
+        response.status(200).json(result.rows);
+      }else{
+        response.status(200).json(false); 
+          
+      }
+  } catch (error) {
+      // Handle errors
+      console.error('Error executing database query:', error);
+      response.status(500).json({ success: false, error: 'Internal Server Error' });
+  } 
+  
+  
+});
+
+app.post('/bookRoom', async (request, response) => {
+  console.log('Room Booking');
+  console.log(request.body)
+
+  try {
+      // Connect to the PostgreSQL database using a connection pool
+ 
+
+      result = await client.query('SELECT * FROM roomBookings WHERE roomid = $1 AND dayBooked = $2 AND timeBooked = $3', [request.body.roomId, request.body.day, request.body.time]);
+      if (result.rows.length != 0) {
+        //room not free do not book
+
+      }else{
+        //room is free book event
+        result = await client.query('INSERT INTO roomBookings (roomID, dayBooked, timeBooked, trainer, event) VALUES ($1, $2, $3, $4, $5)', [request.body.roomId, request.body.day, request.body.time, request.body.trainer, request.body.event]);
+      }
+
+      console.log(result.rows);
+
+      if (result.rows.length == 0) {
+        response.status(200).json(result.rows);
+      }else{
+        response.status(200).json(false); 
+          
+      }
+  } catch (error) {
+      // Handle errors
+      console.error('Error executing database query:', error);
+      response.status(500).json({ success: false, error: 'Internal Server Error' });
+  } 
+  
+  
+});
+
+
+app.post('/getEquipments', async (request, response) => {
+  console.log('getEquipments');
+  console.log(request.body)
+
+  try {
+      // Connect to the PostgreSQL database using a connection pool
+ 
+
+      result = await client.query('SELECT * FROM equipment');
+
+      console.log(result.rows);
+
+      if (result.rows.length != 0) {
+        response.status(200).json(result.rows);
+      }else{
+        response.status(200).json(false); 
+          
+      }
+  } catch (error) {
+      // Handle errors
+      console.error('Error executing database query:', error);
+      response.status(500).json({ success: false, error: 'Internal Server Error' });
+  } 
+  
+  
+});
+
+app.post('/updateEquipments', async (request, response) => {
+  console.log('updateEquipments');
+  console.log(request.body)
+
+  try {
+      // Connect to the PostgreSQL database using a connection pool
+ 
+
+      result = await client.query(`UPDATE equipment SET equipmentStatus = $1 WHERE equipmentName = $2`, [request.body.status, request.body.equipmentName]);
+
+
+      console.log(result.rows);
+
+      if (result.rows.length == 0) {
+        response.status(200).json(result.rows);
+      }else{
+        response.status(200).json(false); 
+          
+      }
+  } catch (error) {
+      // Handle errors
+      console.error('Error executing database query:', error);
+      response.status(500).json({ success: false, error: 'Internal Server Error' });
+  } 
+  
+  
+});
 
 
 //------------------------------------------------------------------------------------------------
@@ -558,10 +691,12 @@ app.post('/registration', async (request, response) => {
         response.status(200).json(true) //account exists
       }else{
         //adds member to members table
-        await client.query('INSERT INTO members (username, passwrd, first_name, last_name, numGroupFitness, numPersonalSessions) VALUES ($1, $2, $3, $4)', [request.body.username, request.body.password, request.body.fname, request.body.lname, 0, 0]);
+        await client.query('INSERT INTO members (username, passwrd, first_name, last_name, numGroupFitness, numPersonalSessions) VALUES ($1, $2, $3, $4, $5, $6)', [request.body.username, request.body.password, request.body.fname, request.body.lname, 0, 0]);
         //adds member to healthMetrics table and fitnessGoals
-        await client.query('INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal) VALUES ($1, $2, $3, $4, $5)',[request.body.username,160,10,7]);
+        await client.query('INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal) VALUES ($1, $2, $3, $4)',[request.body.username,160,10,7]);
         await client.query('INSERT INTO healthMetrics (username, weight, height) VALUES ($1, $2, $3)',[request.body.username,140,175]);
+        // await client.query('INSERT INTO exerciseroutines (username, weight, height) VALUES ($1, $2, $3)',[request.body.username,140,175]);
+        await client.query('INSERT INTO fitnessAchievements (username, enduranceAchievement, basketballAchievement, memberAchievement, weightAchievement, cyclingAchievement, footballAchievement) VALUES ($1, $2, $3, $4, $5, $6, $7)', [request.body.username, 'true', 'false', 'true', 'true', 'true', 'true']);
 
         //creates sessions table and adds time
         await client.query(`CREATE TABLE ${request.body.username+'Sessions'}(time VARCHAR(5),mon VARCHAR(50),tue VARCHAR(50),wed VARCHAR(50),thu VARCHAR(50),fri VARCHAR(50),sat VARCHAR(50),sun VARCHAR(50));`)

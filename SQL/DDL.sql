@@ -184,27 +184,33 @@ CREATE TABLE admins(
 );
 
 CREATE TABLE rooms(
-	roomID INT,
+	roomID INT PRIMARY KEY,
 	capacity INT,
-	layout VARCHAR(20),
-	equipment VARCHAR(100),
-	dayBooked VARCHAR(5),
-	timeBooked VARCHAR(5),
-	trainer VARCHAR(50),
-	event VARCHAR(50),
-	FOREIGN KEY (trainer) REFERENCES trainers(username)
+	layout VARCHAR(20)
 );
 
-CREATE TABLE currentEvents(
+CREATE TABLE roomBookings(
 	roomID INT,
 	dayBooked VARCHAR(5),
 	timeBooked VARCHAR(5),
-	event VARCHAR(50),
 	trainer VARCHAR(50),
+	event VARCHAR(50),
 	FOREIGN KEY (roomID) REFERENCES rooms(roomID),
 	FOREIGN KEY (trainer) REFERENCES trainers(username)
 );
 
-CREATE TABLE equipment(
+CREATE TABLE currentEvents(
+	dayBooked VARCHAR(5),
+	timeBooked VARCHAR(5),
+	event VARCHAR(50),
+	trainer VARCHAR(50),
+	FOREIGN KEY (trainer) REFERENCES trainers(username)
+);
 
+CREATE TABLE equipment(
+	roomID INT,
+	equipmentName VARCHAR(20),
+	equipmentStatus INT,
+	equipmentLastMaintenance DATE,
+	FOREIGN KEY (roomID) REFERENCES rooms(roomID)
 );
