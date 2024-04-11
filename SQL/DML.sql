@@ -18,11 +18,11 @@ INSERT INTO healthMetrics (username, weight, height) VALUES ('user3', 131, 170);
 INSERT INTO healthMetrics (username, weight, height) VALUES ('user4', 240, 187);
 INSERT INTO healthMetrics (username, weight, height) VALUES ('user5', 128, 175);
 
-INSERT INTO exerciseRoutines (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user1', 250, 10, 12);
-INSERT INTO exerciseRoutines (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user2', 600, 5, 6);
-INSERT INTO exerciseRoutines (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user3', 150, 10, 10);
-INSERT INTO exerciseRoutines (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user4', 210, 15, 15);
-INSERT INTO exerciseRoutines (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user5', 120, 8, 8);
+INSERT INTO exerciseRoutines (username, pushups, pullups, situps, deadlift, squats) VALUES ('user1', 'true','true', 'true', 'true', 'false');
+INSERT INTO exerciseRoutines (username, pushups, pullups, situps, deadlift, squats) VALUES ('user2', 'true','false', 'true', 'true', 'true');
+INSERT INTO exerciseRoutines (username, pushups, pullups, situps, deadlift, squats) VALUES ('user3', 'false','true', 'true', 'true', 'true');
+INSERT INTO exerciseRoutines (username, pushups, pullups, situps, deadlift, squats) VALUES ('user4', 'true','true', 'true', 'false', 'true');
+INSERT INTO exerciseRoutines (username, pushups, pullups, situps, deadlift, squats) VALUES ('user5', 'true','true', 'false', 'true', 'true');
 
 INSERT INTO fitnessAchievements (username, enduranceAchievement, basketballAchievement, memberAchievement, weightAchievement, cyclingAchievement, footballAchievement) VALUES ('user1', 'true', 'false', 'true', 'true', 'true', 'true');
 INSERT INTO fitnessAchievements (username, enduranceAchievement, basketballAchievement, memberAchievement, weightAchievement, cyclingAchievement, footballAchievement) VALUES ('user2', 'true', 'false', 'true', 'true', 'false', 'false');

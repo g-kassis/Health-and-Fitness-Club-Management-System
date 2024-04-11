@@ -77,11 +77,34 @@ function showDashboard(){
           document.getElementById('avgEnduranceGoal').innerHTML =  Math.round(responseObj.metrics.average_endurance_goal) + ' km/h'
           
           //exercise routines
-          // document.getElementById('avgWeightValue').innerHTML =  Math.round(responseObj[0].average_weight) + ' lbs'
-          // document.getElementById('avgHeightValue').innerHTML =  Math.round(responseObj[0].average_height) + ' cm'
-          // document.getElementById('avgWeightValue').innerHTML =  Math.round(responseObj[0].average_weight) + ' lbs'
-          // document.getElementById('avgHeightValue').innerHTML =  Math.round(responseObj[0].average_height) + ' cm'
 
+          const routinesText = {
+            pushups: "Push ups",
+            pullups: "Pull ups",
+            situps: "Sit ups",
+            deadlift: "Dead lift",
+            squats: "Squats",
+          };
+
+          const routinesSrc = {
+            pushups: "https://cdn-icons-png.flaticon.com/128/5147/5147122.png",
+            pullups: "https://cdn-icons-png.flaticon.com/128/5147/5147107.png",
+            situps: "https://cdn-icons-png.flaticon.com/128/5147/5147183.png",
+            deadlift: "https://cdn-icons-png.flaticon.com/128/13634/13634878.png",
+            squats: "https://cdn-icons-png.flaticon.com/128/13634/13634958.png",
+          };
+
+          for (const key in responseObj.routines[0]) {
+            if (responseObj.routines[0][key] !== false && responseObj.routines[0][key] == true) {
+              document.getElementById(key + 'Box').style.display = 'block'
+              console.log(responseObj.routines[0][key])
+              document.getElementById(key + 'Text').innerHTML = routinesText[key]
+              document.getElementById(key).src = routinesSrc[key]
+              
+            }else if(responseObj.routines[0][key] == false){
+              document.getElementById(key + 'Box').style.display = 'none'
+            }
+          }
 
           //fitness achievements
           const achText = {
@@ -636,6 +659,7 @@ document.addEventListener('DOMContentLoaded', function() {
    document.addEventListener('click',function(e){
     if(e.target && e.target.id== 'addBtn'){
         bookWithTrainer(e.target, 'personal');
+
     }
   }); 
 

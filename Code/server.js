@@ -139,9 +139,9 @@ app.post('/getDashboardData', async (request, response) => {
 
         const resultRoutines = await client.query(`
         SELECT 
-          exercise
+          *
         FROM 
-          exerciseRoutines;
+          exerciseRoutines WHERE username = '${request.body.username}';
       `);
       
       const resultAchievements = await client.query(`
@@ -695,7 +695,7 @@ app.post('/registration', async (request, response) => {
         //adds member to healthMetrics table and fitnessGoals
         await client.query('INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal) VALUES ($1, $2, $3, $4)',[request.body.username,160,10,7]);
         await client.query('INSERT INTO healthMetrics (username, weight, height) VALUES ($1, $2, $3)',[request.body.username,140,175]);
-        // await client.query('INSERT INTO exerciseroutines (username, weight, height) VALUES ($1, $2, $3)',[request.body.username,140,175]);
+        await client.query('INSERT INTO exerciseroutines (username, pushups, pullups, situps, deadlift, squats) VALUES ($1, $2, $3, $4, $5, $6)',[request.body.username,'true','true', 'true', 'true', 'false']);
         await client.query('INSERT INTO fitnessAchievements (username, enduranceAchievement, basketballAchievement, memberAchievement, weightAchievement, cyclingAchievement, footballAchievement) VALUES ($1, $2, $3, $4, $5, $6, $7)', [request.body.username, 'true', 'false', 'true', 'true', 'true', 'true']);
 
         //creates sessions table and adds time

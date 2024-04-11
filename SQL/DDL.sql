@@ -29,7 +29,11 @@ CREATE TABLE healthMetrics(
 
 CREATE TABLE exerciseRoutines(
 	username VARCHAR(50),
-	exercise VARCHAR(50),
+	pushups boolean, 
+	pullups boolean, 
+	situps boolean, 
+	deadlift boolean, 
+	squats boolean,
 	FOREIGN KEY (username) REFERENCES members(username)
 );
 
