@@ -16,6 +16,15 @@ h3 {
   line-height: 15.4px;
 }
 
+button{
+  font-family: "Black Ops One";
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 700;
+  
+}
+
 p {
   font-family: "Black Ops One";
   font-size: 14px;
@@ -59,7 +68,11 @@ body {
     font-size: 30px;
     font-weight: 600;
     color: #CCCCCC;
-
+    font-family: "Black Ops One";
+    font-size: 24px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
 }
 /*Login and Sign up*/
 .logInSignUp{
@@ -177,7 +190,7 @@ input[type=text], input[type=password] {
   outline: none;
   transition: 0.5s;
   font-size: 26px;
-  font-family: Comic Sans MS;
+  
 
 }
 .searchBar:hover{
