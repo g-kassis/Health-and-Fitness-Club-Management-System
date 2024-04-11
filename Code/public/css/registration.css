@@ -1,7 +1,19 @@
+
+body {
+  margin: 0;
+  background-image: url('https://media.istockphoto.com/vectors/black-abstract-background-brick-wall-texture-vector-id656169900?k=6&m=656169900&s=612x612&w=0&h=lkQp3pDZX0TXLUl1gQNn3KTMeQL2CG3wTagUe5Hf23E=');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+
+}
+
+
 .welcomeMsg{
     font-size: 30px;
     font-weight: 600;
-    color: rgb(49, 210, 247);
+    color: #CCCCCC;
 
 }
 /*Login and Sign up*/
@@ -16,8 +28,9 @@
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
+    border: 5px;
     border-style: outset;
-    border-color:rgb(49, 210, 247);
+    border-color:#53626F;
     border-radius: 5%;
     width: 25%;
     height: 50%;
@@ -41,7 +54,7 @@ input[type=text], input[type=password] {
     border: none;
     box-sizing: border-box;
     background: transparent;
-    border-bottom: 2px solid rgb(49, 210, 247);
+    border-bottom: 2px solid #53626F;
 }
 /*log in button*/
 .logButton{
@@ -53,13 +66,13 @@ input[type=text], input[type=password] {
   text-decoration: none;
   outline: none;
   color: #292828;
-  background-color: rgb(49, 210, 247);
+  background-color: #53626F;
   border: none;
   border-radius: 10px;
 }
 .logButton:hover {background-color: #dab904}
 .logButton:active {
-  background-color: rgb(49, 210, 247);
+  background-color: #53626F;
   transform: translateY(4px);
 }
 /*sign in button*/
@@ -72,13 +85,13 @@ input[type=text], input[type=password] {
   text-decoration: none;
   outline: none;
   color: #292828;
-  background-color: rgb(49, 210, 247);
+  background-color: #53626F;
   border: none;
   border-radius: 10px;
 }
 .sigButton:hover {background-color: #dab904}
 .sigButton:active {
-  background-color: rgb(49, 210, 247);
+  background-color: #53626F;
   transform: translateY(4px);
 }
 
@@ -89,7 +102,7 @@ input[type=text], input[type=password] {
   border: none;
 }
 .switch:active{
-  background-color: rgb(49, 210, 247);
+  background-color: #53626F;
 }
 /*main page*/
 .header{
@@ -115,7 +128,7 @@ input[type=text], input[type=password] {
   border: 4px solid #dab904;
   border-radius: 50px;
   box-sizing: border-box;
-  color: rgb(49, 210, 247);
+  color: #53626F;
   outline: none;
   transition: 0.5s;
   font-size: 26px;

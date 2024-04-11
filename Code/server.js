@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/', function(request, response) {
   //console.log('Welcome')
-  response.sendFile(__dirname + '/views/registration.html')
+  response.render(__dirname + '/views/registration')
 })
 
 
