@@ -406,24 +406,15 @@ function onTrainerSelectShowSchedule(trainer){
   
           let responseObj = JSON.parse(this.responseText)
           if(responseObj){
-            //console.log(responseObj)
+            console.log(responseObj)
 
-            //turns responeobj array to a JSON object
-            const jsObject = {};
-            responseObj.forEach(entry => {
-              const { time, ...rest } = entry;
-              const key = time.replace(/[ap]m/g, ''); // Remove "am" and "pm"
-              jsObject[key] = rest;
-            });
-            //console.log(jsObject);
-
+            //clears the schedule first
             const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
             for (let hour = 9; hour <= 12; hour++) {
               for (let i = 0; i < daysOfWeek.length; i++) {
                 const className = `${daysOfWeek[i]}-${hour}`;
                 const day = daysOfWeek[i].toLowerCase()
-                document.getElementsByClassName(className).scheduleSlot.innerHTML = jsObject[hour][day];
+                document.getElementsByClassName(className).scheduleSlot.innerHTML = '';
                 document.getElementsByClassName(className).scheduleSlot.setAttribute("Name", trainer.id) 
               }
             }
@@ -432,14 +423,26 @@ function onTrainerSelectShowSchedule(trainer){
               for (let i = 0; i < daysOfWeek.length; i++) {
                 const className = `${daysOfWeek[i]}-${hour}`;
                 day = daysOfWeek[i].toLowerCase()
-                document.getElementsByClassName(className).scheduleSlot.innerHTML = jsObject[hour][day];
+                document.getElementsByClassName(className).scheduleSlot.innerHTML = '';
                 document.getElementsByClassName(className).scheduleSlot.setAttribute("Name", trainer.id) 
               }
             }
 
+            //shows the latest schedule
+            for(let i = 0; i < responseObj.length; i++){
+
+              let time = ''
+              let day = ''
+              time = responseObj[i].timebooked.slice(0,-2)
+              day = responseObj[i].daybooked.charAt(0).toUpperCase() + responseObj[i].daybooked.slice(1)
+
+              document.getElementsByClassName(day+ '-' + time).scheduleSlot.innerHTML = responseObj[i].event;
+              document.getElementsByClassName(day+ '-' + time).scheduleSlot.setAttribute("Name", trainer.id) 
+            }
+
             
           }else{
-            console.log('User Does not Exists')
+            console.log('Trainer Schedule Fully Clear')
           }
         }
       }
@@ -496,13 +499,13 @@ function createEvent(data){
 }
 
 function updateSchedule(newData,slot){
-
-  let arr = slot.split('-')
   let data = Object()
-    data.username = currentlySelected.trainer
-    data.day = arr[0]
-    data.time = arr[1] + amORpm(arr[1])
+    data.username = document.getElementsByClassName(slot).scheduleSlot.getAttribute('Name')
+    data.day = slot.split('-')[0].toLowerCase().replace(/\s/g, '')
+    data.time = slot.split('-')[1] + amORpm(slot.split('-')[1])
     data.newData = newData
+    data.typeOfSession = newData
+    data.cancel = false
 
   console.log(data)
 
@@ -515,14 +518,10 @@ function updateSchedule(newData,slot){
       console.log("from server: "+responseObj)
       if(responseObj){
         console.log('Success: Data updated')
-        document.getElementById('warning').style.color = 'green'
-        document.getElementById('warning').innerHTML = 'Event Scheduled'
         createEvent(data)
         
       }else{
         console.log('Error: Data not updated')
-        document.getElementById('warning').style.color = 'red'
-        document.getElementById('warning').innerHTML = 'Error Event NOT Scheduled'
       }
     }
   }

@@ -213,19 +213,12 @@ app.post('/getMemeberSessions', async (request, response) => {
       // await client.connect();
 
       //gets table name (string manipulation)
-      let tableName = request.body.username.replace('user','member');
-      tableName = tableName + 'Sessions'
-      console.log(tableName)
         
 
         // Build the update query dynamically based on scheduleData
         console.log(request.body)
-        try {
-          result = await client.query(`SELECT * FROM ${tableName} ORDER BY time`);
-        }catch {
+        result = await client.query(`SELECT * FROM membersessions WHERE username = '${request.body.username}' ORDER BY timeBooked`);
 
-          result = await client.query(`SELECT * FROM ${request.body.username + 'Sessions'} ORDER BY time`);
-        }
 
         console.log(result)
 
@@ -258,34 +251,30 @@ app.post('/updateMemberSessions', async (request, response) => {
       // Connect to the PostgreSQL database using a connection pool
       // await client.connect();
 
-      //gets table name for trainer schedule (depending on username)
-      let tableName = request.body.newData.replace('user','member');
-      tableName = tableName + 'Sessions'
-      console.log(tableName)
-
         // Build the update query dynamically based on scheduleData
         console.log(request.body)
         
-        if(request.body.typeOfSession == 'personal' && request.body.cancel == false){
+        if(request.body.typeOfSession.includes('personal') ||request.body.typeOfSession.includes('Personal') && request.body.cancel == false){
           result = await client.query(`UPDATE members SET numPersonalSessions = numPersonalSessions + 1 WHERE username = $1`, [request.body.newData]);
-        }else if(request.body.typeOfSession == 'personal' && request.body.cancel == true){
-          result = await client.query(`UPDATE members SET numPersonalSessions = numPersonalSessions - 1 WHERE username = $1`, [request.body.newData]);
+          result = await client.query(`INSERT INTO membersessions (username ,dayBooked, timeBooked, event, trainer) VALUES ($1, $2, $3, $4, $5)`, [request.body.newData ,request.body.day, request.body.time, request.body.typeOfSession, request.body.username]);
 
-        }else if(request.body.typeOfSession == 'group' && request.body.cancel == false){
+
+        }else if(request.body.typeOfSession.includes('personal') ||request.body.typeOfSession.includes('Personal') && request.body.cancel == true){
+          result = await client.query(`UPDATE members SET numPersonalSessions = numPersonalSessions - 1 WHERE username = $1`, [request.body.newData]);
+          result = await client.query(`DELETE FROM membersessions WHERE username = $1 AND dayBooked = $2 AND timeBooked = $3 AND event = $4 AND trainer = $5`, [request.body.newData ,request.body.day, request.body.time, request.body.typeOfSession, request.body.username]);
+
+
+        }else if(request.body.typeOfSession.includes('Group') ||request.body.typeOfSession.includes('group') && request.body.cancel == false){
           result = await client.query(`UPDATE members SET numPersonalSessions = numPersonalSessions + 1 WHERE username = $1`, [request.body.newData]);
+          result = await client.query(`INSERT INTO membersessions (username ,dayBooked, timeBooked, event, trainer) VALUES ($1, $2, $3, $4, $5)`, [request.body.newData ,request.body.day, request.body.time, request.body.typeOfSession, request.body.username]);
 
-        }else{  
+
+        }else if (request.body.typeOfSession.includes('Group') ||request.body.typeOfSession.includes('group') && request.body.cancel == true){  
           result = await client.query(`UPDATE members SET numPersonalSessions = numPersonalSessions - 1 WHERE username = $1`, [request.body.newData]);
+          result = await client.query(`DELETE FROM membersessions WHERE username = $1 AND dayBooked = $2 AND timeBooked = $3 AND event = $4 AND trainer = $5`, [request.body.newData ,request.body.day, request.body.time, request.body.typeOfSession, request.body.username]);
+
 
         }
-        
-        try {
-          result = await client.query(`UPDATE ${tableName} SET ${request.body.day} = $1 WHERE time = $2`, [request.body.username, request.body.time]);
-        }catch {
-
-          result = await client.query(`UPDATE ${request.body.newData + 'Sessions'} SET ${request.body.day} = $1 WHERE time = $2`, [request.body.username, request.body.time]);
-        }
-
         console.log(result)
 
 
@@ -293,13 +282,7 @@ app.post('/updateMemberSessions', async (request, response) => {
       console.log(result.rows);
 
       if (result.rows.length == 0) {
-        try {
-          result = await client.query(`SELECT * FROM ${tableName} ORDER BY time`);
-        }catch {
-
-          result = await client.query(`SELECT * FROM ${request.body.newData + 'Sessions'} ORDER BY time`);
-        }
-
+        result = await client.query(`SELECT * FROM memberSessions WHERE username = '${request.body.newData}' ORDER BY timeBooked`);
         
         response.status(200).json(result.rows); // data updated
       }else{
@@ -360,7 +343,7 @@ app.post('/getTrainerSchedule', async (request, response) => {
       // await client.connect();
 
       //gets all columns for trainer schedule (depending on username)
-      result = await client.query(`SELECT * FROM ${request.body.username+'Schedule'} ORDER BY time`);
+      result = await client.query(`SELECT * FROM trainerSchedules WHERE username = '${request.body.username}' ORDER BY timeBooked`);
       
       console.log(result.rows);
 
@@ -386,15 +369,33 @@ app.post('/updateTrainerSchedule', async (request, response) => {
       // Connect to the PostgreSQL database using a connection pool
       // await client.connect();
 
-      //gets table name for trainer schedule (depending on username)
-      let tableName = request.body.username+'Schedule';
-
         // Build the update query dynamically based on scheduleData
         console.log(request.body)
 
-        result = await client.query(`UPDATE ${tableName} SET ${request.body.day} = $1 WHERE time = $2`, [request.body.newData, request.body.time]);
+        if(request.body.newData == ''){
+          result = await client.query(`DELETE FROM trainerSchedules WHERE username = $1 AND dayBooked = $2 AND timeBooked = $3`, [request.body.username ,request.body.day, request.body.time]);
 
-        console.log(result)
+        }else if(request.body.newData == 'UNAVAILABLE'){
+          
+          result = await client.query(`INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event) VALUES ($1, $2, $3, $4)`, [request.body.username ,request.body.day, request.body.time, request.body.newData]);
+
+        }
+        else if(request.body.typeOfSession.includes('personal') ||request.body.typeOfSession.includes('Personal')&& request.body.cancel == false){
+          result = await client.query(`INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event) VALUES ($1, $2, $3, $4)`, [request.body.username ,request.body.day, request.body.time, request.body.typeOfSession]);
+
+
+        }else if(request.body.typeOfSession.includes('personal')|| request.body.typeOfSession.includes('Personal') && request.body.cancel == true){
+          result = await client.query(`DELETE FROM trainerSchedules WHERE username = $1 AND dayBooked = $2 AND timeBooked = $3`, [request.body.username ,request.body.day, request.body.time]);
+
+
+        }else if(request.body.typeOfSession.includes('group') || request.body.typeOfSession.includes('Group') && request.body.cancel == false){
+          result = await client.query(`INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event) VALUES ($1, $2, $3, $4)`, [request.body.username ,request.body.day, request.body.time, request.body.typeOfSession]);
+
+
+        }else if(request.body.typeOfSession.includes('group') || request.body.typeOfSession.includes('Group') && request.body.cancel == true){  
+          result = await client.query(`DELETE FROM trainerSchedules WHERE username = $1 AND dayBooked = $2 AND timeBooked = $3`, [request.body.username ,request.body.day, request.body.time]);
+
+        } 
 
 
 
@@ -698,19 +699,6 @@ app.post('/registration', async (request, response) => {
         await client.query('INSERT INTO exerciseroutines (username, pushups, pullups, situps, deadlift, squats) VALUES ($1, $2, $3, $4, $5, $6)',[request.body.username,'true','true', 'true', 'true', 'false']);
         await client.query('INSERT INTO fitnessAchievements (username, enduranceAchievement, basketballAchievement, memberAchievement, weightAchievement, cyclingAchievement, footballAchievement) VALUES ($1, $2, $3, $4, $5, $6, $7)', [request.body.username, 'true', 'false', 'true', 'true', 'true', 'true']);
 
-        //creates sessions table and adds time
-        await client.query(`CREATE TABLE ${request.body.username+'Sessions'}(time VARCHAR(5),mon VARCHAR(50),tue VARCHAR(50),wed VARCHAR(50),thu VARCHAR(50),fri VARCHAR(50),sat VARCHAR(50),sun VARCHAR(50));`)
-        await client.query(`
-        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('9am', '', '', '', '', '', '', '');
-        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('10am', '', '', '', '', '', '', '');
-        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('11am', '', '', '', '', '', '', '');
-        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('12pm', '', '', '', '', '', '', '');
-        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('1pm', '', '', '', '', '', '', '');
-        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('2pm', '', '', '', '', '', '', '');
-        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('3pm', '', '', '', '', '', '', '');
-        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('4pm', '', '', '', '', '', '', '');
-        INSERT INTO ${request.body.username+'Sessions'} (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('5pm', '', '', '', '', '', '', '');
-        `)
         response.status(200).json(false) //account does not exist (account created)
         
       }

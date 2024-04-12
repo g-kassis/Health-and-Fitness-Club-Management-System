@@ -30,56 +30,6 @@ INSERT INTO fitnessAchievements (username, enduranceAchievement, basketballAchie
 INSERT INTO fitnessAchievements (username, enduranceAchievement, basketballAchievement, memberAchievement, weightAchievement, cyclingAchievement, footballAchievement) VALUES ('user4', 'true', 'true', 'true', 'true', 'false', 'true');
 INSERT INTO fitnessAchievements (username, enduranceAchievement, basketballAchievement, memberAchievement, weightAchievement, cyclingAchievement, footballAchievement) VALUES ('user5', 'true', 'false', 'true', 'true', 'true', 'false');
 
---members sessions 
-INSERT INTO member1Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('9am', '', '', '', '', '', '', '');
-INSERT INTO member1Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('10am', '', '', '', '', '', '', '');
-INSERT INTO member1Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('11am', '', '', '', '', '', '', '');
-INSERT INTO member1Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('12pm', '', '', '', '', '', '', '');
-INSERT INTO member1Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('1pm', '', '', '', '', '', '', '');
-INSERT INTO member1Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('2pm', '', '', '', '', '', '', '');
-INSERT INTO member1Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('3pm', '', '', '', '', '', '', '');
-INSERT INTO member1Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('4pm', '', '', '', '', '', '', '');
-INSERT INTO member1Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('5pm', '', '', '', '', '', '', '');
-
-INSERT INTO member2Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('9am', '', '', '', '', '', '', '');
-INSERT INTO member2Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('10am', '', '', '', '', '', '', '');
-INSERT INTO member2Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('11am', '', '', '', '', '', '', '');
-INSERT INTO member2Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('12pm', '', '', '', '', '', '', '');
-INSERT INTO member2Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('1pm', '', '', '', '', '', '', '');
-INSERT INTO member2Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('2pm', '', '', '', '', '', '', '');
-INSERT INTO member2Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('3pm', '', '', '', '', '', '', '');
-INSERT INTO member2Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('4pm', '', '', '', '', '', '', '');
-INSERT INTO member2Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('5pm', '', '', '', '', '', '', '');
-
-INSERT INTO member3Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('9am', '', '', '', '', '', '', '');
-INSERT INTO member3Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('10am', '', '', '', '', '', '', '');
-INSERT INTO member3Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('11am', '', '', '', '', '', '', '');
-INSERT INTO member3Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('12pm', '', '', '', '', '', '', '');
-INSERT INTO member3Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('1pm', '', '', '', '', '', '', '');
-INSERT INTO member3Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('2pm', '', '', '', '', '', '', '');
-INSERT INTO member3Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('3pm', '', '', '', '', '', '', '');
-INSERT INTO member3Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('4pm', '', '', '', '', '', '', '');
-INSERT INTO member3Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('5pm', '', '', '', '', '', '', '');
-
-INSERT INTO member4Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('9am', '', '', '', '', '', '', '');
-INSERT INTO member4Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('10am', '', '', '', '', '', '', '');
-INSERT INTO member4Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('11am', '', '', '', '', '', '', '');
-INSERT INTO member4Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('12pm', '', '', '', '', '', '', '');
-INSERT INTO member4Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('1pm', '', '', '', '', '', '', '');
-INSERT INTO member4Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('2pm', '', '', '', '', '', '', '');
-INSERT INTO member4Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('3pm', '', '', '', '', '', '', '');
-INSERT INTO member4Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('4pm', '', '', '', '', '', '', '');
-INSERT INTO member4Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('5pm', '', '', '', '', '', '', '');
-
-INSERT INTO member5Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('9am', '', '', '', '', '', '', '');
-INSERT INTO member5Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('10am', '', '', '', '', '', '', '');
-INSERT INTO member5Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('11am', '', '', '', '', '', '', '');
-INSERT INTO member5Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('12pm', '', '', '', '', '', '', '');
-INSERT INTO member5Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('1pm', '', '', '', '', '', '', '');
-INSERT INTO member5Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('2pm', '', '', '', '', '', '', '');
-INSERT INTO member5Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('3pm', '', '', '', '', '', '', '');
-INSERT INTO member5Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('4pm', '', '', '', '', '', '', '');
-INSERT INTO member5Sessions (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('5pm', '', '', '', '', '', '', '');
 
 --Trainers Table
 INSERT INTO trainers (username, passwrd, first_name, last_name, age, gender) VALUES ('trainer1', 'batman', 'Bruce', 'Wayne', '35', 'Male');
@@ -89,55 +39,26 @@ INSERT INTO trainers (username, passwrd, first_name, last_name, age, gender) VAL
 INSERT INTO trainers (username, passwrd, first_name, last_name, age, gender) VALUES ('trainer5', 'greenArrow', 'Oliver', 'Queen', '32', 'Male');
 
 --trainers schedules 
-INSERT INTO trainer1Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('9am', 'UNAVAILABLE', '', '', '', '', '', '');
-INSERT INTO trainer1Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('10am', '', '', '', '', '', '', '');
-INSERT INTO trainer1Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('11am', '', '', '', '', '', '', '');
-INSERT INTO trainer1Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('12pm', '', '', '', '', '', 'UNAVAILABLE', '');
-INSERT INTO trainer1Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('1pm', '', '', '', '', '', '', '');
-INSERT INTO trainer1Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('2pm', 'UNAVAILABLE', '', '', '', '', '', '');
-INSERT INTO trainer1Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('3pm', '', '', '', '', '', '', '');
-INSERT INTO trainer1Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('4pm', '', '', '', '', '', '', 'UNAVAILABLE');
-INSERT INTO trainer1Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('5pm', '', 'UNAVAILABLE', '', '', '', '', '');
+INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event)  VALUES ('trainer1','mon', '9am', 'UNAVAILABLE');
+INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event)  VALUES ('trainer1','sat', '12pm', 'UNAVAILABLE');
+INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event)  VALUES ('trainer1','mon', '2pm', 'UNAVAILABLE');
+INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event)  VALUES ('trainer1','sun', '4pm', 'UNAVAILABLE');
+INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event)  VALUES ('trainer1','tue', '5pm', 'UNAVAILABLE');
 
-INSERT INTO trainer2Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('9am', '', '', '', '', '', '', 'UNAVAILABLE');
-INSERT INTO trainer2Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('10am', '', '', '', '', '', '', '');
-INSERT INTO trainer2Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('11am', '', '', '', '', '', '', '');
-INSERT INTO trainer2Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('12pm', '', '', 'UNAVAILABLE', '', '', '', '');
-INSERT INTO trainer2Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('1pm', '', '', '', '', '', '', '');
-INSERT INTO trainer2Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('2pm', '', '', '', '', '', '', '');
-INSERT INTO trainer2Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('3pm', '', '', '', '', '', '', '');
-INSERT INTO trainer2Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('4pm', '', '', '', '', '', '', '');
-INSERT INTO trainer2Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('5pm', 'UNAVAILABLE', '', '', '', '', '', '');
 
-INSERT INTO trainer3Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('9am', '', '', '', '', '', '', '');
-INSERT INTO trainer3Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('10am', '', '', '', '', '', '', '');
-INSERT INTO trainer3Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('11am', '', 'UNAVAILABLE', '', '', '', '', '');
-INSERT INTO trainer3Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('12pm', '', '', '', '', '', '', '');
-INSERT INTO trainer3Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('1pm', '', '', '', '', '', '', '');
-INSERT INTO trainer3Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('2pm', '', '', '', '', '', '', '');
-INSERT INTO trainer3Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('3pm', '', '', '', '', '', '', '');
-INSERT INTO trainer3Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('4pm', '', '', '', '', 'UNAVAILABLE', '', '');
-INSERT INTO trainer3Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('5pm', '', '', '', '', '', '', '');
+INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event)  VALUES ('trainer2','wed', '12pm', 'UNAVAILABLE');
+INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event)  VALUES ('trainer2','sun', '3pm', 'UNAVAILABLE');
 
-INSERT INTO trainer4Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('9am', '', '', '', '', '', '', '');
-INSERT INTO trainer4Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('10am', '', '', '', '', '', '', '');
-INSERT INTO trainer4Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('11am', '', '', '', '', '', '', '');
-INSERT INTO trainer4Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('12pm', '', '', '', '', '', '', '');
-INSERT INTO trainer4Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('1pm', '', '', '', '', '', '', '');
-INSERT INTO trainer4Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('2pm', '', 'UNAVAILABLE', '', '', '', '', '');
-INSERT INTO trainer4Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('3pm', '', '', '', '', '', '', '');
-INSERT INTO trainer4Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('4pm', '', '', '', '', 'UNAVAILABLE', '', '');
-INSERT INTO trainer4Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('5pm', '', '', '', '', '', '', '');
 
-INSERT INTO trainer5Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('9am', '', '', '', '', '', '', '');
-INSERT INTO trainer5Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('10am', '', '', '', '', '', '', '');
-INSERT INTO trainer5Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('11am', '', 'UNAVAILABLE', '', '', '', '', '');
-INSERT INTO trainer5Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('12pm', '', '', '', '', '', '', '');
-INSERT INTO trainer5Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('1pm', '', '', '', '', '', '', '');
-INSERT INTO trainer5Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('2pm', '', 'UNAVAILABLE', '', '', '', '', '');
-INSERT INTO trainer5Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('3pm', '', '', '', '', '', '', '');
-INSERT INTO trainer5Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('4pm', '', '', '', '', '', '', '');
-INSERT INTO trainer5Schedule (time, mon, tue, wed, thu, fri, sat, sun) VALUES ('5pm', '', '', '', '', '', '', '');
+INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event)  VALUES ('trainer3','tue', '2pm', 'UNAVAILABLE');
+INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event)  VALUES ('trainer3','mon', '4pm', 'UNAVAILABLE');
+
+INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event)  VALUES ('trainer4','mon', '11am', 'UNAVAILABLE');
+INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event)  VALUES ('trainer4','thu', '3pm', 'UNAVAILABLE');
+
+INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event)  VALUES ('trainer5','mon', '4pm', 'UNAVAILABLE');
+INSERT INTO trainerSchedules (username ,dayBooked, timeBooked, event)  VALUES ('trainer5','fri', '1pm', 'UNAVAILABLE');
+
 
 -- Admins Table
 INSERT INTO admins (username, passwrd, first_name, last_name) VALUES ('admin1', 'cr7', 'Cristiano', 'Ronaldo');

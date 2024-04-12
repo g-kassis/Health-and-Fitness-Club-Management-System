@@ -22,22 +22,14 @@ function showSchedule(){
           if(responseObj){
             console.log(responseObj)
 
-            //turns responeobj array to a JSON object
-            const jsObject = {};
-            responseObj.forEach(entry => {
-              const { time, ...rest } = entry;
-              const key = time.replace(/[ap]m/g, ''); // Remove "am" and "pm"
-              jsObject[key] = rest;
-            });
-            console.log(jsObject);
-
+            //clears the schedule first
             const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
             for (let hour = 9; hour <= 12; hour++) {
               for (let i = 0; i < daysOfWeek.length; i++) {
                 const className = `${daysOfWeek[i]}-${hour}`;
                 const day = daysOfWeek[i].toLowerCase()
-                document.getElementsByClassName(className).scheduleSlot.innerHTML = jsObject[hour][day];
+                document.getElementsByClassName(className).scheduleSlot.innerHTML = '';
+                document.getElementsByClassName(className).scheduleSlot.setAttribute("Name", data.username) 
               }
             }
 
@@ -45,19 +37,33 @@ function showSchedule(){
               for (let i = 0; i < daysOfWeek.length; i++) {
                 const className = `${daysOfWeek[i]}-${hour}`;
                 day = daysOfWeek[i].toLowerCase()
-                document.getElementsByClassName(className).scheduleSlot.innerHTML = jsObject[hour][day];
+                document.getElementsByClassName(className).scheduleSlot.innerHTML = '';
+                document.getElementsByClassName(className).scheduleSlot.setAttribute("Name", data.username) 
               }
+            }
+
+            //shows the latest schedule
+            for(let i = 0; i < responseObj.length; i++){
+
+              let time = ''
+              let day = ''
+              time = responseObj[i].timebooked.slice(0,-2)
+              day = responseObj[i].daybooked.charAt(0).toUpperCase() + responseObj[i].daybooked.slice(1)
+
+              document.getElementsByClassName(day+ '-' + time).scheduleSlot.innerHTML = responseObj[i].event;
+              document.getElementsByClassName(day+ '-' + time).scheduleSlot.setAttribute("Name", data.username) 
             }
 
             
           }else{
-            console.log('User Does not Exists')
+            console.log('Trainer Schedule Fully Clear')
           }
         }
       }
       xhttp.open("POST", "/getTrainerSchedule") 
       xhttp.setRequestHeader("Content-Type", "application/json");
       xhttp.send(JSON.stringify(data))
+      
 
     }else{
       //to redirect to schedule page (if not there already)
@@ -237,13 +243,15 @@ function amORpm(t){
   }
 }
 
-function updateSchedule(newData,slot){
-
+function updateSchedule(newData,slot,cancel,type){
+  console.log(slot)
   let data = Object()
     data.username = getUsername()
-    data.day = slot.substring(0,4).toLowerCase()
-    data.time = slot.substring(5,slot.length) + amORpm(slot.substring(5,slot.length))
+    data.day = slot.split('-')[0].toLowerCase().replace(/\s/g, '')
+    data.time = slot.split('-')[1] + amORpm(slot.split('-')[1])
     data.newData = newData
+    data.typeOfSession = type
+    data.cancel = cancel
 
   console.log(data)
 
@@ -270,15 +278,25 @@ function updateSchedule(newData,slot){
 function clearSlot(){
   let title = document.getElementById('formTitle').innerHTML
   let arr = title.split('Edit')
-  scheduleSlot = arr[1]
+  scheduleSlot = arr[1].replace(/\s/g, '')
   console.log(scheduleSlot);
   
   //clears slot
   let slot = document.getElementsByClassName(scheduleSlot)[0]
+
+  if(slot.innerHTML == 'UNAVAILABLE'){
+    console.log('in')
+    updateSchedule('',scheduleSlot,true,'UNAVAILABLE')
+
+  }else if(slot.innerHTML.includes('Personal') || slot.innerHTML.includes('personal')){
+    updateSchedule('',scheduleSlot,true,'personal')
+
+  }else if(slot.innerHTML.includes('Group') || slot.innerHTML.includes('group')){
+    updateSchedule('',scheduleSlot,true,'group')
+    
+  }
   slot.innerHTML = '';
-
-
-  updateSchedule(slot.innerHTML,scheduleSlot)
+  
   
   //closes modal
   document.getElementById("myNav").style.width = "0%"
@@ -294,10 +312,10 @@ function addToSchedule(add){
   
   //adds group class to slot
   let slot = document.getElementsByClassName(scheduleSlot)[0]
-  slot.innerHTML = 'Group Fitness: ' + add;
+  slot.innerHTML = 'group Fitness: ' + add;
 
 
-  updateSchedule(slot.innerHTML,scheduleSlot)
+  updateSchedule(slot.innerHTML,scheduleSlot, false, 'Group Fitness: ' + add)
 
 
   //closes modal
@@ -316,9 +334,18 @@ function setUnavailable(){
 
 
   let slot = document.getElementsByClassName(scheduleSlot)[0]
+  if(slot.innerHTML == ''){
+    updateSchedule('UNAVAILABLE',scheduleSlot,true,'')
+
+  }else if(slot.innerHTML.includes('Personal') || slot.innerHTML.includes('personal')){
+    updateSchedule('UNAVAILABLE',scheduleSlot,true,'personal')
+
+  }else if(slot.innerHTML.includes('Group') || slot.innerHTML.includes('group')){
+    updateSchedule('UNAVAILABLE',scheduleSlot,true,'group')
+    
+  }
   slot.innerHTML = 'UNAVAILABLE';
 
-  updateSchedule(slot.innerHTML, scheduleSlot)
 
   //closes modal
   document.getElementById("myNav").style.width = "0%"

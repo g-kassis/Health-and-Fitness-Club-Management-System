@@ -249,37 +249,31 @@ function currentlyScheduledSessions(sessions){
   //creating rows based on the number of returned results from the query
   for (let i = 0; i < sessions.length; i++) {
 
-    for(let j = 0; j < daysOfWeek.length; j++){
+    const row = document.createElement('tr');
+    row.className = 'row'
+    const firstNameCell = document.createElement('td');
+    const lastNameCell = document.createElement('td');
+    const dateCell = document.createElement('td');
+    const cancelCell = document.createElement('td');
 
-      if(sessions[i][daysOfWeek[j].toLowerCase()]!== ''){
-        const row = document.createElement('tr');
-        row.className = 'row'
-        const firstNameCell = document.createElement('td');
-        const lastNameCell = document.createElement('td');
-        const dateCell = document.createElement('td');
-        const cancelCell = document.createElement('td');
+    firstNameCell.textContent = sessions[i].trainer
+    lastNameCell.textContent = sessions[i].trainer
+    dateCell.textContent =  sessions[i].daybooked + ' - ' + sessions[i].timebooked
 
-        firstNameCell.textContent = sessions[i][daysOfWeek[j].toLowerCase()];
-        lastNameCell.textContent = sessions[i][daysOfWeek[j].toLowerCase()];
-        dateCell.textContent =  daysOfWeek[j] + ' - ' + sessions[i]['time']
+    //cancel cell with button
+    let cancelBtn = document.createElement('BUTTON')
+    cancelBtn.innerHTML = 'X'
+    cancelBtn.id = sessions[i].daybooked + ' - ' + sessions[i].timebooked
+    cancelBtn.className = 'cancelBookingBtn'
+    cancelCell.append(cancelBtn)
+    cancelCell.id = sessions[i].daybooked + ' - ' + sessions[i].timebooked + ' - ' + firstNameCell.textContent
 
-        //cancel cell with button
-        let cancelBtn = document.createElement('BUTTON')
-        cancelBtn.innerHTML = 'X'
-        cancelBtn.id = daysOfWeek[j] + '-' + sessions[i]['time']
-        cancelBtn.className = 'cancelBookingBtn'
-        cancelCell.append(cancelBtn)
-        cancelCell.id = daysOfWeek[j] + '-' + sessions[i]['time'] + '-' + firstNameCell.textContent
+    row.appendChild(firstNameCell);
+    row.appendChild(lastNameCell);
+    row.appendChild(dateCell);
+    row.appendChild(cancelCell)
 
-        row.appendChild(firstNameCell);
-        row.appendChild(lastNameCell);
-        row.appendChild(dateCell);
-        row.appendChild(cancelCell)
-
-        table.appendChild(row);
-      }
-
-    }
+    table.appendChild(row);
     
   }
     
@@ -289,7 +283,7 @@ function currentlyScheduledSessions(sessions){
 
 //updates session tables for memeber
 function updateMemberSessions(SessionData){
-  
+  console.log(SessionData)
   let xhttp = new XMLHttpRequest()
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -332,7 +326,7 @@ function personalTrainingSession(){
         currentlyScheduledSessions(responseObj)
         
       }else{
-        console.log('Error: Data not found')
+        console.log('Error: Nothing Scheduled')
       }
     }
   }
@@ -346,7 +340,7 @@ function personalTrainingSession(){
 }
 
 //displays trainers schedule with data from database
-function selectTrainer(trainer){
+function selectTrainer(trainer, trainerId){
   let trainerName = trainer.name.replace('Avatar','')
   console.log('Trainer: '+ trainerName)
 
@@ -368,24 +362,15 @@ function selectTrainer(trainer){
   
           let responseObj = JSON.parse(this.responseText)
           if(responseObj){
-            //console.log(responseObj)
+            console.log(responseObj)
 
-            //turns responeobj array to a JSON object
-            const jsObject = {};
-            responseObj.forEach(entry => {
-              const { time, ...rest } = entry;
-              const key = time.replace(/[ap]m/g, ''); // Remove "am" and "pm"
-              jsObject[key] = rest;
-            });
-            //console.log(jsObject);
-
+            //clears the schedule first
             const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
             for (let hour = 9; hour <= 12; hour++) {
               for (let i = 0; i < daysOfWeek.length; i++) {
                 const className = `${daysOfWeek[i]}-${hour}`;
                 const day = daysOfWeek[i].toLowerCase()
-                document.getElementsByClassName(className).scheduleSlot.innerHTML = jsObject[hour][day];
+                document.getElementsByClassName(className).scheduleSlot.innerHTML = '';
                 document.getElementsByClassName(className).scheduleSlot.setAttribute("Name", trainer.id) 
               }
             }
@@ -394,14 +379,26 @@ function selectTrainer(trainer){
               for (let i = 0; i < daysOfWeek.length; i++) {
                 const className = `${daysOfWeek[i]}-${hour}`;
                 day = daysOfWeek[i].toLowerCase()
-                document.getElementsByClassName(className).scheduleSlot.innerHTML = jsObject[hour][day];
+                document.getElementsByClassName(className).scheduleSlot.innerHTML = '';
                 document.getElementsByClassName(className).scheduleSlot.setAttribute("Name", trainer.id) 
               }
             }
 
+            //shows the latest schedule
+            for(let i = 0; i < responseObj.length; i++){
+
+              let time = ''
+              let day = ''
+              time = responseObj[i].timebooked.slice(0,-2)
+              day = responseObj[i].daybooked.charAt(0).toUpperCase() + responseObj[i].daybooked.slice(1)
+
+              document.getElementsByClassName(day+ '-' + time).scheduleSlot.innerHTML = responseObj[i].event;
+              document.getElementsByClassName(day+ '-' + time).scheduleSlot.setAttribute("Name", trainer.id) 
+            }
+
             
           }else{
-            console.log('User Does not Exists')
+            console.log('Trainer Schedule Fully Clear')
           }
         }
       }
@@ -487,13 +484,14 @@ function amORpm(t){
 
 //updates trainer schedule with new member personal session
 function bookWithTrainer(slot, sessionType){
+  console.log(slot)
   let trainer = slot.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[2].children[2].getAttribute('Name')
   let dateTime = slot.parentNode.parentNode.children[1].innerHTML.replace('Book Personal Training Session on ','')
   console.log(dateTime)
   
 
   //adds to gui schedule
-  document.getElementsByClassName(dateTime).scheduleSlot.innerHTML = getUsername()
+  document.getElementsByClassName(dateTime).scheduleSlot.innerHTML = sessionType + getUsername()
 
   //sends to server to update database
   let data = Object()
@@ -501,7 +499,7 @@ function bookWithTrainer(slot, sessionType){
     data.day = dateTime.substring(0,3).toLowerCase()
     data.time = dateTime.substring(4,dateTime.length) + amORpm(dateTime.substring(4,dateTime.length))
     data.newData = getUsername() //takes members username
-    data.typeOfSession = sessionType
+    data.typeOfSession = sessionType + getUsername()
     data.cancel = false
   //console.log(data)
 
@@ -530,7 +528,7 @@ function bookWithTrainer(slot, sessionType){
 
 function cancelBooking(booking, sessionType){
   console.log('deleting: '+booking)
-  let bookingData = booking.split('-')
+  let bookingData = booking.split(' - ')
   let data = Object()
     data.day = bookingData[0].toLowerCase()
     data.time = bookingData[1]
@@ -551,8 +549,11 @@ function cancelBooking(booking, sessionType){
         let data = Object()
           data.day = bookingData[0].toLowerCase()
           data.time = bookingData[1]
-          data.username = ''
+          data.username = bookingData[2]
           data.newData = getUsername()
+          data.typeOfSession = sessionType + getUsername()
+          data.cancel = true
+          console.log(data)
         updateMemberSessions(data)
         
       }else{
@@ -604,14 +605,14 @@ document.addEventListener('DOMContentLoaded', function() {
   //the cancel button inside the table to delete a slot
   document.addEventListener('click',function(e){
     if(e.target && e.target.className== 'cancelBookingBtn'){
-      cancelBooking(e.target.parentNode.id, 'personal');
+      cancelBooking(e.target.parentNode.id, 'Personal: ');
     }
   }); 
 
   //when a trainer avatar is clicked
   document.addEventListener('click',function(e){
     if(e.target && e.target.className == 'trainerAvatar'){
-      selectTrainer(e.target);
+      selectTrainer(e.target, e.target.id);
     }
   });
 
@@ -658,7 +659,7 @@ document.addEventListener('DOMContentLoaded', function() {
    //the add button inside the inner modal to book a slot
    document.addEventListener('click',function(e){
     if(e.target && e.target.id== 'addBtn'){
-        bookWithTrainer(e.target, 'personal');
+        bookWithTrainer(e.target, 'Personal: ');
 
     }
   }); 
