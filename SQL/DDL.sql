@@ -115,12 +115,6 @@ CREATE TABLE trainers(
 	gender VARCHAR(6)
 );
 
-CREATE TABLE trainerSchedules(
-	trainer VARCHAR(50),
-	day VARCHAR(5),
-	time VARCHAR(5),
-	FOREIGN KEY (trainer) REFERENCES trainers(username)
-);
 
 CREATE TABLE trainer1Schedule(
 	time VARCHAR(5),

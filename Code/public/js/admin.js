@@ -57,6 +57,16 @@ function showEquipmentMonitor(){
                 let equipmentName = responseObj[i].equipmentname.toLowerCase().replace(' ', '-')
                 let eq = document.getElementById(equipmentName + '-progress')
                 eq.innerHTML = responseObj[i].equipmentstatus + '%'
+                eq.style.width = responseObj[i].equipmentstatus + '%'
+                if(responseObj[i].equipmentstatus <= 100 && responseObj[i].equipmentstatus >= 80){
+                  eq.className = 'w3-container w3-green w3-round-xlarge'
+                }else if(responseObj[i].equipmentstatus < 80 && responseObj[i].equipmentstatus >= 60){
+                  eq.className = 'w3-container w3-yellow w3-round-xlarge'
+                }else if(responseObj[i].equipmentstatus < 60  && responseObj[i].equipmentstatus >= 40){
+                  eq.className = 'w3-container w3-orange w3-round-xlarge'
+                }else{
+                  eq.className = 'w3-container w3-red w3-round-xlarge'
+                }
               }
               
             }else{
