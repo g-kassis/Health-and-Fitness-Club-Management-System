@@ -18,14 +18,17 @@ training sessions, and other services.
 
 <h1>Documentation</h1>
 
-[ER Diagram](https://app.diagrams.net/#G18vOLiGHDYBX6NxlfiL5yT6637f0RIecA#%7B%22pageId%22%3A%22E5dMaURhD6ezKaJnujc-%22%7D)
+### SQL
+- [DML File](https://github.com/g-kassis/Health-and-Fitness-Club-Management-System/blob/main/SQL/DML.sql)
+- [DDL File](https://github.com/g-kassis/Health-and-Fitness-Club-Management-System/blob/main/SQL/DDL.sql)
+### Diagrams
+- [ER Diagram]()
+- [Relational Database Schema]()
+
+### Video & Report
+- [Video]()
+- [Project Report](https://docs.google.com/document/d/1_Wf68yuHnsmwBG2fLVwSGgDTOIsdZg3HochKl7-BIFw/edit?usp=sharing)
 <br>
-[Relational Database Schema]()
-<br>
-[Video]()
-<br>
-[Project Report]()
-  
   
 # Tech Stack
 
