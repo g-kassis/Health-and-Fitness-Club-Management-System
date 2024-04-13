@@ -18,7 +18,7 @@ training sessions, and other services.
 
 <h1>Documentation</h1>
 
-[ER Diagram]()
+[ER Diagram](https://app.diagrams.net/#G18vOLiGHDYBX6NxlfiL5yT6637f0RIecA#%7B%22pageId%22%3A%22E5dMaURhD6ezKaJnujc-%22%7D)
 <br>
 [Relational Database Schema]()
 <br>
