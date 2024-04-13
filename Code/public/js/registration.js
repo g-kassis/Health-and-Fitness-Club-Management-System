@@ -1,4 +1,13 @@
 
+var sound = new Howl({
+  src: ['bravo.mp3']
+});
+
+function playAudio() {
+  sound.play();
+}
+
+
 function register(){
   //gets usrname and pass
   let username = document.getElementById('usrn').value
@@ -58,6 +67,9 @@ function register(){
 }
 
 function login(){
+  playAudio();
+
+  setTimeout(function() {
   //gets usrname and pass
   let username = document.getElementById('usrn').value
   let password = document.getElementById('pswd').value
@@ -104,6 +116,8 @@ function login(){
     xhttp.open("POST", "userLogIn") 
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(userData))
+
+  }, 4000);
     
 }
 

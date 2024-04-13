@@ -1,3 +1,11 @@
+var sound = new Howl({
+  src: ['gulag.mp3']
+});
+
+function playAudio() {
+  sound.play();
+}
+
 
 function getUsername(){
   const queryParams = new URLSearchParams(window.location.search);
@@ -507,6 +515,11 @@ function bookGroupSession(slot, sessionType){
 
 //updates trainer schedule with new member personal session
 function bookWithTrainer(slot, sessionType){
+
+  playAudio();
+  
+  setTimeout(function() { 
+
   console.log(slot)
   let trainer = slot.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[2].children[2].getAttribute('Name')
   let dateTime = slot.parentNode.parentNode.children[1].innerHTML.replace('Book Personal Training Session on ','')
@@ -546,6 +559,8 @@ function bookWithTrainer(slot, sessionType){
 
   //closes the inner modal
   document.getElementById("myNav").style.width = "0%"
+
+  }, 3000);
 
 }
 
