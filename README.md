@@ -26,7 +26,7 @@ training sessions, and other services.
 - [Relational Database Schema](https://github.com/g-kassis/Health-and-Fitness-Club-Management-System/blob/main/Documentations/Relational_Database_Schema.png)
 
 ### Video & Report
-- [Video]()
+- [Video](https://carleton-ca.zoom.us/rec/share/qZxAz8BCDR8UTAb8VhDEAhx9m-lkhp8nBULcskxf3iN4uH5hLUuvqSBgIcbZAfjV.mv_CnURue3MVvsqE)
 - [Project Report](https://docs.google.com/document/d/1_Wf68yuHnsmwBG2fLVwSGgDTOIsdZg3HochKl7-BIFw/edit?usp=sharing)
 <br>
   
