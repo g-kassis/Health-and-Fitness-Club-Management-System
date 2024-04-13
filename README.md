@@ -22,7 +22,7 @@ training sessions, and other services.
 - [DML File](https://github.com/g-kassis/Health-and-Fitness-Club-Management-System/blob/main/SQL/DML.sql)
 - [DDL File](https://github.com/g-kassis/Health-and-Fitness-Club-Management-System/blob/main/SQL/DDL.sql)
 ### Diagrams
-- [ER Diagram]()
+- [ER Diagram](https://github.com/g-kassis/Health-and-Fitness-Club-Management-System/blob/main/Documentations/ER_model.pdf)
 - [Relational Database Schema](https://github.com/g-kassis/Health-and-Fitness-Club-Management-System/blob/main/Documentations/Relational_Database_Schema.png)
 
 ### Video & Report
