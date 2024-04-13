@@ -510,6 +510,8 @@ function bookGroupSession(slot, sessionType){
     data.typeOfSession = sessionType + getUsername()
     data.cancel = false
   updateMemberSessions(data)
+  //closes the inner modal
+  document.getElementById("myNav").style.width = "0%"
 
 }
 
