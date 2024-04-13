@@ -7,9 +7,7 @@ CREATE TABLE members(
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
 	age INT,
-	gender VARCHAR(6),
-	numGroupFitness INT,
-	numPersonalSessions INT
+	gender VARCHAR(6)
 );
 
 CREATE TABLE fitnessGoals(
@@ -87,6 +85,15 @@ CREATE TABLE admins(
 	first_name VARCHAR(50),
 	last_name VARCHAR(50)
 
+);
+
+CREATE TABLE bill(
+	username VARCHAR(50),
+	first_name VARCHAR(50),
+	last_name VARCHAR(50),
+	numGroupFitness INT,
+	numPersonalSessions INT,
+	FOREIGN KEY (username) REFERENCES members(username)
 );
 
 CREATE TABLE rooms(

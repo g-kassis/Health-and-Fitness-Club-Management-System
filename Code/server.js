@@ -255,22 +255,22 @@ app.post('/updateMemberSessions', async (request, response) => {
         console.log(request.body)
         
         if(request.body.typeOfSession.includes('personal') ||request.body.typeOfSession.includes('Personal') && request.body.cancel == false){
-          result = await client.query(`UPDATE members SET numPersonalSessions = numPersonalSessions + 1 WHERE username = $1`, [request.body.newData]);
+          result = await client.query(`UPDATE bill SET numPersonalSessions = numPersonalSessions + 1 WHERE username = $1`, [request.body.newData]);
           result = await client.query(`INSERT INTO membersessions (username ,dayBooked, timeBooked, event, trainer) VALUES ($1, $2, $3, $4, $5)`, [request.body.newData ,request.body.day, request.body.time, request.body.typeOfSession, request.body.username]);
 
 
         }else if(request.body.typeOfSession.includes('personal') ||request.body.typeOfSession.includes('Personal') && request.body.cancel == true){
-          result = await client.query(`UPDATE members SET numPersonalSessions = numPersonalSessions - 1 WHERE username = $1`, [request.body.newData]);
+          result = await client.query(`UPDATE bill SET numPersonalSessions = numPersonalSessions - 1 WHERE username = $1`, [request.body.newData]);
           result = await client.query(`DELETE FROM membersessions WHERE username = $1 AND dayBooked = $2 AND timeBooked = $3 AND event = $4 AND trainer = $5`, [request.body.newData ,request.body.day, request.body.time, request.body.typeOfSession, request.body.username]);
 
 
-        }else if(request.body.typeOfSession.includes('Group') ||request.body.typeOfSession.includes('group') && request.body.cancel == false){
-          result = await client.query(`UPDATE members SET numPersonalSessions = numPersonalSessions + 1 WHERE username = $1`, [request.body.newData]);
+        }else if((request.body.typeOfSession.includes('Group') ||request.body.typeOfSession.includes('group')) && request.body.cancel == false){
+          result = await client.query(`UPDATE bill SET numgroupfitness = numgroupfitness + 1 WHERE username = $1`, [request.body.newData]);
           result = await client.query(`INSERT INTO membersessions (username ,dayBooked, timeBooked, event, trainer) VALUES ($1, $2, $3, $4, $5)`, [request.body.newData ,request.body.day, request.body.time, request.body.typeOfSession, request.body.username]);
 
 
         }else if (request.body.typeOfSession.includes('Group') ||request.body.typeOfSession.includes('group') && request.body.cancel == true){  
-          result = await client.query(`UPDATE members SET numPersonalSessions = numPersonalSessions - 1 WHERE username = $1`, [request.body.newData]);
+          result = await client.query(`UPDATE bill SET numgroupfitness = numgroupfitness - 1 WHERE username = $1`, [request.body.newData]);
           result = await client.query(`DELETE FROM membersessions WHERE username = $1 AND dayBooked = $2 AND timeBooked = $3 AND event = $4 AND trainer = $5`, [request.body.newData ,request.body.day, request.body.time, request.body.typeOfSession, request.body.username]);
 
 
@@ -637,6 +637,34 @@ app.post('/updateEquipments', async (request, response) => {
   
 });
 
+app.post('/getBill', async (request, response) => {
+  console.log('get billings');
+  console.log(request.body)
+
+  try {
+      // Connect to the PostgreSQL database using a connection pool
+ 
+
+      result = await client.query(`SELECT * FROM bill`);
+
+
+      console.log(result.rows);
+
+      if (result.rows.length != 0) {
+        response.status(200).json(result.rows);
+      }else{
+        response.status(200).json(false); 
+          
+      }
+  } catch (error) {
+      // Handle errors
+      console.error('Error executing database query:', error);
+      response.status(500).json({ success: false, error: 'Internal Server Error' });
+  } 
+  
+  
+});
+
 
 //------------------------------------------------------------------------------------------------
 
@@ -692,13 +720,13 @@ app.post('/registration', async (request, response) => {
         response.status(200).json(true) //account exists
       }else{
         //adds member to members table
-        await client.query('INSERT INTO members (username, passwrd, first_name, last_name, numGroupFitness, numPersonalSessions) VALUES ($1, $2, $3, $4, $5, $6)', [request.body.username, request.body.password, request.body.fname, request.body.lname, 0, 0]);
+        await client.query('INSERT INTO members (username, passwrd, first_name, last_name) VALUES ($1, $2, $3, $4)', [request.body.username, request.body.password, request.body.fname, request.body.lname]);
         //adds member to healthMetrics table and fitnessGoals
         await client.query('INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal) VALUES ($1, $2, $3, $4)',[request.body.username,160,10,7]);
         await client.query('INSERT INTO healthMetrics (username, weight, height) VALUES ($1, $2, $3)',[request.body.username,140,175]);
         await client.query('INSERT INTO exerciseroutines (username, pushups, pullups, situps, deadlift, squats) VALUES ($1, $2, $3, $4, $5, $6)',[request.body.username,'true','true', 'true', 'true', 'false']);
         await client.query('INSERT INTO fitnessAchievements (username, enduranceAchievement, basketballAchievement, memberAchievement, weightAchievement, cyclingAchievement, footballAchievement) VALUES ($1, $2, $3, $4, $5, $6, $7)', [request.body.username, 'true', 'false', 'true', 'true', 'true', 'true']);
-
+        await client.query('INSERT INTO bill (username, first_name, last_name, numGroupFitness, numPersonalSessions) VALUES ($1, $2, $3, $4, $5)', [request.body.username, request.body.fname, request.body.lname ,0, 0]);
         response.status(200).json(false) //account does not exist (account created)
         
       }

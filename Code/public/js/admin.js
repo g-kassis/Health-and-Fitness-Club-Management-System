@@ -264,7 +264,7 @@ function showBilling(){
         }
       }
     }
-    xhttp.open("POST", "/getAllMembers") 
+    xhttp.open("POST", "/getBill") 
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify())
 

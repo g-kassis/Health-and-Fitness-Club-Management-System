@@ -1,9 +1,9 @@
 --Members Table
-INSERT INTO members (username, passwrd, first_name, last_name, age, gender, numGroupFitness, numPersonalSessions) VALUES ('user1', 'ironman', 'Tony', 'Stark', '35', 'Male', 0, 0);
-INSERT INTO members (username, passwrd, first_name, last_name, age, gender, numGroupFitness, numPersonalSessions) VALUES ('user2', 'thor', 'Thor', 'Odinson', '30', 'Male', 0, 0);
-INSERT INTO members (username, passwrd, first_name, last_name, age, gender, numGroupFitness, numPersonalSessions) VALUES ('user3', 'blackWidow', 'Natasha', 'Romanoff', '30', 'Female', 0, 0);
-INSERT INTO members (username, passwrd, first_name, last_name, age, gender, numGroupFitness, numPersonalSessions) VALUES ('user4', 'cptAmerica', 'Steve', 'Rogers', '30', 'Male', 0, 0);
-INSERT INTO members (username, passwrd, first_name, last_name, age, gender, numGroupFitness, numPersonalSessions) VALUES ('user5', 'hulk', 'Bruce', 'Banner', '32', 'Male', 0, 0);
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user1', 'ironman', 'Tony', 'Stark', '35', 'Male');
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user2', 'thor', 'Thor', 'Odinson', '30', 'Male');
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user3', 'blackWidow', 'Natasha', 'Romanoff', '30', 'Female');
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user4', 'cptAmerica', 'Steve', 'Rogers', '30', 'Male');
+INSERT INTO members (username, passwrd, first_name, last_name, age, gender) VALUES ('user5', 'hulk', 'Bruce', 'Banner', '32', 'Male');
 
 --members fitness goals and health metrics
 INSERT INTO fitnessGoals (username, weight_goal, muscle_goal, endurance_goal) VALUES ('user1', 250, 10, 12);
@@ -78,3 +78,10 @@ INSERT INTO equipment (roomID, equipmentName, equipmentStatus, equipmentLastMain
 INSERT INTO equipment (roomID, equipmentName, equipmentStatus, equipmentLastMaintenance) VALUES (1,'Lat Pulldown',98,'2024-01-01');
 INSERT INTO equipment (roomID, equipmentName, equipmentStatus, equipmentLastMaintenance) VALUES (1, 'Cardio Bike',65, '2024-01-01');
 INSERT INTO equipment (roomID, equipmentName, equipmentStatus, equipmentLastMaintenance) VALUES (1, 'Leg Press',91, '2024-01-01');
+
+
+INSERT INTO bill (username, first_name, last_name, numGroupFitness, numPersonalSessions) VALUES ('user1', 'Tony', 'Stark', 0, 0);
+INSERT INTO bill (username, first_name, last_name, numGroupFitness, numPersonalSessions) VALUES ('user2', 'Thor', 'Odinson', 0, 0);
+INSERT INTO bill (username, first_name, last_name, numGroupFitness, numPersonalSessions) VALUES ('user3', 'Natasha', 'Romanoff', 0, 0);
+INSERT INTO bill (username, first_name, last_name, numGroupFitness, numPersonalSessions) VALUES ('user4', 'Steve', 'Rogers', 0, 0);
+INSERT INTO bill (username, first_name, last_name, numGroupFitness, numPersonalSessions) VALUES ('user5', 'Bruce', 'Banner', 0, 0);

@@ -226,6 +226,8 @@ function currentlyScheduledSessions(sessions){
   table.className = "profileTable"
   const headers = document.createElement('tr');
   headers.className = 'table_header';
+  const SessionHeader = document.createElement('th');
+  SessionHeader.textContent = 'Session';
   const firstNameHeader = document.createElement('th');
   firstNameHeader.textContent = 'First Name';
   const lastNameHeader = document.createElement('th');
@@ -235,6 +237,7 @@ function currentlyScheduledSessions(sessions){
   const cancelHeader = document.createElement('th');
   cancelHeader.textContent = 'Cancel';
 
+  headers.appendChild(SessionHeader);
   headers.appendChild(firstNameHeader);
   headers.appendChild(lastNameHeader);
   headers.appendChild(dateHeader);
@@ -251,11 +254,13 @@ function currentlyScheduledSessions(sessions){
 
     const row = document.createElement('tr');
     row.className = 'row'
+    const sessionCell = document.createElement('td');
     const firstNameCell = document.createElement('td');
     const lastNameCell = document.createElement('td');
     const dateCell = document.createElement('td');
     const cancelCell = document.createElement('td');
 
+    sessionCell.textContent = sessions[i].event.split(':')[0]
     firstNameCell.textContent = sessions[i].trainer
     lastNameCell.textContent = sessions[i].trainer
     dateCell.textContent =  sessions[i].daybooked + ' - ' + sessions[i].timebooked
@@ -268,6 +273,7 @@ function currentlyScheduledSessions(sessions){
     cancelCell.append(cancelBtn)
     cancelCell.id = sessions[i].daybooked + ' - ' + sessions[i].timebooked + ' - ' + firstNameCell.textContent
 
+    row.appendChild(sessionCell)
     row.appendChild(firstNameCell);
     row.appendChild(lastNameCell);
     row.appendChild(dateCell);
@@ -482,6 +488,23 @@ function amORpm(t){
   }
 }
 
+function bookGroupSession(slot, sessionType){
+
+  let trainer = slot.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[2].children[2].getAttribute('Name')
+  let dateTime = slot.parentNode.parentNode.children[1].innerHTML.replace('Book Group Fitness - on ','')
+  console.log(dateTime)
+
+  let data = Object()
+    data.username = trainer //takes trainers username
+    data.day = dateTime.substring(0,3).toLowerCase()
+    data.time = dateTime.substring(4,dateTime.length) + amORpm(dateTime.substring(4,dateTime.length))
+    data.newData = getUsername() //takes members username
+    data.typeOfSession = sessionType + getUsername()
+    data.cancel = false
+  updateMemberSessions(data)
+
+}
+
 //updates trainer schedule with new member personal session
 function bookWithTrainer(slot, sessionType){
   console.log(slot)
@@ -526,45 +549,62 @@ function bookWithTrainer(slot, sessionType){
 
 }
 
-function cancelBooking(booking, sessionType){
-  console.log('deleting: '+booking)
+function cancelGroup(booking, sessionType){
   let bookingData = booking.split(' - ')
   let data = Object()
-    data.day = bookingData[0].toLowerCase()
-    data.time = bookingData[1]
-    data.username = bookingData[2] //trainer
-    data.newData = ''
-    data.typeOfSession = sessionType
-    data.cancel = true
-  console.log(data)
+      data.day = bookingData[0].toLowerCase()
+      data.time = bookingData[1]
+      data.username = bookingData[2] //trainer
+      data.newData = getUsername()
+      data.typeOfSession = sessionType + getUsername()
+      data.cancel = true
+  updateMemberSessions(data)
+}
 
-  //sends data to server for update/deletion from schedules and sessions
-  let xhttp = new XMLHttpRequest()
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
+function cancelBooking(booking, sessionType){
+  console.log('deleting: '+booking)
+  if(document.getElementById(booking).parentNode.firstChild.innerHTML == 'Group'){
+    cancelGroup(booking, 'Group: ')
 
-      let responseObj = JSON.parse(this.responseText)
-      if(responseObj){
-        console.log('Success: Trainer Schedule Data updated -- DeletedFromTrainerSchedule')
-        let data = Object()
-          data.day = bookingData[0].toLowerCase()
-          data.time = bookingData[1]
-          data.username = bookingData[2]
-          data.newData = getUsername()
-          data.typeOfSession = sessionType + getUsername()
-          data.cancel = true
-          console.log(data)
-        updateMemberSessions(data)
-        
-      }else{
-        console.log('Error: Trainer Schedule Data not updated')
+  }else{
+    let bookingData = booking.split(' - ')
+    let data = Object()
+      data.day = bookingData[0].toLowerCase()
+      data.time = bookingData[1]
+      data.username = bookingData[2] //trainer
+      data.newData = ''
+      data.typeOfSession = sessionType
+      data.cancel = true
+
+    //sends data to server for update/deletion from schedules and sessions
+    let xhttp = new XMLHttpRequest()
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+
+        let responseObj = JSON.parse(this.responseText)
+        if(responseObj){
+          console.log('Success: Trainer Schedule Data updated -- DeletedFromTrainerSchedule')
+          let data = Object()
+            data.day = bookingData[0].toLowerCase()
+            data.time = bookingData[1]
+            data.username = bookingData[2]
+            data.newData = getUsername()
+            data.typeOfSession = sessionType + getUsername()
+            data.cancel = true
+            console.log(data)
+          updateMemberSessions(data)
+          
+        }else{
+          console.log('Error: Trainer Schedule Data not updated')
+        }
       }
     }
+    xhttp.open("POST", "/updateTrainerSchedule") 
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(data))
   }
-  xhttp.open("POST", "/updateTrainerSchedule") 
-  xhttp.setRequestHeader("Content-Type", "application/json");
-  xhttp.send(JSON.stringify(data))
 }
+  
 
 //--------------------------------------------------------------group fitness---------------------------------------------
 
@@ -656,10 +696,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }); 
 
-   //the add button inside the inner modal to book a slot
+   //the add button inside the inner modal to book a personal
    document.addEventListener('click',function(e){
     if(e.target && e.target.id== 'addBtn'){
         bookWithTrainer(e.target, 'Personal: ');
+
+    }
+  }); 
+
+   //the add button inside the inner modal to book a group
+   document.addEventListener('click',function(e){
+    if(e.target && e.target.id== 'addGroupBtn'){
+      bookGroupSession(e.target, 'Group: ');
 
     }
   }); 
