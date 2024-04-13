@@ -23,7 +23,7 @@ training sessions, and other services.
 - [DDL File](https://github.com/g-kassis/Health-and-Fitness-Club-Management-System/blob/main/SQL/DDL.sql)
 ### Diagrams
 - [ER Diagram]()
-- [Relational Database Schema]()
+- [Relational Database Schema](https://github.com/g-kassis/Health-and-Fitness-Club-Management-System/blob/main/Documentations/Relational_Database_Schema.png)
 
 ### Video & Report
 - [Video]()
