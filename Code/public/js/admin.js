@@ -194,7 +194,6 @@ function displayMembers(profiles){
         quantityCell.innerHTML = profiles[i][str];
         descriptionCell.innerHTML = des;
         pricePerCell.innerHTML = '$'+price;
-        console.log(profiles[i][str])
         if(profiles[i][str] === 0){
           amountCell.innerHTML = '$0'
         }else{
@@ -661,6 +660,14 @@ function removeFromScheduledEvents(event, data){
 
 }
 
+function processPayement(userName){
+  console.log('Process Payement: ' + userName.split('process')[1])
+  document.getElementById("mySidenav").style.width = "0"
+  print()
+  document.getElementById("mySidenav").style.width = "250px"
+
+}
+
 function onEventClick(event){
   let data = Object()
     data.roomId = getRoomID()
@@ -777,6 +784,12 @@ document.addEventListener('DOMContentLoaded', function() {
       if(e.target && e.target.id== 'updateClassScheduleBtn'){
         let slot = document.getElementsByClassName(currentlySelected.time)
         updateSchedule(slot.scheduleSlot.innerHTML,currentlySelected.time)
+      }
+    }); 
+
+    document.addEventListener('click',function(e){
+      if(e.target && e.target.className== 'processButton'){
+        processPayement(e.target.id)
       }
     }); 
 
